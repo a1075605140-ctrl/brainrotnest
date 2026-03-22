@@ -1,0 +1,9 @@
+请用 Canva 或 Figma 创建 1200x630 的 OG 图片，保存为 og-image.png 放在 public/ 目录
+
+设计要求：
+- 深色背景 #0e0e1a
+- Fredoka One 字体
+- BrainrotNest 大字（主标题）
+- 副标题小字：Italian Brainrot Wiki, Quiz & Games
+- 几个角色 emoji 装饰：🐊 🥁 🎵 ☕ 🐸
+- 尺寸：1200 x 630 px

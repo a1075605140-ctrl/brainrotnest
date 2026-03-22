@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #0e0e1a;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-accent-red: #ff6b6b;
+  --color-accent-green: #4ade80;
+  --color-accent-yellow: #facc15;
+  --color-text: #f0eeff;
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+}
+
+@theme inline {
+  --color-bg: #0e0e1a;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-accent-red: #ff6b6b;
+  --color-accent-green: #4ade80;
+  --color-accent-yellow: #facc15;
+  --color-brainrot-text: #f0eeff;
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Card hover effects */
+.card-surface {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.card-surface:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.card-green {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.card-green:hover {
+  transform: translateY(-3px);
+  border-color: rgba(74, 222, 128, 0.3);
+  background-color: rgba(74, 222, 128, 0.05);
+}
+
+.card-yellow {
+  background-color: rgba(250, 204, 21, 0.08);
+  border: 1px solid rgba(250, 204, 21, 0.2);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.card-yellow:hover {
+  transform: translateY(-3px);
+  border-color: rgba(250, 204, 21, 0.35);
+}
+
+.pill-char {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.pill-char:hover {
+  color: var(--color-accent-green);
+  border-color: rgba(74, 222, 128, 0.4);
+  background-color: rgba(74, 222, 128, 0.08);
+}
+
+.btn-primary {
+  background-color: var(--color-accent-red);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.35);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

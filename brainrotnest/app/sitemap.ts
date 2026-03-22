@@ -1,0 +1,74 @@
+import type { MetadataRoute } from "next";
+import { getAllBlogSlugs } from "@/lib/blogData";
+import { getAllCharacterSlugs } from "@/lib/charactersData";
+import { getAllGameSlugs } from "@/lib/gamesData";
+import { getAllQuizSlugs } from "@/lib/quizData";
+
+const BASE_URL = "https://brainrotnest.com";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
+  const staticRoutes: MetadataRoute.Sitemap = [
+    {
+      url: BASE_URL,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 1.0,
+    },
+    {
+      url: `${BASE_URL}/quiz`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/characters`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/games`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+  ];
+
+  const quizRoutes: MetadataRoute.Sitemap = getAllQuizSlugs().map((slug) => ({
+    url: `${BASE_URL}/quiz/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  const characterRoutes: MetadataRoute.Sitemap = getAllCharacterSlugs().map((slug) => ({
+    url: `${BASE_URL}/characters/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  const gameRoutes: MetadataRoute.Sitemap = getAllGameSlugs().map((slug) => ({
+    url: `${BASE_URL}/games/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  const blogRoutes: MetadataRoute.Sitemap = getAllBlogSlugs().map((slug) => ({
+    url: `${BASE_URL}/blog/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...quizRoutes, ...characterRoutes, ...gameRoutes, ...blogRoutes];
+}
