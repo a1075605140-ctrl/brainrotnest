@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     }
   },
   verification: {
-    google: 'YOUR_GSC_VERIFICATION_CODE'
+    google: 'T8qJj2youiP9Iw8txhcSzKegVNE9oXgbpDMJMrv45iA'
   }
 };
 
