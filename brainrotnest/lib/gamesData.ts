@@ -52,11 +52,11 @@ export const games: Game[] = [
     ],
     tags: ["Multiplayer", "Strategy", "Card Game"],
     iframeUrl: "",
-    isAvailable: false,
+    isAvailable: true,
     featured: true,
-    metaTitle: "Steal a Brainrot Online — Free Multiplayer Brainrot Game",
+    metaTitle: "Steal a Brainrot — Free Online Brainrot Card Game",
     metaDescription:
-      "Play Steal a Brainrot online free! The popular brainrot card stealing game. Challenge friends and steal Italian brainrot characters.",
+      "Play Steal a Brainrot free online! The card stealing game where you steal Italian Brainrot characters from your opponent. No download needed.",
   },
   {
     slug: "brainrot-merge",
