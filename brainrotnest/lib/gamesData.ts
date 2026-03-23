@@ -62,7 +62,7 @@ export const games: Game[] = [
     slug: "brainrot-merge",
     name: "Brainrot Merge",
     emoji: "🔀",
-    tagline: "Merge characters. Create abominations.",
+    tagline: "Merge characters to reach La Vaca Saturno!",
     description:
       "Brainrot Merge is the puzzle game that asks a simple question: what happens when you combine two Italian Brainrot characters? The answer is always something weirder, more powerful, and significantly more unhinged than the sum of its parts. Drag matching characters together on the board, watch them fuse into rarer forms, and work toward discovering every possible merged combination.\n\nStrategic thinking is just as important as quick reactions in Brainrot Merge. The board fills up fast, and a single misplaced merge can leave you completely stuck. Plan your combinations carefully, discover hidden secret merges between specific character pairs, and aim for the legendary forms sitting at the very top of the evolution chain.",
     howToPlay: [
@@ -71,13 +71,13 @@ export const games: Game[] = [
       "Fill the board strategically — don't get stuck",
       "Discover all secret merged character combinations",
     ],
-    tags: ["Merge", "Puzzle", "Casual"],
+    tags: ["Merge", "Puzzle", "Strategy"],
     iframeUrl: "",
-    isAvailable: false,
+    isAvailable: true,
     featured: false,
-    metaTitle: "Brainrot Merge — Merge Italian Brainrot Characters",
+    metaTitle: "Brainrot Merge — Merge Italian Brainrot Characters Game",
     metaDescription:
-      "Play Brainrot Merge free online! Merge Italian Brainrot characters to discover crazy combinations. Free browser game.",
+      "Play Brainrot Merge free! Merge Italian Brainrot characters to reach La Vaca Saturno. 2048-style puzzle game with all your favorite brainrot characters.",
   },
   {
     slug: "brainrot-puzzle",
