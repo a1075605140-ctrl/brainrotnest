@@ -1,35 +1,45 @@
 'use client'
 
-import Script from 'next/script'
+import { useEffect, useRef } from 'react'
 
 interface Props {
   size: 'banner' | 'rectangle' | 'native'
 }
 
 export default function AdPlaceholder({ size }: Props) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (size !== 'banner' || !ref.current) return
+
+    // 清空容器
+    ref.current.innerHTML = ''
+
+    // 注入 atOptions
+    const optScript = document.createElement('script')
+    optScript.type = 'text/javascript'
+    optScript.text = `
+      atOptions = {
+        'key' : '64e61687a115fe2406c5592f03cdb30f',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    `
+    ref.current.appendChild(optScript)
+
+    // 注入 invoke.js
+    const invokeScript = document.createElement('script')
+    invokeScript.type = 'text/javascript'
+    invokeScript.src = 'https://www.highperformanceformat.com/64e61687a115fe2406c5592f03cdb30f/invoke.js'
+    ref.current.appendChild(invokeScript)
+  }, [size])
+
   if (size === 'banner') {
     return (
-      <div style={{ textAlign: 'center', margin: '12px 0' }}>
-        <Script
-          id="adsterra-banner-options"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              atOptions = {
-                'key' : '64e61687a115fe2406c5592f03cdb30f',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-              };
-            `
-          }}
-        />
-        <Script
-          id="adsterra-banner"
-          src="https://www.highperformanceformat.com/64e61687a115fe2406c5592f03cdb30f/invoke.js"
-          strategy="afterInteractive"
-        />
+      <div style={{ textAlign: 'center', margin: '12px 0', minHeight: '90px' }}>
+        <div ref={ref} />
       </div>
     )
   }
