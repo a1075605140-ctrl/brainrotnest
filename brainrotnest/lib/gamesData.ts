@@ -116,11 +116,11 @@ export const games: Game[] = [
     ],
     tags: ["Crafting", "Idle", "Strategy"],
     iframeUrl: "",
-    isAvailable: false,
+    isAvailable: true,
     featured: false,
-    metaTitle: "Brainrot Craft — Build Your Italian Brainrot Empire",
+    metaTitle: "Brainrot Craft — Italian Brainrot Crafting Game Free",
     metaDescription:
-      "Play Brainrot Craft free online! Craft, build and expand your Italian Brainrot empire. Idle crafting game in your browser.",
+      "Play Brainrot Craft free! Gather resources and craft Italian Brainrot items. Collect Brainrot, Chaos, Espresso and more to craft powerful items.",
   },
   {
     slug: "brainrot-idle",
