@@ -401,7 +401,6 @@ export default function StealBrainrotGame() {
                     borderRadius: '8px',
                     padding: '8px 12px',
                     fontSize: '20px',
-                    title: c.name,
                   }}
                   title={c.name}
                 >
