@@ -106,23 +106,38 @@ export default function BrainrotClickerGame() {
     return Math.floor(n).toString()
   }
 
+  const saveGame = useCallback((p: number, tp: number, cu: ClickUpgrade[], pu: PassiveUpgrade[]) => {
+    try {
+      localStorage.setItem('brainrot-clicker-save', JSON.stringify({
+        points: p,
+        totalPoints: tp,
+        clickUpgrades: cu,
+        passiveUpgrades: pu,
+      }))
+    } catch (e) {}
+  }, [])
+
   const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
 
-    setPoints(p => p + pointsPerClick)
-    setTotalPoints(prev => {
-      const newTotal = prev + pointsPerClick
-      const prevUnlocked = CHARACTERS.filter(c => prev >= c.unlockAt)
-      const newUnlocked = CHARACTERS.filter(c => newTotal >= c.unlockAt)
-      if (newUnlocked.length > prevUnlocked.length) {
-        const newChar = newUnlocked[newUnlocked.length - 1]
-        setUnlockedPopup(newChar.name)
-        setUnlockedEmoji(newChar.emoji)
-        setTimeout(() => setUnlockedPopup(null), 2500)
-      }
-      return newTotal
+    setPoints(p => {
+      const newPoints = p + pointsPerClick
+      setTotalPoints(prev => {
+        const newTotal = prev + pointsPerClick
+        const prevUnlocked = CHARACTERS.filter(c => prev >= c.unlockAt)
+        const newUnlocked = CHARACTERS.filter(c => newTotal >= c.unlockAt)
+        if (newUnlocked.length > prevUnlocked.length) {
+          const newChar = newUnlocked[newUnlocked.length - 1]
+          setUnlockedPopup(newChar.name)
+          setUnlockedEmoji(newChar.emoji)
+          setTimeout(() => setUnlockedPopup(null), 2500)
+        }
+        saveGame(newPoints, newTotal, clickUpgrades, passiveUpgrades)
+        return newTotal
+      })
+      return newPoints
     })
 
     const id = effectIdRef.current++
@@ -133,7 +148,7 @@ export default function BrainrotClickerGame() {
 
     setIsClicking(true)
     setTimeout(() => setIsClicking(false), 100)
-  }, [pointsPerClick])
+  }, [pointsPerClick, clickUpgrades, passiveUpgrades, saveGame])
 
   const buyClickUpgrade = useCallback((upgradeId: string) => {
     setClickUpgrades(prev => prev.map(u => {
@@ -156,6 +171,33 @@ export default function BrainrotClickerGame() {
   }, [points])
 
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem('brainrot-clicker-save')
+      if (saved) {
+        const data = JSON.parse(saved)
+        if (data.points) setPoints(data.points)
+        if (data.totalPoints) setTotalPoints(data.totalPoints)
+        if (data.clickUpgrades) setClickUpgrades(data.clickUpgrades)
+        if (data.passiveUpgrades) setPassiveUpgrades(data.passiveUpgrades)
+      }
+    } catch (e) {
+      console.log('No save found')
+    }
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      localStorage.setItem('brainrot-clicker-save', JSON.stringify({
+        points,
+        totalPoints,
+        clickUpgrades,
+        passiveUpgrades,
+      }))
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [points, totalPoints, clickUpgrades, passiveUpgrades])
+
+  useEffect(() => {
     if (pointsPerSecond === 0) return
     const interval = setInterval(() => {
       setPoints(p => p + pointsPerSecond)
@@ -168,7 +210,32 @@ export default function BrainrotClickerGame() {
     <div style={{ background: '#0e0e1a', minHeight: '700px', color: '#fff', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
 
       {/* Score Header */}
-      <div style={{ textAlign: 'center', padding: '20px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+      <div style={{ position: 'relative', textAlign: 'center', padding: '20px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <button
+          onClick={() => {
+            if (confirm('Are you sure? This will reset all progress!')) {
+              localStorage.removeItem('brainrot-clicker-save')
+              window.location.reload()
+            }
+          }}
+          style={{
+            position: 'absolute',
+            top: '12px',
+            right: '14px',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '11px',
+            color: 'rgba(255,255,255,0.3)',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            transition: 'color 0.15s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,100,100,0.7)')}
+          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+        >
+          Reset Game
+        </button>
         <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '48px', fontWeight: 700, lineHeight: 1, color: '#fff' }}>
           {formatNumber(points)}
         </div>
