@@ -100,7 +100,7 @@ export default function BrainrotTowerGame() {
   const tid = useRef(0)
   const spawnQ = useRef<number[]>([])
   const lastSpawnT = useRef(0)
-  const loopRef = useRef<ReturnType<typeof setInterval> | undefined>()
+  const loopRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
   const g = gs.current
 
