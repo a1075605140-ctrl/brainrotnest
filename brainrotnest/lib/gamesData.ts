@@ -130,18 +130,19 @@ export const games: Game[] = [
     description:
       "Brainrot Idle is the purest expression of Italian Brainrot as a game mechanic: the chaos continues even when you're not watching. Set up your production pipeline, assign characters to their optimal roles, and let the Brainrot economy run itself. Your offline earnings accumulate in real time, waiting for you to return and collect.\n\nThe prestige system takes Brainrot Idle from a simple idle game to an endlessly deep experience. Reset your progress for powerful multipliers that send production into overdrive, unlock exclusive prestige-only characters, and compete for the highest production rates in the Brainrot dimension. The longer you play — and the longer you stay away — the more powerful your empire becomes.",
     howToPlay: [
-      "Set up your brainrot production pipeline",
+      "Buy generators to earn Brainrot Points per second",
       "Characters generate points even when you're away",
-      "Return to collect your offline earnings",
-      "Prestige to multiply your production speed",
+      "Return to collect your offline earnings (up to 8 hours)",
+      "Unlock milestones to boost your multiplier",
+      "Progress saves automatically every 30 seconds",
     ],
     tags: ["Idle", "Casual"],
     iframeUrl: "",
-    isAvailable: false,
+    isAvailable: true,
     featured: false,
-    metaTitle: "Brainrot Idle — Italian Brainrot Idle Game Online",
+    metaTitle: "Brainrot Idle — Italian Brainrot Idle Clicker Game Free",
     metaDescription:
-      "Play Brainrot Idle free! An Italian Brainrot idle game that runs even when offline. Collect characters and prestige for max brainrot.",
+      "Play Brainrot Idle free! Build your brainrot empire and earn points even when offline. Italian Brainrot idle game with 6 generators and milestones.",
   },
   {
     slug: "brainrot-tower",
