@@ -12,6 +12,13 @@ const TOWER_DEFS = [
   { id: 'cappuccino', name: 'Cappuccino', emoji: '💀', cost: 300, damage: 30, range: 3, fireRate: 500, desc: 'Ultra fast attack' },
 ]
 
+const TOWER_COLORS: Record<string, string> = {
+  'tralalero':  '#4ade80',
+  'tung-tung':  '#facc15',
+  'bombardiro': '#ef4444',
+  'cappuccino': '#c4b5fd',
+}
+
 const ENEMY_DEFS = [
   { name: 'Mini Brainrot', emoji: '🟢', hp: 50, speed: 2.5, reward: 10 },
   { name: 'Brainrot Grunt', emoji: '🟡', hp: 100, speed: 2.0, reward: 20 },
@@ -74,6 +81,8 @@ type Phase = 'intro' | 'playing' | 'paused' | 'won' | 'lost'
 interface Enemy { id: number; type: number; dist: number; hp: number; maxHp: number }
 interface Tower { id: number; type: string; x: number; y: number; lastFired: number }
 interface Proj { id: number; x: number; y: number; targetId: number; damage: number }
+interface AttackLine { id: number; x1: number; y1: number; x2: number; y2: number; color: string; born: number }
+interface FloatText { id: number; x: number; y: number; text: string; born: number }
 interface GS {
   towers: Tower[]; enemies: Enemy[]; projs: Proj[]
   gold: number; lives: number; wave: number; score: number
@@ -98,9 +107,15 @@ export default function BrainrotTowerGame() {
   const eid = useRef(0)
   const pid = useRef(0)
   const tid = useRef(0)
+  const fxId = useRef(0)
   const spawnQ = useRef<number[]>([])
   const lastSpawnT = useRef(0)
   const loopRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
+
+  // Visual effects refs (not in GS — purely presentational)
+  const attackLinesRef = useRef<AttackLine[]>([])
+  const hitFlashRef = useRef<Map<number, number>>(new Map())   // enemyId → expireTimestamp
+  const floatTextsRef = useRef<FloatText[]>([])
 
   const g = gs.current
 
@@ -161,13 +176,22 @@ export default function BrainrotTowerGame() {
             const pe = getPosFromDist(e.dist)
             return Math.hypot(pe.x - tw.x, pe.y - tw.y) < Math.hypot(pb.x - tw.x, pb.y - tw.y) ? e : best
           })]
-        targets.forEach(tgt => newProjs.push({
-          id: ++pid.current,
-          x: tw.x + 0.5,
-          y: tw.y + 0.5,
-          targetId: tgt.id,
-          damage: def.damage,
-        }))
+
+        const twPx = (tw.x + 0.5) * TILE
+        const twPy = (tw.y + 0.5) * TILE
+        const color = TOWER_COLORS[tw.type] || '#fff'
+
+        targets.forEach(tgt => {
+          newProjs.push({ id: ++pid.current, x: tw.x + 0.5, y: tw.y + 0.5, targetId: tgt.id, damage: def.damage })
+          // Attack line FX
+          const tp = getPosFromDist(tgt.dist)
+          attackLinesRef.current = [...attackLinesRef.current, {
+            id: ++fxId.current,
+            x1: twPx, y1: twPy,
+            x2: (tp.x + 0.5) * TILE, y2: (tp.y + 0.5) * TILE,
+            color, born: now,
+          }]
+        })
         return { ...tw, lastFired: now }
       })
       s.projs = [...s.projs, ...newProjs]
@@ -191,18 +215,33 @@ export default function BrainrotTowerGame() {
       }
       s.projs = alive
 
-      // Apply damage + earn gold
+      // Apply damage — hit flash
       s.enemies = s.enemies.map(e => {
         const d = dmgMap.get(e.id) || 0
+        if (d) hitFlashRef.current.set(e.id, now + 120)
         return d ? { ...e, hp: e.hp - d } : e
       })
+
+      // Earn gold + float text on death
       let earned = 0
       s.enemies.filter(e => e.hp <= 0).forEach(e => {
         earned += ENEMY_DEFS[e.type].reward
         s.score += ENEMY_DEFS[e.type].reward * 10
+        const pos = getPosFromDist(e.dist)
+        floatTextsRef.current = [...floatTextsRef.current, {
+          id: ++fxId.current,
+          x: (pos.x + 0.5) * TILE,
+          y: (pos.y + 0.5) * TILE,
+          text: `+${ENEMY_DEFS[e.type].reward}`,
+          born: now,
+        }]
       })
       s.enemies = s.enemies.filter(e => e.hp > 0)
       s.gold += earned
+
+      // Clean up expired FX
+      attackLinesRef.current = attackLinesRef.current.filter(l => now - l.born < 250)
+      floatTextsRef.current = floatTextsRef.current.filter(f => now - f.born < 600)
 
       // Wave complete?
       if (s.waveInProgress && !spawnQ.current.length && !s.enemies.length) {
@@ -222,9 +261,12 @@ export default function BrainrotTowerGame() {
   function startGame() {
     if (loopRef.current) clearInterval(loopRef.current)
     gs.current = mkGS()
-    eid.current = pid.current = tid.current = 0
+    eid.current = pid.current = tid.current = fxId.current = 0
     spawnQ.current = []
     lastSpawnT.current = 0
+    attackLinesRef.current = []
+    hitFlashRef.current = new Map()
+    floatTextsRef.current = []
     phaseRef.current = 'playing'
     setPhase('playing')
     setSel(null)
@@ -324,9 +366,28 @@ export default function BrainrotTowerGame() {
   const gridW = COLS * TILE
   const gridH = ROWS * TILE
   const selDef = sel ? TOWER_DEFS.find(d => d.id === sel) : null
+  const renderNow = Date.now()
 
   return (
     <div>
+      {/* CSS animations */}
+      <style>{`
+        @keyframes brainrot-floatUp {
+          0%   { opacity: 1; transform: translateY(0) scale(1); }
+          20%  { opacity: 1; transform: translateY(-8px) scale(1.1); }
+          100% { opacity: 0; transform: translateY(-44px) scale(0.8); }
+        }
+        @keyframes brainrot-attackLine {
+          0%   { opacity: 0.85; }
+          100% { opacity: 0; }
+        }
+        @keyframes brainrot-towerFire {
+          0%   { transform: scale(1); }
+          35%  { transform: scale(1.25); }
+          100% { transform: scale(1); }
+        }
+      `}</style>
+
       {/* HUD */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px',
@@ -419,9 +480,12 @@ export default function BrainrotTowerGame() {
               const isPath = PATH_TILES.has(key)
               const tType = g.grid[row][col]
               const tDef = tType ? TOWER_DEFS.find(d => d.id === tType) : null
+              const tObj = tType ? g.towers.find(t => t.x === col && t.y === row) : null
               const isStart = col === PATH[0].x && row === PATH[0].y
               const isEnd = col === PATH[PATH.length - 1].x && row === PATH[PATH.length - 1].y
               const canClick = !isPath && !tType && !!sel && g.gold >= (selDef?.cost ?? Infinity)
+              // Tower fire animation: active within 200ms of last shot
+              const isFiring = !!tObj && (renderNow - tObj.lastFired) < 200
               return (
                 <div
                   key={key}
@@ -444,11 +508,44 @@ export default function BrainrotTowerGame() {
                     boxSizing: 'border-box',
                   }}
                 >
-                  {isStart ? '➤' : isEnd ? '🏠' : tDef?.emoji}
+                  {/* Tower emoji with fire-pulse animation */}
+                  {isStart ? '➤' : isEnd ? '🏠' : tDef && (
+                    <span
+                      key={tObj?.lastFired ?? 0}
+                      style={{
+                        display: 'inline-block',
+                        animation: isFiring ? 'brainrot-towerFire 0.2s ease-out' : undefined,
+                      }}
+                    >
+                      {tDef.emoji}
+                    </span>
+                  )}
                 </div>
               )
             })
           )}
+
+          {/* Attack lines SVG overlay */}
+          <svg
+            style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 25 }}
+            width={gridW}
+            height={gridH}
+          >
+            {attackLinesRef.current.map(line => (
+              <line
+                key={line.id}
+                x1={line.x1} y1={line.y1}
+                x2={line.x2} y2={line.y2}
+                stroke={line.color}
+                strokeWidth={2}
+                strokeLinecap="round"
+                style={{
+                  animation: 'brainrot-attackLine 0.22s ease-out forwards',
+                  filter: `drop-shadow(0 0 3px ${line.color})`,
+                }}
+              />
+            ))}
+          </svg>
 
           {/* Enemies */}
           {g.enemies.map(e => {
@@ -457,12 +554,19 @@ export default function BrainrotTowerGame() {
             const hpPct = e.hp / e.maxHp
             const px = (pos.x + 0.5) * TILE - 16
             const py = (pos.y + 0.5) * TILE - 24
+            const isFlashing = (hitFlashRef.current.get(e.id) ?? 0) > renderNow
             return (
               <div key={e.id} style={{
                 position: 'absolute', left: px, top: py,
                 width: 32, pointerEvents: 'none', textAlign: 'center', zIndex: 10,
               }}>
-                <div style={{ fontSize: 20, lineHeight: 1, filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.9))' }}>
+                <div style={{
+                  fontSize: 20, lineHeight: 1,
+                  filter: isFlashing
+                    ? 'brightness(3) drop-shadow(0 0 4px #fff)'
+                    : 'drop-shadow(0 1px 3px rgba(0,0,0,0.9))',
+                  transition: 'filter 0.05s',
+                }}>
                   {def.emoji}
                 </div>
                 <div style={{ height: 3, background: 'rgba(0,0,0,0.6)', borderRadius: 2, marginTop: 2, overflow: 'hidden' }}>
@@ -487,6 +591,26 @@ export default function BrainrotTowerGame() {
               boxShadow: '0 0 6px #fde047, 0 0 12px rgba(253,224,71,0.5)',
               pointerEvents: 'none', zIndex: 20,
             }} />
+          ))}
+
+          {/* Gold float texts */}
+          {floatTextsRef.current.map(ft => (
+            <div key={ft.id} style={{
+              position: 'absolute',
+              left: ft.x - 20,
+              top: ft.y - 16,
+              width: 40,
+              textAlign: 'center',
+              fontSize: 13,
+              fontWeight: 700,
+              color: '#facc15',
+              pointerEvents: 'none',
+              zIndex: 40,
+              animation: 'brainrot-floatUp 0.55s ease-out forwards',
+              textShadow: '0 1px 4px rgba(0,0,0,0.9)',
+            }}>
+              {ft.text}
+            </div>
           ))}
 
           {/* Paused overlay */}
