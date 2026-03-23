@@ -179,7 +179,7 @@ export const games: Game[] = [
     ],
     tags: ["Quiz", "Trivia", "Casual"],
     iframeUrl: "",
-    isAvailable: false,
+    isAvailable: true,
     featured: false,
     metaTitle: "Brainrot Quiz Game — Italian Brainrot Trivia Game Online",
     metaDescription:
