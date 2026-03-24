@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'brainrotnest.com' }],
+        destination: 'https://www.brainrotnest.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

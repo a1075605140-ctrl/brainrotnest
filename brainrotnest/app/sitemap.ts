@@ -4,7 +4,7 @@ import { getAllCharacterSlugs } from "@/lib/charactersData";
 import { getAllGameSlugs } from "@/lib/gamesData";
 import { getAllQuizSlugs } from "@/lib/quizData";
 
-const BASE_URL = "https://brainrotnest.com";
+const BASE_URL = "https://www.brainrotnest.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
