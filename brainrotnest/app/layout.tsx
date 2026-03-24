@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Script from "next/script";
 
 const fredokaOne = Fredoka({
   weight: ["400", "600"],
@@ -76,6 +77,14 @@ export default function RootLayout({
       lang="en"
       className={`${fredokaOne.variable} ${nunito.variable}`}
     >
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7584380128560013"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className="min-h-screen flex flex-col antialiased"
         style={{
@@ -92,3 +101,4 @@ export default function RootLayout({
     </html>
   );
 }
+```
