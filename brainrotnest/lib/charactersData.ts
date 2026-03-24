@@ -184,6 +184,91 @@ export const characters: Character[] = [
     metaDescription:
       "La Vaca Saturno Satalite is a cow in orbit around Saturn. Don't question it. Full Italian Brainrot lore, abilities, origin story, and gravitational moo explained.",
   },
+  {
+    slug: "trippi-troppi",
+    name: "Trippi Troppi",
+    emoji: "🦐",
+    tagline: "King of the deep — and absolutely unhinged about it.",
+    description:
+      "Trippi Troppi is the undisputed sovereign of the Aquatic Alliance, a shrimp-cat hybrid of such profound wrongness that marine biologists have collectively agreed to pretend he doesn't exist. He moves through the ocean like a hallucination given fins, his psychedelic aura warping the water around him into colors that don't technically exist in the visible spectrum. Nearby fish report seeing their entire life choices flash before their eyes, which is difficult when you're a fish but apparently very upsetting.\n\nHis combat style is equal parts scientific impossibility and pure vibes. The Sonic Snap — produced by his oversized shrimp claw — generates a shockwave clocked at 860 newtons of force, which is either impressive or terrifying depending on whether you're the one snapping or the one being snapped at. The Psychedelic Pulse radiates outward in concentric rings of impossible color, causing temporary philosophical crises in anyone caught within range. The Deep Sea Devouring is not something the Brainrot Research Institute has been able to document directly, as the researchers assigned to observe it have not returned.\n\nAs leader of the Aquatic Alliance, Trippi Troppi commands loyalty through a combination of raw power, hallucinogenic authority, and the simple fact that nobody wants to be on the receiving end of that claw. He attends every major Brainrot summit, arrives dramatically from below the surface, and has never once explained what \"troppa trippa\" actually means. Some mysteries are better left in the deep.",
+    origin:
+      "Trippi Troppi first emerged in February 2025 when TikTok creator @1raidex_ posted the original bear-fish hybrid version, which promptly went viral before the shrimp-cat iteration took over and became the dominant form. The combination of a mantis shrimp's terrifying snapping claw with feline energy captured the Brainrot community's imagination immediately. Within weeks, Trippi had been crowned king of an entire aquatic faction, complete with lore, alliances, and a dedicated fanbase willing to debate his taxonomy in very serious comment sections.",
+    personality: ["Aquatic", "Psychedelic", "Leader"],
+    abilities: ["Sonic Snap", "Psychedelic Pulse", "Deep Sea Devouring"],
+    catchphrase: "Trippi Troppi, troppa trippa!",
+    relatedCharacters: ["tralalero-tralala", "bombardiro-crocodilo", "brr-brr-patapim"],
+    metaTitle: "Trippi Troppi — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Trippi Troppi is the shrimp-cat king of the Aquatic Alliance in Italian Brainrot. Learn his lore, Sonic Snap ability, psychedelic powers, and origin on TikTok.",
+  },
+  {
+    slug: "chimpanzini-bananini",
+    name: "Chimpanzini Bananini",
+    emoji: "🍌",
+    tagline: "Half monkey. Half banana. Fully uncontrollable.",
+    description:
+      "Chimpanzini Bananini is what happens when the laws of biology, botany, and basic dignity all fail at the same time. A chimpanzee's green-furred head erupts from a half-peeled banana with the energy of someone who has been trapped in a fruit for too long and has thoughts about it. He arrived on the internet fully formed, fully chaotic, and completely uninterested in answering any questions about how any of this works. The fruit is the body. The monkey is the soul. The chaos is the entire point.\n\nHis fighting style is aggressively fruit-based in ways that go beyond anything Frulli Frulla has ever attempted. The Banana Boomerang is a precision weapon disguised as a snack, curving through the air with the accuracy of someone who has spent their entire life throwing things from trees and has gotten very good at it. The Peel Slip trap is deceptively simple — a banana peel placed with surgical precision — but its effectiveness has been documented in 47 separate Brainrot incident reports. The Fruit Frenzy state, triggered by stress or excitement, turns Chimpanzini into a blur of airborne produce and terrifying screeches.\n\nDespite the chaos, there's something deeply endearing about Chimpanzini Bananini. He's enthusiastic in the way that only someone who has recently escaped a fruit can be. His \"wa wa wa\" is somehow both a battle cry and an expression of pure joy. He is Italian Brainrot's most viral export of 2025, and he absolutely knows it, which has done nothing to improve his humility.",
+    origin:
+      "Chimpanzini Bananini was created by TikTok creator @alexey_pigeon and posted on March 13, 2025. Within 48 hours the video had accumulated 29 million views — a rate of virality that broke several platform records and caused the Brainrot community to immediately canonize him as a major character. The simplicity of the concept — monkey emerging from banana — combined with the unhinged execution made it instantly, universally shareable. @alexey_pigeon had struck gold, or rather, yellow.",
+    personality: ["Fruity", "Chaotic", "Viral"],
+    abilities: ["Banana Boomerang", "Peel Slip", "Fruit Frenzy"],
+    catchphrase: "Chimpanzini Bananini! Wa wa wa!",
+    relatedCharacters: ["trippi-troppi", "bombardiro-crocodilo", "lirili-larila"],
+    metaTitle: "Chimpanzini Bananini — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Chimpanzini Bananini is the viral banana-monkey hybrid of Italian Brainrot. 29M views in 48 hours. Full lore, abilities, origin story, and catchphrase.",
+  },
+  {
+    slug: "bombombini-gusini",
+    name: "Bombombini Gusini",
+    emoji: "🪿",
+    tagline: "Bombardiro's brother. Somehow more precise. Somehow still a goose.",
+    description:
+      "Bombombini Gusini is Bombardiro Crocodilo's younger sibling and the Brainrot universe's proof that military aviation and waterfowl are more compatible than anyone suspected. Where Bombardiro is a crocodile fused with a bomber jet and guided by pure chaos, Gusini is a goose fused with a fighter jet and guided by something approaching tactical precision — which in the Brainrot universe is terrifying in a completely different way. His grenade launchers are mounted on his wings. His flight path is calculated. His honk is a targeting confirmation.\n\nThe Grenade Egg is Bombombini's signature move: an explosive projectile that looks, critically, like an egg, and is deployed with the casual confidence of something that lays explosive objects as a matter of routine. Carpet Bombing covers a wide area with methodical efficiency that military strategists have described as \"disturbingly competent for a goose.\" The Air Strike is a precision dive that Gusini executes with his neck fully extended, beak pointed forward, looking like something between a missile and the world's most aggressive bird watching enthusiast.\n\nIn terms of raw firepower, Gusini carries slightly less than his brother. What he lacks in boom, he compensates for entirely in accuracy — a trade-off that the Brainrot community has debated passionately in comment sections for months. The sibling rivalry between Bombardiro and Bombombini is loving, competitive, and has caused property damage across four Brainrot dimensions. Neither of them has ever apologized about this.",
+    origin:
+      "Bombombini Gusini originated as a fan-created derivative of Bombardiro Crocodilo, exploring what it would look like if Bombardiro had a bird-type sibling with a more tactical approach to aerial warfare. The goose was a deliberate choice — geese are universally acknowledged as one of nature's most aggressive and unpredictable animals, making the combination with military hardware feel almost logical. What started as a sibling joke quickly developed its own full lore and fanbase, cementing Bombombini as a fully independent character.",
+    personality: ["Explosive", "Military", "Sibling"],
+    abilities: ["Grenade Egg", "Carpet Bombing", "Air Strike"],
+    catchphrase: "BOMBOMBINI!",
+    relatedCharacters: ["bombardiro-crocodilo", "tralalero-tralala", "cappuccino-assassino"],
+    metaTitle: "Bombombini Gusini — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Bombombini Gusini is Bombardiro Crocodilo's goose-jet sibling in Italian Brainrot. More precise, still explosive. Full lore, abilities, origin, and catchphrase.",
+  },
+  {
+    slug: "frigo-camello",
+    name: "Frigo Camello",
+    emoji: "🐪",
+    tagline: "A refrigerator camel, wandering Europe, feeling things.",
+    description:
+      "Frigo Camello is Italian Brainrot's resident melancholic — a camel whose body is a refrigerator, whose feet are clad in Timberland boots, and whose soul carries a weight that no amount of cold storage can adequately preserve. He wanders the cobblestone streets of European cities without apparent destination or purpose, humming quietly to himself, his refrigerator body humming a slightly different note in counterpoint. Passersby have described encountering him as \"unexpectedly moving\" and \"I can't explain why I felt sad about the camel fridge.\"\n\nHis abilities are a perfect expression of his duality. Frost Breath delivers a freezing exhale that crystallizes the air around his targets — not to destroy, but to preserve, as if Frigo wishes everything could be kept as it is before sadness changes it. Cold Storage traps opponents in a stasis of chilled contemplation, which sounds like a weakness but in practice leaves them standing very still with a lot of feelings. Desert Mirage conjures heat-shimmer illusions despite Frigo's cold nature, because he carries the desert in his memory even as his body runs at four degrees Celsius.\n\nIn the Brainrot hierarchy of chaos and comedy, Frigo Camello occupies a unique emotional register. He is not trying to destroy you. He is not trying to rule you. He is simply walking, quietly, through the beautiful and indifferent cities of Europe, wearing boots that were not designed for a refrigerator camel, carrying cold things inside him, and occasionally murmuring his own name like a small, refrigerated prayer.",
+    origin:
+      "Frigo Camello emerged from Italian Brainrot's quieter, more melancholic tradition — a counterpoint to the bombastic chaos of characters like Bombardiro. Italian creators found something deeply funny and unexpectedly touching about a camel-refrigerator wandering European streets in Timberland boots, which is exactly the sort of emotional contradiction that Brainrot culture thrives on. His sad energy became a beloved contrast to the louder characters, and he developed a dedicated following among fans who appreciated that the universe had room for a little gentle melancholy.",
+    personality: ["Cold", "Melancholic", "Wanderer"],
+    abilities: ["Frost Breath", "Cold Storage", "Desert Mirage"],
+    catchphrase: "Frigo... camello...",
+    relatedCharacters: ["brr-brr-patapim", "la-vaca-saturno-satalite", "bobrito-bandito"],
+    metaTitle: "Frigo Camello — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Frigo Camello is the melancholic refrigerator camel of Italian Brainrot, wandering Europe in Timberland boots. Full lore, cold abilities, and origin story.",
+  },
+  {
+    slug: "cocofanto-elefanto",
+    name: "Cocofanto Elefanto",
+    emoji: "🐘",
+    tagline: "Stops time. Wears sandals. Has no notes.",
+    description:
+      "Cocofanto Elefanto is the most powerful entity in the Italian Brainrot universe, which makes it somewhat notable that he has chosen to express this power primarily through the wearing of sandals and the periodic freezing of all temporal reality. He is an elephant fused with a coconut — the physics of which are unclear and the aesthetics of which are entirely confident — and he possesses the ability to halt time itself, which he uses with the casual frequency of someone who simply finds the world moves at a pace they don't agree with.\n\nTime Freeze is Cocofanto's most discussed ability, and for good reason: when he activates it, everything stops. Birds halt mid-flight. Explosions pause. The Brainrot universe holds its breath. Only Cocofanto continues to move, adjusting things, repositioning situations, occasionally eating a coconut while the rest of existence waits for him to be done. The Trunk Slam brings all that frozen-time energy crashing down at once, a hit that has been compared by witnesses to \"being struck by a timeline.\" Coconut Shell Defense is exactly what it sounds like, and is more effective than any sane person would expect a coconut to be.\n\nCocofanto Elefanto was created by @alexey_pigeon — the same creator behind Chimpanzini Bananini — and shares that character's confident absurdism. But where Chimpanzini is frenetic, Cocofanto is unhurried. He has time. He has all the time. He is the time. The sandals are load-bearing to the aesthetic and they will not be discussed further.",
+    origin:
+      "Cocofanto Elefanto was created by TikTok's @alexey_pigeon, who also gave the world Chimpanzini Bananini. The character represented @alexey_pigeon's exploration of power fantasy through Brainrot logic: what would the strongest possible Brainrot character look like? The answer was an elephant-coconut hybrid capable of stopping time and wearing sandals with complete confidence. The character immediately resonated with the community as both a comedic powerhouse and a surprisingly majestic figure in the Brainrot canon.",
+    personality: ["Tropical", "Time-bender", "Powerful"],
+    abilities: ["Time Freeze", "Trunk Slam", "Coconut Shell Defense"],
+    catchphrase: "COCOFANTO!",
+    relatedCharacters: ["chimpanzini-bananini", "lirili-larila", "tung-tung-sahur"],
+    metaTitle: "Cocofanto Elefanto — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Cocofanto Elefanto is the time-stopping elephant-coconut of Italian Brainrot. He freezes time, wears sandals, and answers to no one. Full lore, abilities, and origin.",
+  },
 ]
 
 export function getCharacterBySlug(slug: string): Character | undefined {
