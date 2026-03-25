@@ -266,41 +266,38 @@ export default function BrainrotClickerGame() {
 
   return (
     <div ref={gameRef} style={{ background: '#0e0e1a', minHeight: '700px', color: '#fff', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-      <button
-        onClick={() => setSoundEnabled(prev => !prev)}
-        className="absolute top-3 right-3 z-10 px-3 py-2 rounded-lg text-white text-sm"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-      >
-        {soundEnabled ? '🔊' : '🔇'}
-      </button>
-
       {/* Score Header */}
       <div style={{ position: 'relative', textAlign: 'center', padding: '20px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-        <button
-          onClick={() => {
-            if (confirm('Are you sure? This will reset all progress!')) {
-              localStorage.removeItem('brainrot-clicker-save')
-              window.location.reload()
-            }
-          }}
-          style={{
-            position: 'absolute',
-            top: '12px',
-            right: '14px',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: '11px',
-            color: 'rgba(255,255,255,0.3)',
-            padding: '4px 8px',
-            borderRadius: '4px',
-            transition: 'color 0.15s',
-          }}
-          onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,100,100,0.7)')}
-          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
-        >
-          Reset Game
-        </button>
+        <div style={{ position: 'absolute', top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
+          <button
+            onClick={() => setSoundEnabled(prev => !prev)}
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', padding: '4px 8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+          >
+            {soundEnabled ? '🔊' : '🔇'}
+          </button>
+          <button
+            onClick={() => {
+              if (confirm('Are you sure? This will reset all progress!')) {
+                localStorage.removeItem('brainrot-clicker-save')
+                window.location.reload()
+              }
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '11px',
+              color: 'rgba(255,255,255,0.3)',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              transition: 'color 0.15s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,100,100,0.7)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          >
+            Reset Game
+          </button>
+        </div>
         <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '48px', fontWeight: 700, lineHeight: 1, color: '#fff' }}>
           {formatNumber(points)}
         </div>

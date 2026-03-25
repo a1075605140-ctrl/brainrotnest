@@ -373,13 +373,6 @@ export default function BrainrotMergeGame() {
         overflow: 'hidden',
       }}
     >
-      <button
-        onClick={() => setSoundEnabled(prev => !prev)}
-        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-      >
-        {soundEnabled ? '🔊' : '🔇'}
-      </button>
       <style>{`
         @keyframes brainrotMergePop {
           0%   { transform: scale(1); }
@@ -414,8 +407,14 @@ export default function BrainrotMergeGame() {
           Brainrot Merge
         </h2>
 
-        {/* Score cards */}
-        <div style={{ display: 'flex', gap: '8px' }}>
+        {/* Score cards + sound toggle */}
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button
+            onClick={() => setSoundEnabled(prev => !prev)}
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+          >
+            {soundEnabled ? '🔊' : '🔇'}
+          </button>
           {([
             { label: 'SCORE', value: score,     color: '#fff'    },
             { label: 'BEST',  value: bestScore, color: '#facc15' },

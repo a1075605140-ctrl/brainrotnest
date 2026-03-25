@@ -440,22 +440,22 @@ export default function BrainrotQuizGame() {
         .quiz-option:active:not(:disabled) { transform: scale(0.98); }
       `}</style>
 
-      <button
-        onClick={() => setSoundEnabled(prev => !prev)}
-        className="absolute top-3 right-3 z-10 px-3 py-2 rounded-lg text-white text-sm"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-      >
-        {soundEnabled ? '🔊' : '🔇'}
-      </button>
-
       {/* Top Bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
         <span style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '16px', color: 'rgba(255,255,255,0.55)', fontWeight: 600 }}>
           Question {currentIndex + 1} / {TOTAL_QUESTIONS}
         </span>
-        <span style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '16px', color: '#facc15', fontWeight: 700 }}>
-          Score: {score}
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            onClick={() => setSoundEnabled(prev => !prev)}
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+          >
+            {soundEnabled ? '🔊' : '🔇'}
+          </button>
+          <span style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '16px', color: '#facc15', fontWeight: 700 }}>
+            Score: {score}
+          </span>
+        </div>
       </div>
 
       {/* Timer Bar */}

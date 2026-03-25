@@ -416,13 +416,6 @@ export default function BrainrotTowerGame() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <button
-        onClick={() => setSoundEnabled(prev => !prev)}
-        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-      >
-        {soundEnabled ? '🔊' : '🔇'}
-      </button>
       {/* CSS animations */}
       <style>{`
         @keyframes brainrot-floatUp {
@@ -451,7 +444,13 @@ export default function BrainrotTowerGame() {
         <span style={{ color: '#f87171', fontWeight: 700, fontSize: 14 }}>❤️ {g.lives}</span>
         <span style={{ color: '#60a5fa', fontWeight: 700, fontSize: 14 }}>🌊 {g.wave}/{WAVES.length}</span>
         <span style={{ color: '#a78bfa', fontWeight: 700, fontSize: 14 }}>⭐ {g.score}</span>
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+          <button
+            onClick={() => setSoundEnabled(prev => !prev)}
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+          >
+            {soundEnabled ? '🔊' : '🔇'}
+          </button>
           <button
             onClick={handleNextWave}
             disabled={g.waveInProgress || g.wave >= WAVES.length}

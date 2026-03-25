@@ -311,15 +311,14 @@ export default function BrainrotMemoryGame() {
     const cols = 4
     return (
       <div ref={gameRef} style={{ ...styles.wrapper, position: 'relative', overflow: 'hidden' }}>
-        <button
-          onClick={() => setSoundEnabled(prev => !prev)}
-          className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
-          style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-        >
-          {soundEnabled ? '🔊' : '🔇'}
-        </button>
         {/* Status bar */}
-        <div style={styles.statusBar}>
+        <div style={{ ...styles.statusBar, gap: '8px' }}>
+          <button
+            onClick={() => setSoundEnabled(prev => !prev)}
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', padding: '4px 8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+          >
+            {soundEnabled ? '🔊' : '🔇'}
+          </button>
           <div style={styles.statItem}>
             <span style={styles.statLabel}>Moves</span>
             <span style={styles.statValue}>{moves}</span>

@@ -232,13 +232,6 @@ export default function BrainrotCraftGame() {
 
   return (
     <div ref={gameRef} style={{ color: '#fff', fontFamily: 'inherit', userSelect: 'none', position: 'relative', overflow: 'hidden' }}>
-      <button
-        onClick={() => setSoundEnabled(prev => !prev)}
-        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-      >
-        {soundEnabled ? '🔊' : '🔇'}
-      </button>
       {/* Click effect portals */}
       {clickEffects.map((ef) => (
         <div
@@ -300,7 +293,13 @@ export default function BrainrotCraftGame() {
         >
           ⚒️ Brainrot Craft
         </h2>
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <button
+            onClick={() => setSoundEnabled(prev => !prev)}
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '8px 12px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+          >
+            {soundEnabled ? '🔊' : '🔇'}
+          </button>
           <div
             style={{
               background: 'rgba(250,204,21,0.12)',

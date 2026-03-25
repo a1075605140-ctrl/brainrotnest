@@ -286,13 +286,15 @@ export default function BrainrotIdleGame() {
 
   return (
     <div ref={gameRef} style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', color: '#fff', minHeight: '600px', position: 'relative', overflow: 'hidden' }}>
-      <button
-        onClick={() => setSoundEnabled(prev => !prev)}
-        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-      >
-        {soundEnabled ? '🔊' : '🔇'}
-      </button>
+      {/* Toolbar */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '8px 8px 0' }}>
+        <button
+          onClick={() => setSoundEnabled(prev => !prev)}
+          style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+        >
+          {soundEnabled ? '🔊' : '🔇'}
+        </button>
+      </div>
 
       {/* Offline Earnings Modal */}
       {offlineEarnings !== null && (

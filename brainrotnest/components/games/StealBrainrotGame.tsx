@@ -462,13 +462,15 @@ export default function StealBrainrotGame() {
   // Playing state
   return (
     <div ref={gameRef} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', overflow: 'hidden' }}>
-      <button
-        onClick={() => setSoundEnabled(prev => !prev)}
-        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
-        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-      >
-        {soundEnabled ? '🔊' : '🔇'}
-      </button>
+      {/* Toolbar */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '8px' }}>
+        <button
+          onClick={() => setSoundEnabled(prev => !prev)}
+          style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+        >
+          {soundEnabled ? '🔊' : '🔇'}
+        </button>
+      </div>
 
       {/* Status bar */}
       <div
