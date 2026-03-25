@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Play the best Italian brainrot games free online. Brainrot Clicker, Steal a Brainrot, Brainrot Merge and more. No download needed.",
   alternates: {
-    canonical: "https://brainrotnest.com/games",
+    canonical: "https://www.brainrotnest.com/games",
   },
 }
 
@@ -21,7 +21,7 @@ const jsonLd = {
     "@type": "ListItem",
     position: index + 1,
     name: game.name,
-    url: `https://brainrotnest.com/games/${game.slug}`,
+    url: `https://www.brainrotnest.com/games/${game.slug}`,
     description: game.metaDescription,
   })),
 }

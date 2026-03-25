@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Take our free brainrot quiz and find out which Italian Brainrot character you are. Also test your Italian brainrot knowledge with our lore quiz!",
   alternates: {
-    canonical: "https://brainrotnest.com/quiz",
+    canonical: "https://www.brainrotnest.com/quiz",
   },
 };
 

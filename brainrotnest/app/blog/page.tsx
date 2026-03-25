@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Learn everything about Italian Brainrot. Character guides, meme origins, game reviews and more on the BrainrotNest blog.",
   alternates: {
-    canonical: "https://brainrotnest.com/blog",
+    canonical: "https://www.brainrotnest.com/blog",
   },
 };
 

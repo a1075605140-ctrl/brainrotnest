@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: game.metaTitle,
     description: game.metaDescription,
     alternates: {
-      canonical: `https://brainrotnest.com/games/${slug}`,
+      canonical: `https://www.brainrotnest.com/games/${slug}`,
     },
   }
 }
@@ -58,9 +58,9 @@ export default async function GamePage({ params }: Props) {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://brainrotnest.com" },
-          { name: "Games", url: "https://brainrotnest.com/games" },
-          { name: game.name, url: `https://brainrotnest.com/games/${game.slug}` },
+          { name: "Home", url: "https://www.brainrotnest.com" },
+          { name: "Games", url: "https://www.brainrotnest.com/games" },
+          { name: game.name, url: `https://www.brainrotnest.com/games/${game.slug}` },
         ]}
       />
 

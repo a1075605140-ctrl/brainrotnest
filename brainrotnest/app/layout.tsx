@@ -17,7 +17,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://brainrotnest.com'),
+  metadataBase: new URL('https://www.brainrotnest.com'),
   title: {
     default: 'BrainrotNest — Italian Brainrot Wiki, Quiz & Games',
     template: '%s | BrainrotNest'
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://brainrotnest.com',
+    url: 'https://www.brainrotnest.com',
     siteName: 'BrainrotNest',
     title: 'BrainrotNest — Italian Brainrot Wiki, Quiz & Games',
     description: 'The ultimate Italian Brainrot hub. Quizzes, characters, games.',

@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.metaTitle,
     description: post.metaDescription,
     alternates: {
-      canonical: `https://brainrotnest.com/blog/${slug}`,
+      canonical: `https://www.brainrotnest.com/blog/${slug}`,
     },
   }
 }
@@ -155,7 +155,7 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: "BrainrotNest",
-      url: "https://brainrotnest.com",
+      url: "https://www.brainrotnest.com",
     },
   }
 
@@ -191,9 +191,9 @@ export default async function BlogPostPage({ params }: Props) {
       )}
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://brainrotnest.com" },
-          { name: "Blog", url: "https://brainrotnest.com/blog" },
-          { name: post.title, url: `https://brainrotnest.com/blog/${post.slug}` },
+          { name: "Home", url: "https://www.brainrotnest.com" },
+          { name: "Blog", url: "https://www.brainrotnest.com/blog" },
+          { name: post.title, url: `https://www.brainrotnest.com/blog/${post.slug}` },
         ]}
       />
 

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "The complete list of all Italian Brainrot characters including Bombardiro Crocodilo, Tung Tung Sahur, Ballerina Cappuccina and more. Full wiki with descriptions.",
   alternates: {
-    canonical: "https://brainrotnest.com/characters",
+    canonical: "https://www.brainrotnest.com/characters",
   },
 }
 
@@ -22,7 +22,7 @@ const jsonLd = {
     "@type": "ListItem",
     position: i + 1,
     name: c.name,
-    url: `https://brainrotnest.com/characters/${c.slug}`,
+    url: `https://www.brainrotnest.com/characters/${c.slug}`,
   })),
 }
 

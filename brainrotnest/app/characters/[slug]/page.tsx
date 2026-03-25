@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: character.metaTitle,
     description: character.metaDescription,
     alternates: {
-      canonical: `https://brainrotnest.com/characters/${slug}`,
+      canonical: `https://www.brainrotnest.com/characters/${slug}`,
     },
   }
 }
@@ -53,9 +53,9 @@ export default async function CharacterPage({ params }: Props) {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://brainrotnest.com" },
-          { name: "Characters", url: "https://brainrotnest.com/characters" },
-          { name: character.name, url: `https://brainrotnest.com/characters/${character.slug}` },
+          { name: "Home", url: "https://www.brainrotnest.com" },
+          { name: "Characters", url: "https://www.brainrotnest.com/characters" },
+          { name: character.name, url: `https://www.brainrotnest.com/characters/${character.slug}` },
         ]}
       />
 

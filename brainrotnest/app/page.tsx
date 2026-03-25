@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Explore characters, take quizzes, and play games at BrainrotNest — your #1 Italian Brainrot wiki.",
   alternates: {
-    canonical: "https://brainrotnest.com",
+    canonical: "https://www.brainrotnest.com",
   },
 };
 
@@ -15,22 +15,22 @@ const websiteJsonLd = {
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://brainrotnest.com/#website",
-      "url": "https://brainrotnest.com",
+      "@id": "https://www.brainrotnest.com/#website",
+      "url": "https://www.brainrotnest.com",
       "name": "BrainrotNest",
       "description": "The ultimate Italian Brainrot wiki, quiz and games hub",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://brainrotnest.com/characters?q={search_term_string}",
+        "target": "https://www.brainrotnest.com/characters?q={search_term_string}",
         "query-input": "required name=search_term_string",
       },
     },
     {
       "@type": "Organization",
-      "@id": "https://brainrotnest.com/#organization",
+      "@id": "https://www.brainrotnest.com/#organization",
       "name": "BrainrotNest",
-      "url": "https://brainrotnest.com",
-      "logo": "https://brainrotnest.com/logo.png",
+      "url": "https://www.brainrotnest.com",
+      "logo": "https://www.brainrotnest.com/logo.png",
     },
   ],
 };

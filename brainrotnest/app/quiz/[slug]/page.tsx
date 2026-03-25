@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: quiz.seoTitle,
     description: quiz.seoDescription,
     alternates: {
-      canonical: `https://brainrotnest.com/quiz/${slug}`,
+      canonical: `https://www.brainrotnest.com/quiz/${slug}`,
     },
   };
 }
