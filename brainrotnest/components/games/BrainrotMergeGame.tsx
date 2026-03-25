@@ -1,6 +1,8 @@
 'use client'
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import type { CSSProperties } from 'react'
+import SFX from '@/lib/sounds'
+import { burstEmoji, burstDots, floatingText, screenFlash, confetti, pulseRing, screenShake } from '@/lib/effects'
 
 const CHARACTERS = [
   { level: 1,  name: 'Brainrot Egg',         emoji: '🥚', points: 1    },
@@ -205,6 +207,13 @@ export default function BrainrotMergeGame() {
   const [bestScore, setBestScore] = useState(0)
   const [gameState, setGameState] = useState<GameState>('playing')
   const [mergedCells, setMergedCells] = useState<Set<string>>(new Set())
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const gameRef = useRef<HTMLDivElement>(null)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   // Refs for stable event handler (avoids keyboard listener churn)
   const gridRef = useRef<Grid>(grid)
@@ -246,7 +255,37 @@ export default function BrainrotMergeGame() {
     gridRef.current = next
     setGrid(next)
 
-    if (gained > 0) setScore(s => s + gained)
+    if (gained > 0) {
+      setScore(s => s + gained)
+      sfx.merge()
+
+      // visual effects at merged cells
+      if (gameRef.current && mc.length > 0) {
+        const container = gameRef.current
+        const gridEl = container.querySelector('.bmg-grid') as HTMLElement | null
+        if (gridEl) {
+          const rect = gridEl.getBoundingClientRect()
+          const containerRect = container.getBoundingClientRect()
+          mc.forEach(key => {
+            const [r, c] = key.split(',').map(Number)
+            const cellSize = rect.width / 4
+            const cx = (rect.left - containerRect.left) + c * cellSize + cellSize / 2
+            const cy = (rect.top - containerRect.top) + r * cellSize + cellSize / 2
+            const mergedLevel = next[r][c] ?? 1
+            const char = CHARACTERS[Math.min(mergedLevel - 1, 11)]
+            burstDots(container, cx, cy, ['#BFFF00','#FF6B9D','#00E5FF','#FFD700'], 15)
+            pulseRing(container, cx, cy, '#BFFF00')
+            if (mergedLevel >= 5) {
+              burstEmoji(container, cx, cy, char.emoji, 10)
+              if (mergedLevel >= 5) sfx.bigScore()
+              if (mergedLevel >= 5) screenFlash('rgba(191,255,0,0.1)')
+              if (mergedLevel >= 5) floatingText(container, cx, cy - 20, `LV${mergedLevel}!`, '#FFD700', 20)
+              if (gameRef.current) screenShake(gameRef.current, 3, 200)
+            }
+          })
+        }
+      }
+    }
 
     if (mc.length > 0) {
       setMergedCells(new Set(mc))
@@ -256,11 +295,21 @@ export default function BrainrotMergeGame() {
     if (!wonOnce.current && hasLevel12(next)) {
       gameStateRef.current = 'won'
       setGameState('won')
+      sfx.victory()
+      if (gameRef.current) {
+        confetti(gameRef.current, 60, ['🐄','🎉','⭐','✨'])
+        screenFlash('rgba(250,204,21,0.2)')
+      }
     } else if (!canMove(next)) {
       gameStateRef.current = 'lost'
       setGameState('lost')
+      sfx.gameOver()
+      if (gameRef.current) {
+        screenFlash('rgba(239,68,68,0.2)')
+        screenShake(gameRef.current, 10, 400)
+      }
     }
-  }, [])
+  }, [sfx])
 
   // Keyboard control — stable listener via ref pattern
   useEffect(() => {
@@ -312,6 +361,7 @@ export default function BrainrotMergeGame() {
 
   return (
     <div
+      ref={gameRef}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -319,8 +369,17 @@ export default function BrainrotMergeGame() {
         padding: '16px 8px 24px',
         userSelect: 'none',
         fontFamily: 'var(--font-nunito), sans-serif',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      <button
+        onClick={() => setSoundEnabled(prev => !prev)}
+        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
+        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+      >
+        {soundEnabled ? '🔊' : '🔇'}
+      </button>
       <style>{`
         @keyframes brainrotMergePop {
           0%   { transform: scale(1); }
@@ -437,6 +496,7 @@ export default function BrainrotMergeGame() {
         onTouchEnd={onTouchEnd}
       >
         <div
+          className="bmg-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',

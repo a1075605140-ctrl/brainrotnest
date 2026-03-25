@@ -1,5 +1,7 @@
 'use client'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import SFX from '@/lib/sounds'
+import { burstEmoji, floatingText, screenFlash, confetti, glowPulse, collectFly } from '@/lib/effects'
 
 interface Generator {
   id: string
@@ -99,6 +101,14 @@ export default function BrainrotIdleGame() {
   const [celebrationMsg, setCelebrationMsg] = useState<string | null>(null)
   const [buyQty, setBuyQty] = useState<BuyQty>(1)
   const [loaded, setLoaded] = useState(false)
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const gameRef = useRef<HTMLDivElement>(null)
+  const passiveTickRef = useRef(0)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   const generatorsRef = useRef(generators)
   const multiplierRef = useRef(multiplier)
@@ -152,9 +162,20 @@ export default function BrainrotIdleGame() {
       setPoints(p => p + pps)
       setTotalPoints(p => p + pps)
       setPlayTime(t => t + 1)
+
+      passiveTickRef.current += 1
+      if (passiveTickRef.current >= 5 && pps > 0) {
+        passiveTickRef.current = 0
+        sfx.passiveIncome()
+        if (gameRef.current) {
+          const rx = 20 + Math.random() * 100
+          const ry = 20 + Math.random() * 60
+          collectFly(gameRef.current, '💰', rx, ry, 20, 20)
+        }
+      }
     }, 1000)
     return () => clearInterval(interval)
-  }, [loaded])
+  }, [loaded, sfx])
 
   // Milestone check
   useEffect(() => {
@@ -171,6 +192,12 @@ export default function BrainrotIdleGame() {
     if (newReached.length > 0) {
       const latest = newReached[newReached.length - 1]
       setCelebrationMsg(MILESTONES[latest].reward)
+      sfx.milestone()
+      if (gameRef.current) {
+        confetti(gameRef.current, 50, ['🏆','👑','🎊','⭐'])
+        screenFlash('rgba(255,215,0,0.2)')
+        floatingText(gameRef.current, 200, 150, 'MILESTONE!', '#FFD700', 28)
+      }
       setTimeout(() => setCelebrationMsg(null), 3000)
       setReachedMilestones(prev => [...prev, ...newReached])
       setMultiplier(newMultiplier)
@@ -197,21 +224,50 @@ export default function BrainrotIdleGame() {
   }, [loaded])
 
   const collectOffline = useCallback(() => {
+    sfx.bigScore()
+    if (gameRef.current) {
+      confetti(gameRef.current, 40, ['💰','⭐','✨'])
+      screenFlash('rgba(255,215,0,0.2)')
+    }
     setOfflineEarnings(null)
-  }, [])
+  }, [sfx])
 
-  const buyGenerator = useCallback((genId: string) => {
+  const buyGenerator = useCallback((genId: string, btnEl?: HTMLElement | null) => {
     setGenerators(prev => {
       const gen = prev.find(g => g.id === genId)
       if (!gen) return prev
       const qty = buyQty === 'max' ? getMaxBuy(gen, pointsRef.current) : buyQty
-      if (qty === 0) return prev
+      if (qty === 0) {
+        sfx.error()
+        if (btnEl) {
+          btnEl.classList.remove('animate-head-shake')
+          void btnEl.offsetWidth
+          btnEl.classList.add('animate-head-shake')
+          setTimeout(() => btnEl.classList.remove('animate-head-shake'), 500)
+        }
+        return prev
+      }
       const cost = getCost(gen, qty)
-      if (pointsRef.current < cost) return prev
+      if (pointsRef.current < cost) {
+        sfx.error()
+        if (btnEl) {
+          btnEl.classList.remove('animate-head-shake')
+          void btnEl.offsetWidth
+          btnEl.classList.add('animate-head-shake')
+          setTimeout(() => btnEl.classList.remove('animate-head-shake'), 500)
+        }
+        return prev
+      }
+      sfx.purchase()
+      if (btnEl) glowPulse(btnEl, '#a78bfa')
+      if (gameRef.current) {
+        burstEmoji(gameRef.current, 200, 200, gen.emoji, 6)
+        floatingText(gameRef.current, 200, 160, 'PURCHASED!', '#a78bfa', 20)
+      }
       setPoints(p => p - cost)
       return prev.map(g => g.id === genId ? { ...g, owned: g.owned + qty } : g)
     })
-  }, [buyQty])
+  }, [buyQty, sfx])
 
   const getBuyLabel = (gen: Generator): string => {
     const qty = buyQty === 'max' ? getMaxBuy(gen, points) : buyQty
@@ -229,7 +285,14 @@ export default function BrainrotIdleGame() {
   const currentPPS = generators.reduce((sum, g) => sum + g.baseRate * g.owned * multiplier, 0)
 
   return (
-    <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', color: '#fff', minHeight: '600px' }}>
+    <div ref={gameRef} style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', color: '#fff', minHeight: '600px', position: 'relative', overflow: 'hidden' }}>
+      <button
+        onClick={() => setSoundEnabled(prev => !prev)}
+        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
+        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+      >
+        {soundEnabled ? '🔊' : '🔇'}
+      </button>
 
       {/* Offline Earnings Modal */}
       {offlineEarnings !== null && (
@@ -425,7 +488,7 @@ export default function BrainrotIdleGame() {
 
                   {/* Buy Button */}
                   <button
-                    onClick={() => buyGenerator(gen.id)}
+                    onClick={(e) => buyGenerator(gen.id, e.currentTarget)}
                     disabled={!affordable}
                     style={{
                       flexShrink: 0,

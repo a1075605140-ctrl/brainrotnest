@@ -1,5 +1,7 @@
 'use client'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import SFX from '@/lib/sounds'
+import { burstDots, floatingText, screenFlash, confetti, screenShake, pulseRing } from '@/lib/effects'
 
 const CHARACTERS = [
   { id: 'tralalero', name: 'Tralalero Tralala', emoji: '🦈' },
@@ -92,6 +94,14 @@ export default function BrainrotMemoryGame() {
   const [finalScore, setFinalScore] = useState(0)
   const [finalMoves, setFinalMoves] = useState(0)
   const [finalTime, setFinalTime] = useState(0)
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const gameRef = useRef<HTMLDivElement>(null)
+  const comboRef = useRef(0)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   useEffect(() => {
     setBestScores(loadBestScores())
@@ -112,6 +122,8 @@ export default function BrainrotMemoryGame() {
   useEffect(() => {
     if (gameState !== 'playing') return
     if (timeLeft <= 0) {
+      sfx.gameOver()
+      if (gameRef.current) { screenFlash('rgba(239,68,68,0.2)'); screenShake(gameRef.current, 6, 300) }
       setResultType('lose')
       setFinalMoves(moves)
       setFinalTime(0)
@@ -119,9 +131,14 @@ export default function BrainrotMemoryGame() {
       setGameState('result')
       return
     }
+    if (timeLeft <= 5) {
+      sfx.tickUrgent()
+    } else {
+      sfx.tick()
+    }
     const t = setTimeout(() => setTimeLeft((p) => p - 1), 1000)
     return () => clearTimeout(t)
-  }, [gameState, timeLeft, moves])
+  }, [gameState, timeLeft, moves, sfx])
 
   // Win check
   useEffect(() => {
@@ -135,16 +152,23 @@ export default function BrainrotMemoryGame() {
       setFinalScore(score)
       setFinalMoves(moves)
       setFinalTime(DIFFICULTIES[difficulty].time - timeLeft)
+      sfx.victory()
+      if (gameRef.current) {
+        confetti(gameRef.current, 60, ['🎉','⭐','✨','🌟'])
+        screenFlash('rgba(191,255,0,0.15)')
+      }
       setGameState('result')
     }
-  }, [matchedPairs, difficulty, gameState, timeLeft, moves])
+  }, [matchedPairs, difficulty, gameState, timeLeft, moves, sfx])
 
   const handleCardClick = useCallback(
-    (cardId: number) => {
+    (cardId: number, cardEl?: HTMLElement | null) => {
       if (isChecking || gameState !== 'playing') return
       const card = cards.find((c) => c.id === cardId)
       if (!card || card.isFlipped || card.isMatched) return
       if (flippedCards.includes(cardId)) return
+
+      sfx.flip()
 
       const newFlipped = [...flippedCards, cardId]
       setCards((prev) =>
@@ -160,6 +184,8 @@ export default function BrainrotMemoryGame() {
         const b = cards.find((c) => c.id === bId)!
 
         if (a.characterId === b.characterId) {
+          sfx.match()
+          comboRef.current += 1
           setCards((prev) =>
             prev.map((c) =>
               c.id === aId || c.id === bId ? { ...c, isMatched: true } : c
@@ -168,7 +194,24 @@ export default function BrainrotMemoryGame() {
           setMatchedPairs((p) => p + 1)
           setFlippedCards([])
           setIsChecking(false)
+          if (gameRef.current && cardEl) {
+            const container = gameRef.current
+            const rect = cardEl.getBoundingClientRect()
+            const containerRect = container.getBoundingClientRect()
+            const cx = rect.left - containerRect.left + rect.width / 2
+            const cy = rect.top - containerRect.top + rect.height / 2
+            burstDots(container, cx, cy, ['#4ade80','#00E5FF','#BFFF00'], 8)
+            pulseRing(container, cx, cy, '#4ade80')
+            floatingText(container, cx, cy - 20, '✓', '#4ade80', 28)
+            if (comboRef.current >= 2) {
+              sfx.combo(comboRef.current)
+              floatingText(container, cx, cy - 50, `COMBO x${comboRef.current}!`, '#FFD700', 22)
+            }
+          }
         } else {
+          sfx.mismatch()
+          comboRef.current = 0
+          if (gameRef.current) screenFlash('rgba(239,68,68,0.1)')
           setTimeout(() => {
             setCards((prev) =>
               prev.map((c) =>
@@ -181,7 +224,7 @@ export default function BrainrotMemoryGame() {
         }
       }
     },
-    [cards, flippedCards, isChecking, gameState]
+    [cards, flippedCards, isChecking, gameState, sfx]
   )
 
   const tryHarder = () => {
@@ -267,7 +310,14 @@ export default function BrainrotMemoryGame() {
   if (gameState === 'playing') {
     const cols = 4
     return (
-      <div style={styles.wrapper}>
+      <div ref={gameRef} style={{ ...styles.wrapper, position: 'relative', overflow: 'hidden' }}>
+        <button
+          onClick={() => setSoundEnabled(prev => !prev)}
+          className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
+          style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+        >
+          {soundEnabled ? '🔊' : '🔇'}
+        </button>
         {/* Status bar */}
         <div style={styles.statusBar}>
           <div style={styles.statItem}>
@@ -281,10 +331,11 @@ export default function BrainrotMemoryGame() {
           <div style={styles.statItem}>
             <span style={styles.statLabel}>Time</span>
             <span
+              className={timeLeft <= 5 ? 'animate-urgent' : ''}
               style={{
                 ...styles.statValue,
                 color: timeLeft < 10 ? '#f87171' : '#fff',
-                animation: timeLeft < 10 ? 'blink 0.8s step-start infinite' : 'none',
+                animation: timeLeft < 10 && timeLeft > 5 ? 'blink 0.8s step-start infinite' : undefined,
               }}
             >
               {timeLeft}s
@@ -307,7 +358,7 @@ export default function BrainrotMemoryGame() {
             <CardTile
               key={card.id}
               card={card}
-              onClick={() => handleCardClick(card.id)}
+              onClick={(el) => handleCardClick(card.id, el)}
               disabled={isChecking || card.isFlipped || card.isMatched}
             />
           ))}
@@ -395,15 +446,17 @@ function CardTile({
   disabled,
 }: {
   card: Card
-  onClick: () => void
+  onClick: (el: HTMLElement | null) => void
   disabled: boolean
 }) {
   const [hovered, setHovered] = useState(false)
+  const tileRef = useRef<HTMLDivElement>(null)
   const show = card.isFlipped || card.isMatched
 
   return (
     <div
-      onClick={disabled && !card.isMatched ? undefined : onClick}
+      ref={tileRef}
+      onClick={disabled && !card.isMatched ? undefined : () => onClick(tileRef.current)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

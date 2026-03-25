@@ -1,5 +1,7 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import SFX from '@/lib/sounds'
+import { floatingText, screenFlash, confetti, explosion, pulseRing, screenShake } from '@/lib/effects'
 
 const COLS = 10
 const ROWS = 8
@@ -101,6 +103,13 @@ export default function BrainrotTowerGame() {
   const [phase, setPhase] = useState<Phase>('intro')
   const [sel, setSel] = useState<string | null>(null)
   const [, setTick] = useState(0)
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const gameAreaRef = useRef<HTMLDivElement>(null)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   const gs = useRef<GS>(mkGS())
   const phaseRef = useRef<Phase>('intro')
@@ -151,9 +160,14 @@ export default function BrainrotTowerGame() {
 
       if (livesLost > 0) {
         s.lives = Math.max(0, s.lives - livesLost)
+        sfx.stolen()
+        screenFlash('rgba(255,0,0,0.15)')
+        if (gameAreaRef.current) screenShake(gameAreaRef.current, 4, 200)
         if (s.lives <= 0) {
           phaseRef.current = 'lost'
           setPhase('lost')
+          sfx.gameOver()
+          if (gameAreaRef.current) { screenFlash('rgba(239,68,68,0.3)'); screenShake(gameAreaRef.current, 12, 500) }
           setTick(t => t + 1)
           return
         }
@@ -224,17 +238,27 @@ export default function BrainrotTowerGame() {
 
       // Earn gold + float text on death
       let earned = 0
-      s.enemies.filter(e => e.hp <= 0).forEach(e => {
+      const deadEnemies = s.enemies.filter(e => e.hp <= 0)
+      deadEnemies.forEach(e => {
         earned += ENEMY_DEFS[e.type].reward
         s.score += ENEMY_DEFS[e.type].reward * 10
         const pos = getPosFromDist(e.dist)
+        const px = (pos.x + 0.5) * TILE
+        const py = (pos.y + 0.5) * TILE
         floatTextsRef.current = [...floatTextsRef.current, {
-          id: ++fxId.current,
-          x: (pos.x + 0.5) * TILE,
-          y: (pos.y + 0.5) * TILE,
-          text: `+${ENEMY_DEFS[e.type].reward}`,
-          born: now,
+          id: ++fxId.current, x: px, y: py, text: `+${ENEMY_DEFS[e.type].reward}`, born: now,
         }]
+        sfx.enemyDeath()
+        if (gameAreaRef.current) {
+          const isBoss = e.type === 3
+          explosion(gameAreaRef.current, px, py, isBoss ? 'big' : 'normal')
+          if (isBoss) {
+            sfx.bigScore()
+            screenFlash('rgba(255,215,0,0.2)')
+            screenShake(gameAreaRef.current, 5, 300)
+            confetti(gameAreaRef.current, 20, ['💥','⭐','🎉'])
+          }
+        }
       })
       s.enemies = s.enemies.filter(e => e.hp > 0)
       s.gold += earned
@@ -246,9 +270,16 @@ export default function BrainrotTowerGame() {
       // Wave complete?
       if (s.waveInProgress && !spawnQ.current.length && !s.enemies.length) {
         s.waveInProgress = false
+        sfx.waveComplete()
+        if (gameAreaRef.current) {
+          confetti(gameAreaRef.current, 25, ['🎉','⭐','✨'])
+          floatingText(gameAreaRef.current, COLS * TILE / 2, ROWS * TILE / 2, 'WAVE CLEAR!', '#4ade80', 28)
+        }
         if (s.wave >= WAVES.length) {
           phaseRef.current = 'won'
           setPhase('won')
+          sfx.victory()
+          if (gameAreaRef.current) { confetti(gameAreaRef.current, 80, ['🏆','🎉','⭐','✨','💥']); screenFlash('rgba(191,255,0,0.2)') }
         }
       }
 
@@ -293,7 +324,22 @@ export default function BrainrotTowerGame() {
     s.grid = s.grid.map((r, ri) => ri === y ? r.map((c, ci) => ci === x ? sel : c) : r)
     s.gold -= def.cost
     s.towers = [...s.towers, { id: ++tid.current, type: sel, x, y, lastFired: 0 }]
+    sfx.towerPlace()
+    if (gameAreaRef.current) {
+      const container = gameAreaRef.current
+      const px = (x + 0.5) * TILE
+      const py = (y + 0.5) * TILE
+      pulseRing(container, px, py, '#4ade80')
+    }
     setTick(t => t + 1)
+  }
+
+  function handleNextWave() {
+    sfx.waveStart()
+    if (gameAreaRef.current) {
+      floatingText(gameAreaRef.current, COLS * TILE / 2, ROWS * TILE / 2 - 40, `WAVE ${gs.current.wave + 1}`, '#facc15', 32)
+    }
+    nextWave()
   }
 
   const greenBtnStyle: React.CSSProperties = {
@@ -369,7 +415,14 @@ export default function BrainrotTowerGame() {
   const renderNow = Date.now()
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={() => setSoundEnabled(prev => !prev)}
+        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
+        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+      >
+        {soundEnabled ? '🔊' : '🔇'}
+      </button>
       {/* CSS animations */}
       <style>{`
         @keyframes brainrot-floatUp {
@@ -400,7 +453,7 @@ export default function BrainrotTowerGame() {
         <span style={{ color: '#a78bfa', fontWeight: 700, fontSize: 14 }}>⭐ {g.score}</span>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
           <button
-            onClick={nextWave}
+            onClick={handleNextWave}
             disabled={g.waveInProgress || g.wave >= WAVES.length}
             style={{
               padding: '6px 14px', borderRadius: 8,
@@ -467,7 +520,7 @@ export default function BrainrotTowerGame() {
 
       {/* Game grid */}
       <div style={{ overflowX: 'auto' }}>
-        <div style={{
+        <div ref={gameAreaRef} style={{
           position: 'relative', width: gridW, height: gridH,
           background: 'rgba(10,12,20,0.9)',
           border: '1px solid rgba(255,255,255,0.07)',

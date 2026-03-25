@@ -1,7 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import Link from 'next/link'
+import SFX from '@/lib/sounds'
+import { burstEmoji, burstDots, floatingText, screenFlash, confetti, glowPulse, screenShake } from '@/lib/effects'
 
 interface Question {
   id: number
@@ -252,6 +254,14 @@ export default function BrainrotQuizGame() {
   const [gameState, setGameState] = useState<'intro' | 'playing' | 'result'>('intro')
   const [timeLeft, setTimeLeft] = useState(TIME_PER_QUESTION)
   const [answers, setAnswers] = useState<boolean[]>([])
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const gameRef = useRef<HTMLDivElement>(null)
+  const comboRef = useRef(0)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   const goToNext = useCallback(() => {
     setSelectedAnswer(null)
@@ -264,28 +274,74 @@ export default function BrainrotQuizGame() {
     }
   }, [currentIndex])
 
-  const handleAnswer = useCallback((optionIndex: number) => {
+  const handleAnswer = useCallback((optionIndex: number, btnEl?: HTMLElement | null) => {
     if (isAnswered) return
     setSelectedAnswer(optionIndex)
     setIsAnswered(true)
     const correct = questions[currentIndex].correct === optionIndex
-    if (correct) setScore(s => s + 1)
+    if (correct) {
+      setScore(s => s + 1)
+      comboRef.current += 1
+      sfx.correct()
+      if (btnEl) glowPulse(btnEl, '#4ade80')
+      if (gameRef.current) {
+        const container = gameRef.current
+        burstEmoji(container, 200, 200, '✅', 6)
+        floatingText(container, 200, 160, 'CORRECT!', '#4ade80', 26)
+        burstDots(container, 200, 200, ['#4ade80','#00E5FF','#BFFF00'], comboRef.current * 3)
+        if (comboRef.current >= 3) {
+          sfx.combo(comboRef.current)
+          floatingText(container, 200, 120, `COMBO x${comboRef.current}!`, '#FFD700', 24)
+          burstDots(container, 200, 200, ['#FFD700','#FF6B9D','#00E5FF'], comboRef.current * 3)
+        }
+        if (comboRef.current >= 5) {
+          screenShake(container, 3, 200)
+        }
+      }
+    } else {
+      comboRef.current = 0
+      sfx.wrong()
+      if (btnEl) {
+        btnEl.classList.remove('animate-head-shake')
+        void btnEl.offsetWidth
+        btnEl.classList.add('animate-head-shake')
+        setTimeout(() => btnEl.classList.remove('animate-head-shake'), 500)
+      }
+      screenFlash('rgba(239,68,68,0.15)')
+    }
     setAnswers(prev => [...prev, correct])
     setTimeout(goToNext, 800)
-  }, [isAnswered, questions, currentIndex, goToNext])
+  }, [isAnswered, questions, currentIndex, goToNext, sfx])
 
   useEffect(() => {
     if (gameState !== 'playing' || isAnswered) return
     if (timeLeft <= 0) {
+      comboRef.current = 0
       setIsAnswered(true)
       setSelectedAnswer(null)
       setAnswers(prev => [...prev, false])
       setTimeout(goToNext, 800)
       return
     }
+    if (timeLeft <= 5) {
+      sfx.tickUrgent()
+    } else {
+      sfx.tick()
+    }
     const timer = setTimeout(() => setTimeLeft(t => t - 1), 1000)
     return () => clearTimeout(timer)
-  }, [gameState, isAnswered, timeLeft, goToNext])
+  }, [gameState, isAnswered, timeLeft, goToNext, sfx])
+
+  useEffect(() => {
+    if (gameState !== 'result') return
+    if (score >= 9) {
+      sfx.victory()
+      if (gameRef.current) confetti(gameRef.current, 60, ['🏆','🎉','⭐','✨'])
+    } else {
+      sfx.gameOver()
+      if (gameRef.current) burstEmoji(gameRef.current, 200, 200, '💀', 8)
+    }
+  }, [gameState, score, sfx])
 
   const startGame = () => {
     const shuffled = fisherYatesShuffle(ALL_QUESTIONS).slice(0, TOTAL_QUESTIONS)
@@ -296,6 +352,7 @@ export default function BrainrotQuizGame() {
     setScore(0)
     setAnswers([])
     setTimeLeft(TIME_PER_QUESTION)
+    comboRef.current = 0
     setGameState('playing')
   }
 
@@ -334,7 +391,7 @@ export default function BrainrotQuizGame() {
   if (gameState === 'result') {
     const result = getResult(score)
     return (
-      <div style={{ background: '#0e0e1a', borderRadius: '12px', padding: '40px 24px', textAlign: 'center' }}>
+      <div ref={gameRef} style={{ background: '#0e0e1a', borderRadius: '12px', padding: '40px 24px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ fontSize: '72px', lineHeight: 1, marginBottom: '16px' }}>{result.emoji}</div>
         <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '28px', fontWeight: 700, color: '#facc15', marginBottom: '8px' }}>
           {result.title}
@@ -377,11 +434,19 @@ export default function BrainrotQuizGame() {
   if (!q) return null
 
   return (
-    <div style={{ background: '#0e0e1a', borderRadius: '12px', padding: '24px 20px' }}>
+    <div ref={gameRef} style={{ background: '#0e0e1a', borderRadius: '12px', padding: '24px 20px', position: 'relative', overflow: 'hidden' }}>
       <style>{`
         .quiz-option:hover:not(:disabled) { opacity: 0.88; }
         .quiz-option:active:not(:disabled) { transform: scale(0.98); }
       `}</style>
+
+      <button
+        onClick={() => setSoundEnabled(prev => !prev)}
+        className="absolute top-3 right-3 z-10 px-3 py-2 rounded-lg text-white text-sm"
+        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+      >
+        {soundEnabled ? '🔊' : '🔇'}
+      </button>
 
       {/* Top Bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
@@ -397,7 +462,10 @@ export default function BrainrotQuizGame() {
       <div style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
           <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>TIME LEFT</span>
-          <span style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '18px', fontWeight: 700, color: timeWarning ? '#ef4444' : '#4ade80', transition: 'color 0.3s' }}>
+          <span
+            className={timeLeft <= 5 ? 'animate-urgent' : ''}
+            style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '18px', fontWeight: 700, color: timeWarning ? '#ef4444' : '#4ade80', transition: 'color 0.3s' }}
+          >
             {timeLeft}s
           </span>
         </div>
@@ -407,7 +475,7 @@ export default function BrainrotQuizGame() {
       </div>
 
       {/* Question Card */}
-      <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '28px 20px', marginBottom: '20px', textAlign: 'center' }}>
+      <div className="animate-fade-in-up" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '28px 20px', marginBottom: '20px', textAlign: 'center' }}>
         <div style={{ fontSize: '48px', lineHeight: 1, marginBottom: '16px' }}>{q.emoji}</div>
         <p style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '22px', fontWeight: 600, color: '#fff', lineHeight: 1.4, margin: 0 }}>
           {q.question}
@@ -444,7 +512,7 @@ export default function BrainrotQuizGame() {
               key={idx}
               className="quiz-option"
               disabled={isAnswered}
-              onClick={() => handleAnswer(idx)}
+              onClick={e => handleAnswer(idx, e.currentTarget)}
               style={{ width: '100%', padding: '14px 18px', borderRadius: '10px', background: bg, border, color: textColor, cursor: isAnswered ? 'default' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', fontFamily: 'inherit', fontSize: '15px', fontWeight: 600, textAlign: 'left', transition: 'all 0.2s' }}
             >
               <span>{option}</span>

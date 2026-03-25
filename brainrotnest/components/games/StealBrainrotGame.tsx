@@ -1,5 +1,7 @@
 'use client'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useMemo } from 'react'
+import SFX from '@/lib/sounds'
+import { burstEmoji, floatingText, screenFlash, confetti, screenShake } from '@/lib/effects'
 
 const CHARACTERS = [
   { id: 'tralalero', name: 'Tralalero Tralala', emoji: '🦈', power: 1 },
@@ -54,6 +56,13 @@ export default function StealBrainrotGame() {
   const [lastAction, setLastAction] = useState<string | null>(null)
   const [turn, setTurn] = useState(1)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const gameRef = useRef<HTMLDivElement>(null)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   const startGame = useCallback(() => {
     const init = initGame()
@@ -83,12 +92,20 @@ export default function StealBrainrotGame() {
         setDeck(currentDeck)
         setPlayerCollection(pCol)
         setAiCollection(aCol)
+        const isWin = pCol.length > aCol.length
+        if (isWin) {
+          sfx.victory()
+          if (gameRef.current) confetti(gameRef.current, 60)
+        } else {
+          sfx.gameOver()
+          if (gameRef.current) burstEmoji(gameRef.current, 200, 200, '💀', 8)
+        }
         setGameState('result')
         return true
       }
       return false
     },
-    []
+    [sfx]
   )
 
   const handleSteal = useCallback(() => {
@@ -110,7 +127,6 @@ export default function StealBrainrotGame() {
     let action = ''
 
     if (playerCard.power > aiTargetCard.power) {
-      // Player wins: steal AI card, AI draws from deck
       newPlayerCollection = [...playerCollection, aiTargetCard]
       newAiHand = newAiHand.filter((_, i) => i !== aiTargetIndex)
       if (newDeck.length > 0) {
@@ -118,8 +134,14 @@ export default function StealBrainrotGame() {
         newDeck = newDeck.slice(1)
       }
       action = `🎉 You stole ${aiTargetCard.name}!`
+      sfx.steal()
+      if (gameRef.current) {
+        const container = gameRef.current
+        burstEmoji(container, 200, 200, '💨', 8)
+        floatingText(container, 200, 160, 'STOLEN!', '#4ade80', 28)
+        screenShake(container, 3, 200)
+      }
     } else {
-      // AI wins: AI steals player card, player draws from deck
       newAiCollection = [...aiCollection, playerCard]
       newPlayerHand = newPlayerHand.filter((c) => c.id !== selectedCard)
       if (newDeck.length > 0) {
@@ -127,6 +149,8 @@ export default function StealBrainrotGame() {
         newDeck = newDeck.slice(1)
       }
       action = `😤 AI blocked and stole your ${playerCard.name}!`
+      sfx.stolen()
+      screenFlash('rgba(255,0,0,0.15)')
     }
 
     setLastAction(action)
@@ -145,7 +169,6 @@ export default function StealBrainrotGame() {
       setAiCollection(newAiCollection)
       setTurn((t) => t + 1)
 
-      // AI turn
       if (newAiHand.length === 0 || newPlayerHand.length === 0) {
         setIsAnimating(false)
         return
@@ -172,6 +195,8 @@ export default function StealBrainrotGame() {
             aiTurnDeck = aiTurnDeck.slice(1)
           }
           aiAction = `😤 AI stole your ${playerTargetCard.name}!`
+          sfx.stolen()
+          screenFlash('rgba(255,0,0,0.15)')
         } else {
           aiTurnPlayerCollection = [...aiTurnPlayerCollection, aiAttackCard]
           aiTurnAiHand = aiTurnAiHand.filter((_, i) => i !== aiAttackIndex)
@@ -180,6 +205,8 @@ export default function StealBrainrotGame() {
             aiTurnDeck = aiTurnDeck.slice(1)
           }
           aiAction = `🎉 You defended! Stole AI's ${aiAttackCard.name}!`
+          sfx.steal()
+          if (gameRef.current) floatingText(gameRef.current, 200, 160, 'DEFENDED!', '#4ade80', 24)
         }
 
         setLastAction(aiAction)
@@ -215,6 +242,7 @@ export default function StealBrainrotGame() {
     playerCollection,
     aiCollection,
     checkGameOver,
+    sfx,
   ])
 
   if (gameState === 'intro') {
@@ -433,7 +461,15 @@ export default function StealBrainrotGame() {
 
   // Playing state
   return (
-    <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+    <div ref={gameRef} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', overflow: 'hidden' }}>
+      <button
+        onClick={() => setSoundEnabled(prev => !prev)}
+        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
+        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+      >
+        {soundEnabled ? '🔊' : '🔇'}
+      </button>
+
       {/* Status bar */}
       <div
         style={{
@@ -489,7 +525,6 @@ export default function StealBrainrotGame() {
           AI&apos;S HAND
         </p>
 
-        {/* AI hand cards (face down) */}
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '12px' }}>
           {aiHand.map((_, i) => (
             <div
@@ -517,7 +552,6 @@ export default function StealBrainrotGame() {
           )}
         </div>
 
-        {/* AI collection */}
         {aiCollection.length > 0 && (
           <div>
             <p
@@ -627,7 +661,6 @@ export default function StealBrainrotGame() {
           YOUR HAND
         </p>
 
-        {/* Player hand cards */}
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
           {playerHand.map((card) => {
             const isSelected = selectedCard === card.id
@@ -689,7 +722,6 @@ export default function StealBrainrotGame() {
           )}
         </div>
 
-        {/* Player collection */}
         {playerCollection.length > 0 && (
           <div>
             <p

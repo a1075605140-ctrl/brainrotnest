@@ -1,5 +1,7 @@
 'use client'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useMemo } from 'react'
+import SFX from '@/lib/sounds'
+import { burstEmoji, burstDots, floatingText, screenFlash, confetti, pulseRing } from '@/lib/effects'
 
 interface Resource {
   id: string
@@ -131,10 +133,18 @@ export default function BrainrotCraftGame() {
   const [clickEffects, setClickEffects] = useState<ClickEffect[]>([])
   const [craftLog, setCraftLog] = useState<LogEntry[]>([])
   const [bouncingBtn, setBouncingBtn] = useState<string | null>(null)
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const gameRef = useRef<HTMLDivElement>(null)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   const handleGather = useCallback(
     (resourceId: string, e: React.MouseEvent<HTMLButtonElement>) => {
       setResources((prev) => ({ ...prev, [resourceId]: prev[resourceId] + CLICK_REWARD }))
+      sfx.harvest()
 
       const rect = e.currentTarget.getBoundingClientRect()
       const id = nextEffectId++
@@ -146,10 +156,20 @@ export default function BrainrotCraftGame() {
         setClickEffects((prev) => prev.filter((ef) => ef.id !== id))
       }, 900)
 
+      if (gameRef.current) {
+        const container = gameRef.current
+        const containerRect = container.getBoundingClientRect()
+        const cx = rect.left - containerRect.left + rect.width / 2
+        const cy = rect.top - containerRect.top + rect.height / 2
+        const res = RESOURCES.find(r => r.id === resourceId)
+        if (res) burstEmoji(container, cx, cy, res.emoji, 5)
+        floatingText(container, cx, cy - 20, '+2', '#4ade80', 20)
+      }
+
       setBouncingBtn(resourceId)
       setTimeout(() => setBouncingBtn(null), 300)
     },
-    []
+    [sfx]
   )
 
   const canCraft = useCallback(
@@ -160,8 +180,19 @@ export default function BrainrotCraftGame() {
   )
 
   const handleCraft = useCallback(
-    (recipe: Recipe) => {
-      if (!canCraft(recipe)) return
+    (recipe: Recipe, btnEl?: HTMLElement | null) => {
+      if (!canCraft(recipe)) {
+        sfx.error()
+        if (btnEl) {
+          btnEl.classList.remove('animate-head-shake')
+          void btnEl.offsetWidth
+          btnEl.classList.add('animate-head-shake')
+          setTimeout(() => btnEl.classList.remove('animate-head-shake'), 500)
+        }
+        if (gameRef.current) screenFlash('rgba(239,68,68,0.1)')
+        return
+      }
+      sfx.craft()
       setResources((prev) => {
         const updated = { ...prev }
         recipe.ingredients.forEach((ing) => {
@@ -170,7 +201,20 @@ export default function BrainrotCraftGame() {
         return updated
       })
       setPoints((prev) => prev + recipe.reward.points)
+      const isNew = !craftedItems.includes(recipe.id)
       setCraftedItems((prev) => [...prev, recipe.id])
+
+      if (gameRef.current) {
+        const container = gameRef.current
+        burstDots(container, 200, 200, ['#FFD700','#4ade80','#00E5FF'], 12)
+        pulseRing(container, 200, 200, '#FFD700')
+        floatingText(container, 200, 160, `+${recipe.reward.points}`, '#FFD700', 24)
+        if (isNew) {
+          sfx.unlock()
+          confetti(container, 30, [recipe.emoji,'🎉','⭐'])
+          floatingText(container, 200, 120, 'NEW RECIPE!', '#BFFF00', 28)
+        }
+      }
 
       const logId = nextLogId++
       const entry: LogEntry = {
@@ -181,13 +225,20 @@ export default function BrainrotCraftGame() {
       }
       setCraftLog((prev) => [entry, ...prev].slice(0, 5))
     },
-    [canCraft]
+    [canCraft, craftedItems, sfx]
   )
 
   const uniqueCrafted = new Set(craftedItems).size
 
   return (
-    <div style={{ color: '#fff', fontFamily: 'inherit', userSelect: 'none' }}>
+    <div ref={gameRef} style={{ color: '#fff', fontFamily: 'inherit', userSelect: 'none', position: 'relative', overflow: 'hidden' }}>
+      <button
+        onClick={() => setSoundEnabled(prev => !prev)}
+        className="absolute top-2 right-2 z-10 px-3 py-2 rounded-lg text-white text-sm"
+        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+      >
+        {soundEnabled ? '🔊' : '🔇'}
+      </button>
       {/* Click effect portals */}
       {clickEffects.map((ef) => (
         <div
@@ -470,7 +521,7 @@ export default function BrainrotCraftGame() {
 
                   {/* Craft button */}
                   <button
-                    onClick={() => handleCraft(recipe)}
+                    onClick={(e) => handleCraft(recipe, e.currentTarget)}
                     disabled={!craftable}
                     style={{
                       flexShrink: 0,

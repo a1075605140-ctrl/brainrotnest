@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import SFX from '@/lib/sounds'
+import { burstDots, floatingText, screenFlash, confetti, glowPulse, collectFly } from '@/lib/effects'
 
 const CHARACTERS = [
   { id: 'tralalero', name: 'Tralalero Tralala', emoji: '🦈', unlockAt: 0, description: 'Your first brainrot companion' },
@@ -65,7 +67,15 @@ export default function BrainrotClickerGame() {
   const [unlockedPopup, setUnlockedPopup] = useState<string | null>(null)
   const [unlockedEmoji, setUnlockedEmoji] = useState<string>('')
   const [activeTab, setActiveTab] = useState<'click' | 'passive'>('click')
+  const [soundEnabled, setSoundEnabled] = useState(true)
   const effectIdRef = useRef(0)
+  const gameRef = useRef<HTMLDivElement>(null)
+  const passiveTimerRef = useRef(0)
+
+  const sfx = useMemo(() => {
+    if (!soundEnabled) return new Proxy({} as typeof SFX, { get: () => (..._args: any[]) => {} })
+    return SFX
+  }, [soundEnabled])
 
   const pointsPerClick = useMemo(() => {
     return 1 + clickUpgrades.reduce((sum, u) => sum + u.bonusPerClick * u.purchased, 0)
@@ -122,6 +132,16 @@ export default function BrainrotClickerGame() {
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
 
+    sfx.click()
+    if (gameRef.current) {
+      const container = gameRef.current
+      const containerRect = container.getBoundingClientRect()
+      const cx = e.clientX - containerRect.left
+      const cy = e.clientY - containerRect.top
+      burstDots(container, cx, cy, ['#BFFF00', '#FFD700', '#FF6B9D'], 8)
+      floatingText(container, cx, cy - 20, `+${formatNumber(pointsPerClick)}`, '#BFFF00')
+    }
+
     setPoints(p => {
       const newPoints = p + pointsPerClick
       setTotalPoints(prev => {
@@ -132,6 +152,11 @@ export default function BrainrotClickerGame() {
           const newChar = newUnlocked[newUnlocked.length - 1]
           setUnlockedPopup(newChar.name)
           setUnlockedEmoji(newChar.emoji)
+          sfx.unlock()
+          if (gameRef.current) {
+            confetti(gameRef.current, 50, [newChar.emoji, '🎉', '⭐'])
+            screenFlash('rgba(191,255,0,0.2)')
+          }
           setTimeout(() => setUnlockedPopup(null), 2500)
         }
         saveGame(newPoints, newTotal, clickUpgrades, passiveUpgrades)
@@ -148,27 +173,49 @@ export default function BrainrotClickerGame() {
 
     setIsClicking(true)
     setTimeout(() => setIsClicking(false), 100)
-  }, [pointsPerClick, clickUpgrades, passiveUpgrades, saveGame])
+  }, [pointsPerClick, clickUpgrades, passiveUpgrades, saveGame, sfx])
 
-  const buyClickUpgrade = useCallback((upgradeId: string) => {
+  const buyClickUpgrade = useCallback((upgradeId: string, btnEl?: HTMLElement | null) => {
     setClickUpgrades(prev => prev.map(u => {
       if (u.id !== upgradeId) return u
       const cost = getUpgradeCost(u)
-      if (points < cost) return u
+      if (points < cost) {
+        sfx.error()
+        if (btnEl) {
+          btnEl.classList.remove('animate-head-shake')
+          void btnEl.offsetWidth
+          btnEl.classList.add('animate-head-shake')
+          setTimeout(() => btnEl.classList.remove('animate-head-shake'), 500)
+        }
+        return u
+      }
+      sfx.purchase()
+      if (btnEl) glowPulse(btnEl, '#4ade80')
       setPoints(p => p - cost)
       return { ...u, purchased: u.purchased + 1 }
     }))
-  }, [points])
+  }, [points, sfx])
 
-  const buyPassiveUpgrade = useCallback((upgradeId: string) => {
+  const buyPassiveUpgrade = useCallback((upgradeId: string, btnEl?: HTMLElement | null) => {
     setPassiveUpgrades(prev => prev.map(u => {
       if (u.id !== upgradeId) return u
       const cost = getUpgradeCost(u)
-      if (points < cost) return u
+      if (points < cost) {
+        sfx.error()
+        if (btnEl) {
+          btnEl.classList.remove('animate-head-shake')
+          void btnEl.offsetWidth
+          btnEl.classList.add('animate-head-shake')
+          setTimeout(() => btnEl.classList.remove('animate-head-shake'), 500)
+        }
+        return u
+      }
+      sfx.purchase()
+      if (btnEl) glowPulse(btnEl, '#4ade80')
       setPoints(p => p - cost)
       return { ...u, purchased: u.purchased + 1 }
     }))
-  }, [points])
+  }, [points, sfx])
 
   useEffect(() => {
     try {
@@ -202,12 +249,30 @@ export default function BrainrotClickerGame() {
     const interval = setInterval(() => {
       setPoints(p => p + pointsPerSecond)
       setTotalPoints(p => p + pointsPerSecond)
+
+      passiveTimerRef.current += 1
+      if (passiveTimerRef.current >= 5) {
+        passiveTimerRef.current = 0
+        sfx.passiveIncome()
+        if (gameRef.current) {
+          const rx = 20 + Math.random() * 60
+          const ry = 20 + Math.random() * 40
+          collectFly(gameRef.current, '💰', rx, ry, 20, 20)
+        }
+      }
     }, 1000)
     return () => clearInterval(interval)
-  }, [pointsPerSecond])
+  }, [pointsPerSecond, sfx])
 
   return (
-    <div style={{ background: '#0e0e1a', minHeight: '700px', color: '#fff', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+    <div ref={gameRef} style={{ background: '#0e0e1a', minHeight: '700px', color: '#fff', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
+      <button
+        onClick={() => setSoundEnabled(prev => !prev)}
+        className="absolute top-3 right-3 z-10 px-3 py-2 rounded-lg text-white text-sm"
+        style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+      >
+        {soundEnabled ? '🔊' : '🔇'}
+      </button>
 
       {/* Score Header */}
       <div style={{ position: 'relative', textAlign: 'center', padding: '20px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
@@ -377,6 +442,7 @@ export default function BrainrotClickerGame() {
             </div>
             <div style={{ height: '8px', background: 'rgba(255,255,255,0.08)', borderRadius: '4px', overflow: 'hidden' }}>
               <div
+                className={progressToNext > 90 ? 'progress-bar-shine' : ''}
                 style={{
                   height: '100%',
                   background: 'linear-gradient(90deg, #4ade80, #22d3ee)',
@@ -451,10 +517,11 @@ export default function BrainrotClickerGame() {
                   <button
                     className="upgrade-btn"
                     disabled={!canAfford}
-                    onClick={() => activeTab === 'click'
-                      ? buyClickUpgrade(upgrade.id)
-                      : buyPassiveUpgrade(upgrade.id)
-                    }
+                    onClick={e => {
+                      const btn = e.currentTarget
+                      if (activeTab === 'click') buyClickUpgrade(upgrade.id, btn)
+                      else buyPassiveUpgrade(upgrade.id, btn)
+                    }}
                     style={{
                       padding: '5px 10px',
                       borderRadius: '6px',
@@ -493,6 +560,7 @@ export default function BrainrotClickerGame() {
           }}
         >
           <div
+            className="animate-big-bounce"
             style={{
               background: '#1a1a2e',
               border: '2px solid rgba(250,204,21,0.4)',
