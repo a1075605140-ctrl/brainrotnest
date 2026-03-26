@@ -14,7 +14,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'Brainrot Clicker',
-  description: 'Original Italian Brainrot clicker game',
+  description: 'Free online Italian Brainrot clicker game. Click to unlock all brainrot characters.',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Web Browser',
   url: 'https://www.brainrotnest.com/games/brainrot-clicker',

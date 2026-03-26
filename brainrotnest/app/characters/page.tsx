@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: "How many Italian Brainrot characters are there?",
-    a: "The official Italian Brainrot character roster documented on BrainrotNest currently includes 10 characters: Bombardiro Crocodilo, Tung Tung Sahur, Tralalero Tralala, Ballerina Cappuccina, Brr Brr Patapim, Cappuccino Assassino, Lirili Larila, Bobrito Bandito, Frulli Frulla, and La Vaca Saturno Satalite.",
+    a: "The official Italian Brainrot character roster documented on BrainrotNest currently includes 15 characters: Bombardiro Crocodilo, Tung Tung Sahur, Tralalero Tralala, Ballerina Cappuccina, Brr Brr Patapim, Cappuccino Assassino, Lirili Larila, Bobrito Bandito, Frulli Frulla, La Vaca Saturno Satalite, Trippi Troppi, Chimpanzini Bananini, Bombombini Gusini, Frigo Camello, and Cocofanto Elefanto.",
   },
   {
     q: "Where do Italian Brainrot characters come from?",
@@ -80,7 +80,7 @@ export default function CharactersPage() {
           </h1>
 
           <p className="text-base sm:text-lg max-w-2xl leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-            The complete wiki — <strong style={{ color: "var(--color-text)" }}>10 italian brainrot characters</strong> documented with full lore,
+            The complete wiki — <strong style={{ color: "var(--color-text)" }}>15 italian brainrot characters</strong> documented with full lore,
             abilities, and origin stories. The definitive{" "}
             <strong style={{ color: "var(--color-text)" }}>italian brainrot list</strong> from Bombardiro Crocodilo
             to La Vaca Saturno Satalite.

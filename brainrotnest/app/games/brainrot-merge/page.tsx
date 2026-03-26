@@ -14,8 +14,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'Brainrot Merge',
-  description:
-    'Merge Italian Brainrot characters in this 2048-style puzzle game. Reach La Vaca Saturno!',
+  description: 'Merge Italian Brainrot characters to unlock legendary forms. Free browser game.',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Web Browser',
   url: 'https://www.brainrotnest.com/games/brainrot-merge',

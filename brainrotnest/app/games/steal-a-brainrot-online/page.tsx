@@ -14,8 +14,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'Steal a Brainrot',
-  description:
-    'The card stealing game where you steal Italian Brainrot characters from your opponent.',
+  description: 'Free online multiplayer card game. Steal Italian Brainrot character cards to win.',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Web Browser',
   url: 'https://www.brainrotnest.com/games/steal-a-brainrot-online',

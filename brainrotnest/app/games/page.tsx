@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "Is Brainrot Clicker free to play?",
-    a: "Yes! Brainrot Clicker is completely free to play directly in your browser. No download, no account required. Just open the page and start clicking to collect all 10 Italian Brainrot characters.",
+    a: "Yes! Brainrot Clicker is completely free to play directly in your browser. No download, no account required. Just open the page and start clicking to collect all 15 Italian Brainrot characters.",
   },
   {
     q: "What is Steal a Brainrot game?",

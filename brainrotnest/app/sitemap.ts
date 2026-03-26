@@ -58,6 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.3,
     },
+    {
+      url: `${BASE_URL}/italian-brainrot-name-generator`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 
   const quizRoutes: MetadataRoute.Sitemap = getAllQuizSlugs().map((slug) => ({

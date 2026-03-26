@@ -14,7 +14,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'Brainrot Memory Game',
-  description: 'Match all Italian Brainrot character pairs before time runs out.',
+  description: 'Match Italian Brainrot characters in this free memory card game.',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Web Browser',
   url: 'https://www.brainrotnest.com/games/brainrot-puzzle',

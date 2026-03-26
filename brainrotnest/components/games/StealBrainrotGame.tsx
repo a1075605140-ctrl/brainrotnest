@@ -455,6 +455,37 @@ export default function StealBrainrotGame() {
         >
           Play Again
         </button>
+
+        <div
+          style={{
+            marginTop: '24px',
+            background: 'rgba(250,204,21,0.08)',
+            border: '1px solid rgba(250,204,21,0.2)',
+            borderRadius: '12px',
+            padding: '16px 20px',
+            textAlign: 'center',
+          }}
+        >
+          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
+            🧠 Which Italian Brainrot character are you?
+          </p>
+          <a
+            href="/quiz/brainrot-quiz"
+            style={{
+              display: 'inline-block',
+              background: '#facc15',
+              color: '#422006',
+              borderRadius: '8px',
+              padding: '9px 20px',
+              fontSize: '13px',
+              fontWeight: 700,
+              textDecoration: 'none',
+              fontFamily: 'var(--font-fredoka), Fredoka One, cursive',
+            }}
+          >
+            Take the Brainrot Quiz →
+          </a>
+        </div>
       </div>
     )
   }

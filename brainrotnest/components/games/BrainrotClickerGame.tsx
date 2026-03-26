@@ -1,20 +1,26 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import Link from 'next/link'
 import SFX from '@/lib/sounds'
 import { burstDots, floatingText, screenFlash, confetti, glowPulse, collectFly } from '@/lib/effects'
 
 const CHARACTERS = [
-  { id: 'tralalero', name: 'Tralalero Tralala', emoji: '🦈', unlockAt: 0, description: 'Your first brainrot companion' },
-  { id: 'bombardiro', name: 'Bombardiro Crocodilo', emoji: '🐊', unlockAt: 500, description: 'The OG chaos agent' },
-  { id: 'tung-tung', name: 'Tung Tung Sahur', emoji: '🥁', unlockAt: 2000, description: 'The rhythm keeper' },
-  { id: 'ballerina', name: 'Ballerina Cappuccina', emoji: '☕', unlockAt: 8000, description: 'Grace and caffeine' },
-  { id: 'cappuccino', name: 'Cappuccino Assassino', emoji: '💀', unlockAt: 25000, description: 'Silent but deadly' },
-  { id: 'lirili', name: 'Lirili Larila', emoji: '🌺', unlockAt: 80000, description: 'Blooms dangerously' },
-  { id: 'bobrito', name: 'Bobrito Bandito', emoji: '🤠', unlockAt: 200000, description: 'Rides fast, steals faster' },
-  { id: 'frulli', name: 'Frulli Frulla', emoji: '🍓', unlockAt: 500000, description: 'Fruity but feral' },
-  { id: 'brr-brr', name: 'Brr Brr Patapim', emoji: '🐸', unlockAt: 1000000, description: 'Cold and cryptic' },
-  { id: 'la-vaca', name: 'La Vaca Saturno', emoji: '🐄', unlockAt: 5000000, description: 'A cow. In orbit.' },
+  { id: 'tralalero', slug: 'tralalero-tralala', name: 'Tralalero Tralala', emoji: '🦈', unlockAt: 0, description: 'Your first brainrot companion' },
+  { id: 'bombardiro', slug: 'bombardiro-crocodilo', name: 'Bombardiro Crocodilo', emoji: '🐊', unlockAt: 500, description: 'The OG chaos agent' },
+  { id: 'tung-tung', slug: 'tung-tung-sahur', name: 'Tung Tung Sahur', emoji: '🥁', unlockAt: 2000, description: 'The rhythm keeper' },
+  { id: 'ballerina', slug: 'ballerina-cappuccina', name: 'Ballerina Cappuccina', emoji: '☕', unlockAt: 8000, description: 'Grace and caffeine' },
+  { id: 'cappuccino', slug: 'cappuccino-assassino', name: 'Cappuccino Assassino', emoji: '💀', unlockAt: 25000, description: 'Silent but deadly' },
+  { id: 'lirili', slug: 'lirili-larila', name: 'Lirili Larila', emoji: '🌺', unlockAt: 80000, description: 'Blooms dangerously' },
+  { id: 'bobrito', slug: 'bobrito-bandito', name: 'Bobrito Bandito', emoji: '🤠', unlockAt: 200000, description: 'Rides fast, steals faster' },
+  { id: 'frulli', slug: 'frulli-frulla', name: 'Frulli Frulla', emoji: '🍓', unlockAt: 500000, description: 'Fruity but feral' },
+  { id: 'brr-brr', slug: 'brr-brr-patapim', name: 'Brr Brr Patapim', emoji: '🐸', unlockAt: 1000000, description: 'Cold and cryptic' },
+  { id: 'la-vaca', slug: 'la-vaca-saturno-satalite', name: 'La Vaca Saturno', emoji: '🐄', unlockAt: 5000000, description: 'A cow. In orbit.' },
+  { id: 'trippi-troppi', slug: 'trippi-troppi', name: 'Trippi Troppi', emoji: '🦐', unlockAt: 8000000, description: 'King of the deep. Absolutely unhinged.' },
+  { id: 'chimpanzini', slug: 'chimpanzini-bananini', name: 'Chimpanzini Bananini', emoji: '🍌', unlockAt: 15000000, description: 'Half monkey. Half banana. Fully chaotic.' },
+  { id: 'bombombini', slug: 'bombombini-gusini', name: 'Bombombini Gusini', emoji: '🪿', unlockAt: 30000000, description: "Bombardiro's brother. Still explodes." },
+  { id: 'frigo-camello', slug: 'frigo-camello', name: 'Frigo Camello', emoji: '🐪', unlockAt: 60000000, description: 'A fridge camel. Wandering. Feeling things.' },
+  { id: 'cocofanto', slug: 'cocofanto-elefanto', name: 'Cocofanto Elefanto', emoji: '🐘', unlockAt: 100000000, description: 'Stops time. Wears sandals. Has no notes.' },
 ]
 
 const INITIAL_CLICK_UPGRADES = [
@@ -66,6 +72,8 @@ export default function BrainrotClickerGame() {
   const [isClicking, setIsClicking] = useState(false)
   const [unlockedPopup, setUnlockedPopup] = useState<string | null>(null)
   const [unlockedEmoji, setUnlockedEmoji] = useState<string>('')
+  const [unlockedSlug, setUnlockedSlug] = useState<string>('')
+  const [unlockedDesc, setUnlockedDesc] = useState<string>('')
   const [activeTab, setActiveTab] = useState<'click' | 'passive'>('click')
   const [soundEnabled, setSoundEnabled] = useState(true)
   const effectIdRef = useRef(0)
@@ -152,12 +160,13 @@ export default function BrainrotClickerGame() {
           const newChar = newUnlocked[newUnlocked.length - 1]
           setUnlockedPopup(newChar.name)
           setUnlockedEmoji(newChar.emoji)
+          setUnlockedSlug(newChar.slug)
+          setUnlockedDesc(newChar.description)
           sfx.unlock()
           if (gameRef.current) {
             confetti(gameRef.current, 50, [newChar.emoji, '🎉', '⭐'])
             screenFlash('rgba(191,255,0,0.2)')
           }
-          setTimeout(() => setUnlockedPopup(null), 2500)
         }
         saveGame(newPoints, newTotal, clickUpgrades, passiveUpgrades)
         return newTotal
@@ -331,7 +340,7 @@ export default function BrainrotClickerGame() {
         {/* Left: Character List */}
         <div style={{ borderRight: '1px solid rgba(255,255,255,0.08)', padding: '16px' }}>
           <div style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Characters ({unlockedCount}/10)
+            Characters ({unlockedCount}/{CHARACTERS.length})
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             {CHARACTERS.map(char => {
@@ -542,18 +551,19 @@ export default function BrainrotClickerGame() {
         </div>
       </div>
 
-      {/* Unlock Popup Overlay */}
+      {/* Unlock Modal */}
       {unlockedPopup && (
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
+            background: 'rgba(0,0,0,0.75)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 50,
             borderRadius: '12px',
+            padding: '16px',
           }}
         >
           <div
@@ -562,16 +572,54 @@ export default function BrainrotClickerGame() {
               background: '#1a1a2e',
               border: '2px solid rgba(250,204,21,0.4)',
               borderRadius: '16px',
-              padding: '40px 48px',
+              padding: '32px 36px',
               textAlign: 'center',
               boxShadow: '0 0 60px rgba(250,204,21,0.15)',
+              maxWidth: '340px',
+              width: '100%',
             }}
           >
             <div style={{ fontSize: '72px', lineHeight: 1, marginBottom: '12px' }}>{unlockedEmoji}</div>
-            <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '28px', fontWeight: 700, color: '#facc15', letterSpacing: '0.05em', marginBottom: '8px' }}>
+            <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '26px', fontWeight: 700, color: '#facc15', letterSpacing: '0.05em', marginBottom: '6px' }}>
               UNLOCKED!
             </div>
-            <div style={{ fontSize: '16px', color: '#fff', fontWeight: 600 }}>{unlockedPopup}</div>
+            <div style={{ fontSize: '16px', color: '#fff', fontWeight: 600, marginBottom: '6px' }}>{unlockedPopup}</div>
+            <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.55)', marginBottom: '24px', lineHeight: 1.5 }}>{unlockedDesc}</div>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => setUnlockedPopup(null)}
+                style={{
+                  padding: '9px 18px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  background: 'rgba(255,255,255,0.1)',
+                  color: '#fff',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'background 0.15s',
+                }}
+              >
+                继续点击 →
+              </button>
+              <Link
+                href={`/characters/${unlockedSlug}`}
+                onClick={() => setUnlockedPopup(null)}
+                style={{
+                  padding: '9px 18px',
+                  borderRadius: '8px',
+                  background: '#facc15',
+                  color: '#000',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                }}
+              >
+                查看角色详情 →
+              </Link>
+            </div>
           </div>
         </div>
       )}

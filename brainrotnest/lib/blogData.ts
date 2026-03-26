@@ -1344,6 +1344,233 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+
+  // ─── Article 11 ─────────────────────────────────────────────────────────────
+  {
+    slug: "new-italian-brainrot-characters-2026",
+    title: "New Italian Brainrot Characters 2026 — Full Updated List",
+    description:
+      "Complete list of all new Italian Brainrot characters in 2026. Boneca Ambalabu, Burbaloni Luliloli, Glorbo Fruttodrillo and more — updated regularly.",
+    publishDate: "2026-03-26",
+    readingTime: "5 min read",
+    emoji: "🆕",
+    tags: ["Characters", "List", "2026"],
+    metaTitle: "New Italian Brainrot Characters 2026 — Full Updated List",
+    metaDescription:
+      "Complete list of all new Italian Brainrot characters in 2026. Boneca Ambalabu, Burbaloni Luliloli, Glorbo Fruttodrillo and more — updated regularly.",
+    content: [
+      {
+        type: "h2",
+        text: "New Italian Brainrot Characters 2026",
+      },
+      {
+        type: "p",
+        text: "The Italian Brainrot universe keeps expanding. This page tracks every new character that went viral in 2026.",
+      },
+      {
+        type: "h2",
+        text: "Newly Added Characters",
+      },
+      {
+        type: "h3",
+        text: "Boneca Ambalabu",
+      },
+      {
+        type: "p",
+        text: "A doll-like creature from Indonesian internet culture. Known for its unsettling stillness and surprisingly high power level. Often depicted sitting cross-legged and staring directly at you.",
+      },
+      {
+        type: "h3",
+        text: "Burbaloni Luliloli",
+      },
+      {
+        type: "p",
+        text: "A coconut-capybara hybrid that supposedly glows in the dark. The lore claims it only appears at midnight. Nobody has proven this false.",
+      },
+      {
+        type: "h3",
+        text: "Glorbo Fruttodrillo",
+      },
+      {
+        type: "p",
+        text: "Part fruit, part crocodile. Glorbo Fruttodrillo is the chaotic result of Italian Brainrot reaching its logical extreme — a creature that should not exist but absolutely does.",
+      },
+      {
+        type: "h3",
+        text: "Bananita Dolphina",
+      },
+      {
+        type: "p",
+        text: "A banana-dolphin fusion with an inexplicable cheerfulness. Considered one of the friendliest characters in the Italian Brainrot universe despite having no discernible reason to exist.",
+      },
+      {
+        type: "h3",
+        text: "Giraffa Celeste",
+      },
+      {
+        type: "p",
+        text: "A celestial giraffe. Floats. Nobody knows why. The lore simply states 'she floats' and the community has accepted this.",
+      },
+      {
+        type: "h3",
+        text: "Zibra Zubra Zibralini",
+      },
+      {
+        type: "p",
+        text: "A zebra variant with extra syllables and extra chaos. Zibra Zubra Zibralini has no confirmed abilities, but the community agrees they are formidable.",
+      },
+      {
+        type: "h2",
+        text: "How Often Do New Characters Appear?",
+      },
+      {
+        type: "p",
+        text: "New Italian Brainrot characters emerge almost weekly on TikTok and YouTube. The most viral ones get documented here within days of going mainstream.",
+      },
+      {
+        type: "h2",
+        text: "Where Do New Characters Come From?",
+      },
+      {
+        type: "p",
+        text: "Most Italian Brainrot characters originate from AI-generated video content posted on TikTok and YouTube Shorts. Creators use text-to-speech with Italian accents, AI-generated imagery, and absurdist naming conventions to introduce new characters. The ones that resonate get remixed, fan-theorized, and eventually canonized by the community.",
+      },
+      {
+        type: "ul",
+        linkItems: [
+          { text: "See all characters →", href: "/characters" },
+          { text: "Take the Brainrot Quiz →", href: "/quiz/brainrot-quiz" },
+        ],
+      },
+      {
+        type: "faq",
+        faqs: [
+          {
+            q: "How many new Italian Brainrot characters are there in 2026?",
+            a: "Multiple new Italian Brainrot characters have emerged in 2026. The most notable include Boneca Ambalabu, Burbaloni Luliloli, and Glorbo Fruttodrillo — each gaining significant traction on TikTok and YouTube. BrainrotNest documents the most established characters with complete lore pages.",
+          },
+          {
+            q: "What is Boneca Ambalabu?",
+            a: "Boneca Ambalabu is a new Italian Brainrot character from Indonesian internet culture — a doll-like creature known for unsettling stillness and a surprisingly high power level in the Brainrot hierarchy. It typically appears sitting cross-legged, staring directly at the viewer.",
+          },
+          {
+            q: "Are the new 2026 characters canon?",
+            a: "Italian Brainrot has no central canon authority — characters become 'real' when the community adopts and remixes them. The characters listed here have achieved meaningful community traction in 2026 and are considered part of the expanding Brainrot universe.",
+          },
+        ],
+      },
+    ],
+  },
+
+  // ─── Article 12 ─────────────────────────────────────────────────────────────
+  {
+    slug: "italian-brainrot-copypasta-full-list",
+    title: "Italian Brainrot Copypasta — Complete List 2026",
+    description:
+      "All Italian Brainrot copypasta texts collected in one place. Bombardiro Crocodilo, Tralalero Tralala, Tung Tung Sahur and more. Copy and paste ready.",
+    publishDate: "2026-03-26",
+    readingTime: "4 min read",
+    emoji: "📋",
+    tags: ["Copypasta", "Memes", "List"],
+    metaTitle: "Italian Brainrot Copypasta — Complete List 2026",
+    metaDescription:
+      "All Italian Brainrot copypasta texts in one place. Bombardiro Crocodilo, Tralalero Tralala, Tung Tung Sahur and more. Copy and paste ready.",
+    content: [
+      {
+        type: "h2",
+        text: "Italian Brainrot Copypasta — Complete List 2026",
+      },
+      {
+        type: "p",
+        text: "The definitive collection of Italian Brainrot copypastas. Copy, paste, send, repeat.",
+      },
+      {
+        type: "h2",
+        text: "What Is Italian Brainrot Copypasta?",
+      },
+      {
+        type: "p",
+        text: "Italian Brainrot copypasta is text copied from — or written in the style of — the absurdist AI-narrated descriptions that accompany each Italian Brainrot character. The originals are typically narrated by an Italian text-to-speech voice over AI-generated imagery, featuring rhyming, nonsensical statements about the character's abilities or habits.",
+      },
+      {
+        type: "h2",
+        text: "Bombardiro Crocodilo",
+      },
+      {
+        type: "p",
+        text: "Bombardiro Crocodilo, vola nel cielo con grande stile. Non ha paura di niente — è un coccodrillo con le ali. BOMBARDIRO!!! The OG copypasta. Used in comments, Discord servers, and group chats worldwide. Often deployed without context.",
+      },
+      {
+        type: "h2",
+        text: "Tralalero Tralala",
+      },
+      {
+        type: "p",
+        text: "Tralalero Tralala, porta le scarpe di Nike. Non sa perché — ma le porta comunque. Tralalero Tralala. The shark in Nike shoes. The copypasta form is used whenever someone does something inexplicably but confidently.",
+      },
+      {
+        type: "h2",
+        text: "Tung Tung Sahur",
+      },
+      {
+        type: "p",
+        text: "Tung tung tung tung tung tung sahur. Basta. Questo è tutto. Tung. Minimalist. Powerful. The repetition is the point.",
+      },
+      {
+        type: "h2",
+        text: "Cappuccino Assassino",
+      },
+      {
+        type: "p",
+        text: "Cappuccino Assassino beve il suo caffè in silenzio. Non dice niente. Non deve dire niente. Poi sparisce. Used to describe anyone who acts calm before doing something devastating.",
+      },
+      {
+        type: "h2",
+        text: "How to Use Brainrot Copypasta",
+      },
+      {
+        type: "ul",
+        items: [
+          "Discord: Drop in any conversation that needs derailing",
+          "TikTok comments: Under any video that has Italian Brainrot energy",
+          "Group chats: No context required. Context is the enemy.",
+          "Twitter/X: As a reply. Always as a reply.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Create Your Own",
+      },
+      {
+        type: "p",
+        text: "Italian Brainrot copypasta follows a loose formula: state the character name twice, describe one specific very specific behavior, add one non-sequitur, repeat the name.",
+      },
+      {
+        type: "ul",
+        linkItems: [
+          { text: "Find out which character you are →", href: "/quiz/brainrot-quiz" },
+          { text: "Read full character lore →", href: "/characters" },
+        ],
+      },
+      {
+        type: "faq",
+        faqs: [
+          {
+            q: "What is Italian Brainrot copypasta?",
+            a: "Italian Brainrot copypasta is text written in the style of the absurdist AI-narrated character descriptions from Italian Brainrot videos — typically featuring character names repeated, nonsensical Italian-style statements, and a signature action or trait. Copypastas are shared across Discord, TikTok comments, Twitter, and group chats, usually without any context.",
+          },
+          {
+            q: "What is the most famous Italian Brainrot copypasta?",
+            a: "The Bombardiro Crocodilo copypasta is the most widely shared, derived from the original character's description. 'Bombardiro Crocodilo, vola nel cielo con grande stile' has spread across comment sections worldwide. The Tung Tung Sahur minimal format — repeating 'tung tung' — is a close second for sheer virality.",
+          },
+          {
+            q: "How do you make an Italian Brainrot copypasta?",
+            a: "Follow the formula: repeat the character name, state one specific behavior, add one non-sequitur fact, and end with the name again. The more specific and absurd the behavior, the better. Italian-sounding words score bonus points even if they're invented.",
+          },
+        ],
+      },
+    ],
+  },
 ]
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
