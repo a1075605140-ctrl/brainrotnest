@@ -134,12 +134,12 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
       {/* ── Hero ── */}
-      <section className="relative flex flex-col items-center justify-center text-center px-4 py-24 sm:py-32 overflow-hidden">
+      <section className="relative flex flex-col items-center justify-center text-center px-4 py-20 sm:py-28 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,107,0.12) 0%, transparent 70%)",
+              "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,107,0.15) 0%, transparent 70%)",
           }}
         />
 
@@ -155,29 +155,54 @@ export default function HomePage() {
         </span>
 
         <h1
-          className="text-5xl sm:text-6xl md:text-7xl leading-tight mb-6"
+          className="text-5xl sm:text-6xl md:text-7xl leading-tight mb-4"
           style={{ fontFamily: "var(--font-fredoka), cursive" }}
         >
-          The Ultimate{" "}
-          <span style={{ color: "var(--color-accent-green)" }}>Brainrot</span>{" "}
-          <span style={{ color: "var(--color-accent-yellow)" }}>Wiki</span>
+          The #1{" "}
+          <span style={{ color: "var(--color-accent-red)" }}>Italian Brainrot</span>{" "}
+          <span style={{ color: "var(--color-accent-yellow)" }}>Hub</span>{" "}
+          🧠
         </h1>
 
         <p
-          className="max-w-xl text-lg sm:text-xl mb-10"
+          className="max-w-xl text-lg sm:text-xl mb-6"
           style={{ color: "var(--color-text-muted)" }}
         >
-          Your definitive guide to every Italian Brainrot character — complete
-          with quizzes, games, lore, and pure unfiltered chaos.
+          Quizzes · Characters · Free Games — All in one place
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link href="/quiz" className="btn-primary px-8 py-3.5 rounded-xl font-bold text-base">
-            Take the Quiz
+        {/* Trust stats */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-10 text-sm font-semibold">
+          <span style={{ color: "var(--color-text-muted)" }}>15 Characters</span>
+          <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
+          <span style={{ color: "var(--color-text-muted)" }}>8 Games</span>
+          <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
+          <span style={{ color: "var(--color-text-muted)" }}>3 Quizzes</span>
+          <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
+          <span style={{ color: "var(--color-accent-green)", fontWeight: 700 }}>100% Free</span>
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+          <Link
+            href="/games/brainrot-clicker"
+            className="inline-flex items-center gap-2 px-10 py-4 rounded-xl font-bold text-lg btn-cta-game"
+          >
+            🎮 Play Brainrot Clicker
           </Link>
-          <Link href="/characters" className="btn-outline px-8 py-3.5 rounded-xl font-bold text-base">
-            Meet the Characters
+          <Link
+            href="/quiz/brainrot-quiz"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base btn-cta-quiz"
+          >
+            🧠 Which Character Are You?
           </Link>
+        </div>
+
+        {/* Animated character emojis */}
+        <div className="flex items-end justify-center gap-10" aria-hidden="true">
+          <span className="text-5xl animate-float" style={{ animationDelay: "0s" }}>🐊</span>
+          <span className="text-6xl animate-float" style={{ animationDelay: "0.5s" }}>🥁</span>
+          <span className="text-5xl animate-float" style={{ animationDelay: "1s" }}>🩰</span>
         </div>
       </section>
 
