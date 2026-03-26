@@ -4,6 +4,7 @@ const mainLinks = [
   { href: "/quiz", label: "Quiz" },
   { href: "/characters", label: "Characters" },
   { href: "/games", label: "Games" },
+  { href: "/italian-brainrot-name-generator", label: "Name Generator" },
   { href: "/blog", label: "Blog" },
 ];
 
