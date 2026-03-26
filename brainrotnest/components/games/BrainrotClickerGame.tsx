@@ -280,127 +280,220 @@ export default function BrainrotClickerGame() {
   }, [pointsPerSecond, sfx])
 
   return (
-    <div ref={gameRef} style={{ background: '#0e0e1a', minHeight: '700px', color: '#fff', position: 'relative', borderRadius: '12px', overflow: 'hidden' }}>
-      {/* Score Header */}
-      <div style={{ position: 'relative', textAlign: 'center', padding: '20px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-        <div style={{ position: 'absolute', top: '12px', right: '14px', display: 'flex', gap: '6px', alignItems: 'center' }}>
-          <button
-            onClick={() => setSoundEnabled(prev => !prev)}
-            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', padding: '4px 8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
-          >
-            {soundEnabled ? '🔊' : '🔇'}
-          </button>
-          <button
-            onClick={() => {
-              if (confirm('Are you sure? This will reset all progress!')) {
-                localStorage.removeItem('brainrot-clicker-save')
-                window.location.reload()
-              }
-            }}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              fontSize: '11px',
-              color: 'rgba(255,255,255,0.3)',
-              padding: '4px 8px',
-              borderRadius: '4px',
-              transition: 'color 0.15s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,100,100,0.7)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
-          >
-            Reset Game
-          </button>
-        </div>
-        <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '48px', fontWeight: 700, lineHeight: 1, color: '#fff' }}>
-          {formatNumber(points)}
-        </div>
-        <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>
-          Brainrot Points
-        </div>
-        <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginTop: '4px' }}>
-          {pointsPerClick}/click · {pointsPerSecond}/sec
-        </div>
-      </div>
+    <div ref={gameRef} style={{ background: '#0e0e1a', height: '100%', color: '#fff', position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <style>{`
+        .clicker-layout {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          overflow: hidden;
+          min-height: 0;
+        }
+        .clicker-left {
+          width: 25%;
+          min-width: 190px;
+          border-right: 1px solid rgba(255,255,255,0.08);
+          overflow-y: auto;
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+        .clicker-center {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 16px;
+          border-right: 1px solid rgba(255,255,255,0.08);
+          overflow: hidden;
+          min-width: 0;
+        }
+        .clicker-right {
+          width: 25%;
+          min-width: 210px;
+          overflow-y: auto;
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+        .upgrade-btn:hover:not(:disabled) { opacity: 0.85; }
+        .upgrade-btn:active:not(:disabled) { transform: scale(0.97); }
+        .char-row { transition: background 0.15s; }
+        .char-row:hover { background: rgba(255,255,255,0.04) !important; }
+        @keyframes floatUp {
+          0% { opacity: 1; transform: translateY(0) scale(1); }
+          100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
+        }
+        /* Mobile layout */
+        @media (max-width: 767px) {
+          .clicker-layout { flex-direction: column; }
+          .clicker-left {
+            width: 100%;
+            min-width: unset;
+            border-right: none;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 10px 16px;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+            overflow-y: visible;
+            flex-shrink: 0;
+          }
+          .clicker-left .char-list-section { display: none; }
+          .clicker-left .score-controls { flex-direction: row; }
+          .clicker-center {
+            flex: 1;
+            border-right: none;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            min-height: 0;
+            padding: 12px;
+          }
+          .clicker-right {
+            width: 100%;
+            min-width: unset;
+            height: 34%;
+            flex-shrink: 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 10px 16px;
+          }
+          .upgrades-list {
+            display: flex !important;
+            flex-direction: row !important;
+            width: max-content;
+            gap: 8px;
+            height: 100%;
+          }
+          .upgrade-card {
+            width: 155px;
+            flex-shrink: 0;
+            height: fit-content;
+          }
+          .upgrade-tabs { flex-shrink: 0; }
+        }
+      `}</style>
 
-      {/* Main 3-column layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '0' }} className="game-grid">
-        <style>{`
-          @media (min-width: 1024px) {
-            .game-grid { grid-template-columns: 220px 1fr 260px !important; }
-          }
-          @media (min-width: 768px) and (max-width: 1023px) {
-            .game-grid { grid-template-columns: 1fr 1fr !important; }
-          }
-          .upgrade-btn:hover:not(:disabled) { opacity: 0.85; }
-          .upgrade-btn:active:not(:disabled) { transform: scale(0.97); }
-          .char-row { transition: background 0.15s; }
-          .char-row:hover { background: rgba(255,255,255,0.04) !important; }
-          @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
-          }
-        `}</style>
-
-        {/* Left: Character List */}
-        <div style={{ borderRight: '1px solid rgba(255,255,255,0.08)', padding: '16px' }}>
-          <div style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Characters ({unlockedCount}/{CHARACTERS.length})
+      <div className="clicker-layout">
+        {/* LEFT: Score + Character List */}
+        <div className="clicker-left">
+          {/* Score */}
+          <div style={{ flexShrink: 0 }}>
+            <div style={{
+              fontFamily: 'var(--font-fredoka), Fredoka One, cursive',
+              fontSize: '40px',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              color: '#fff',
+            }}>
+              {formatNumber(points)}
+            </div>
+            <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.45)', marginTop: '2px' }}>
+              Brainrot Points
+            </div>
+            <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '6px' }}>
+              👆 <strong style={{ color: '#facc15' }}>{pointsPerClick}</strong>/click
+            </div>
+            <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>
+              ⚡ <strong style={{ color: '#4ade80' }}>{pointsPerSecond}</strong>/sec
+            </div>
+            <div className="score-controls" style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => setSoundEnabled(prev => !prev)}
+                style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', padding: '4px 8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}
+              >
+                {soundEnabled ? '🔊' : '🔇'}
+              </button>
+              <button
+                onClick={() => {
+                  if (confirm('Are you sure? This will reset all progress!')) {
+                    localStorage.removeItem('brainrot-clicker-save')
+                    window.location.reload()
+                  }
+                }}
+                style={{
+                  background: 'none',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  cursor: 'pointer',
+                  fontSize: '11px',
+                  color: 'rgba(255,255,255,0.3)',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  transition: 'color 0.15s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,100,100,0.7)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+              >
+                Reset
+              </button>
+            </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {CHARACTERS.map(char => {
-              const isUnlocked = totalPoints >= char.unlockAt
-              const isCurrent = char.id === currentCharacter.id
-              return (
-                <div
-                  key={char.id}
-                  className="char-row"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '8px 10px',
-                    borderRadius: '8px',
-                    border: isCurrent ? '1px solid rgba(250,204,21,0.5)' : '1px solid transparent',
-                    background: isCurrent ? 'rgba(250,204,21,0.05)' : 'transparent',
-                    opacity: isUnlocked ? 1 : 0.4,
-                  }}
-                >
-                  <span style={{ fontSize: '22px', flexShrink: 0 }}>
-                    {isUnlocked ? char.emoji : '🔒'}
-                  </span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    {isUnlocked ? (
-                      <>
-                        <div style={{ fontSize: '12px', fontWeight: 600, color: isCurrent ? '#facc15' : '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+
+          {/* Character list */}
+          <div className="char-list-section" style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.4)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Characters ({unlockedCount}/{CHARACTERS.length})
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+              {CHARACTERS.map(char => {
+                const isUnlocked = totalPoints >= char.unlockAt
+                const isCurrent = char.id === currentCharacter.id
+                return (
+                  <div
+                    key={char.id}
+                    className="char-row"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      padding: '6px 8px',
+                      borderRadius: '8px',
+                      border: isCurrent ? '1px solid rgba(250,204,21,0.5)' : '1px solid transparent',
+                      background: isCurrent ? 'rgba(250,204,21,0.05)' : 'transparent',
+                      opacity: isUnlocked ? 1 : 0.35,
+                    }}
+                  >
+                    <span style={{ fontSize: '18px', flexShrink: 0 }}>
+                      {isUnlocked ? char.emoji : '🔒'}
+                    </span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      {isUnlocked ? (
+                        <div style={{ fontSize: '11px', fontWeight: 600, color: isCurrent ? '#facc15' : '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {char.name}
                         </div>
-                        <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {char.description}
+                      ) : (
+                        <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)' }}>
+                          {formatNumber(char.unlockAt)} pts
                         </div>
-                      </>
-                    ) : (
-                      <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)' }}>
-                        Unlock at {formatNumber(char.unlockAt)} pts
-                      </div>
-                    )}
+                      )}
+                    </div>
+                    {isCurrent && <span style={{ fontSize: '10px', color: '#facc15', flexShrink: 0 }}>▶</span>}
+                    {isUnlocked && !isCurrent && <span style={{ fontSize: '10px', color: '#4ade80', flexShrink: 0 }}>✓</span>}
                   </div>
-                  {isUnlocked && (
-                    <span style={{ fontSize: '12px', color: '#4ade80', flexShrink: 0 }}>✓</span>
-                  )}
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Center: Click Area */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 20px', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '22px', fontWeight: 700, color: '#facc15', marginBottom: '8px', textAlign: 'center' }}>
+        {/* CENTER: Click Area */}
+        <div className="clicker-center">
+          <div style={{
+            fontFamily: 'var(--font-fredoka), Fredoka One, cursive',
+            fontSize: '20px',
+            fontWeight: 700,
+            color: '#facc15',
+            marginBottom: '4px',
+            textAlign: 'center',
+          }}>
             {currentCharacter.name}
           </div>
-          <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '12px', textAlign: 'center' }}>
             {currentCharacter.description}
           </div>
 
@@ -412,13 +505,14 @@ export default function BrainrotClickerGame() {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              fontSize: '120px',
+              fontSize: 'clamp(90px, 12vw, 160px)',
               lineHeight: 1,
               transform: isClicking ? 'scale(1.15)' : 'scale(1)',
               transition: 'transform 0.1s ease',
               userSelect: 'none',
               padding: '8px',
               borderRadius: '50%',
+              flexShrink: 0,
             }}
             aria-label={`Click ${currentCharacter.name}`}
           >
@@ -432,7 +526,7 @@ export default function BrainrotClickerGame() {
                   top: effect.y,
                   color: '#facc15',
                   fontFamily: 'var(--font-fredoka), Fredoka One, cursive',
-                  fontSize: '20px',
+                  fontSize: '22px',
                   fontWeight: 700,
                   pointerEvents: 'none',
                   animation: 'floatUp 0.8s ease-out forwards',
@@ -446,19 +540,19 @@ export default function BrainrotClickerGame() {
           </button>
 
           {/* Progress to next character */}
-          <div style={{ width: '100%', maxWidth: '280px', marginTop: '28px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+          <div style={{ width: '100%', maxWidth: '260px', marginTop: '20px', flexShrink: 0 }}>
+            <div style={{ marginBottom: '6px' }}>
+              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>
                 {nextCharacter ? `Next: ${nextCharacter.emoji} ${nextCharacter.name}` : 'MAX LEVEL! 🎉'}
               </span>
             </div>
-            <div style={{ height: '8px', background: 'rgba(255,255,255,0.08)', borderRadius: '4px', overflow: 'hidden' }}>
+            <div style={{ height: '6px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px', overflow: 'hidden' }}>
               <div
                 className={progressToNext > 90 ? 'progress-bar-shine' : ''}
                 style={{
                   height: '100%',
                   background: 'linear-gradient(90deg, #4ade80, #22d3ee)',
-                  borderRadius: '4px',
+                  borderRadius: '3px',
                   width: `${progressToNext}%`,
                   transition: 'width 0.3s ease',
                 }}
@@ -466,16 +560,16 @@ export default function BrainrotClickerGame() {
             </div>
             {nextCharacter && (
               <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', marginTop: '4px', textAlign: 'right' }}>
-                {formatNumber(nextCharacter.unlockAt - totalPoints)} points to go
+                {formatNumber(nextCharacter.unlockAt - totalPoints)} pts to go
               </div>
             )}
           </div>
         </div>
 
-        {/* Right: Upgrades Panel */}
-        <div style={{ padding: '16px' }}>
+        {/* RIGHT: Upgrades Panel */}
+        <div className="clicker-right">
           {/* Tabs */}
-          <div style={{ display: 'flex', gap: '4px', marginBottom: '14px' }}>
+          <div className="upgrade-tabs" style={{ display: 'flex', gap: '4px', marginBottom: '12px', flexShrink: 0 }}>
             {(['click', 'passive'] as const).map(tab => (
               <button
                 key={tab}
@@ -499,13 +593,14 @@ export default function BrainrotClickerGame() {
           </div>
 
           {/* Upgrade List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <div className="upgrades-list" style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
             {(activeTab === 'click' ? clickUpgrades : passiveUpgrades).map(upgrade => {
               const cost = getUpgradeCost(upgrade)
               const canAfford = points >= cost
               return (
                 <div
                   key={upgrade.id}
+                  className="upgrade-card"
                   style={{
                     display: 'flex',
                     alignItems: 'center',

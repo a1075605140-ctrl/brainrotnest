@@ -23,48 +23,48 @@ const jsonLd = {
 
 export default function BrainrotClickerPage() {
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 16px 48px' }}>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Breadcrumb */}
-      <nav style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-        <Link href="/" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Home</Link>
-        <span>›</span>
-        <Link href="/games" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Games</Link>
-        <span>›</span>
-        <span style={{ color: 'rgba(255,255,255,0.7)' }}>Brainrot Clicker</span>
-      </nav>
-
-      {/* Title Row */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-        <h1 style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '32px', fontWeight: 700, color: '#fff', margin: 0 }}>
-          🎮 Brainrot Clicker
-        </h1>
-        <span style={{
-          background: 'rgba(74,222,128,0.15)',
-          border: '1px solid rgba(74,222,128,0.3)',
-          color: '#4ade80',
-          borderRadius: '20px',
-          padding: '3px 12px',
-          fontSize: '12px',
-          fontWeight: 600,
-          letterSpacing: '0.03em',
-        }}>
-          Original Game
-        </span>
-      </div>
-
-      <AdPlaceholder size="banner" />
-
-      {/* Game Component */}
-      <div style={{ width: '100%', minHeight: '700px', margin: '20px 0' }}>
+      {/* Full-viewport game area — no scroll needed */}
+      <div style={{ height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
         <BrainrotClickerGame />
       </div>
 
-      <AdPlaceholder size="banner" />
+      {/* SEO content — scroll down to read */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 16px 48px' }}>
+        {/* Breadcrumb */}
+        <nav style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <Link href="/" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Home</Link>
+          <span>›</span>
+          <Link href="/games" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Games</Link>
+          <span>›</span>
+          <span style={{ color: 'rgba(255,255,255,0.7)' }}>Brainrot Clicker</span>
+        </nav>
+
+        {/* Title Row */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+          <h1 style={{ fontFamily: 'var(--font-fredoka), Fredoka One, cursive', fontSize: '32px', fontWeight: 700, color: '#fff', margin: 0 }}>
+            🎮 Brainrot Clicker
+          </h1>
+          <span style={{
+            background: 'rgba(74,222,128,0.15)',
+            border: '1px solid rgba(74,222,128,0.3)',
+            color: '#4ade80',
+            borderRadius: '20px',
+            padding: '3px 12px',
+            fontSize: '12px',
+            fontWeight: 600,
+            letterSpacing: '0.03em',
+          }}>
+            Original Game
+          </span>
+        </div>
+
+        <AdPlaceholder size="banner" />
 
       {/* About Section */}
       <section style={{ marginTop: '40px' }}>
@@ -139,6 +139,7 @@ export default function BrainrotClickerPage() {
           → Take the Brainrot Quiz
         </Link>
       </section>
-    </div>
+      </div>
+    </>
   )
 }
