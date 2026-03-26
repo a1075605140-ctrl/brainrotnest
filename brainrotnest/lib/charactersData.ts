@@ -269,6 +269,108 @@ export const characters: Character[] = [
     metaDescription:
       "Cocofanto Elefanto is the time-stopping elephant-coconut of Italian Brainrot. He freezes time, wears sandals, and answers to no one. Full lore, abilities, and origin.",
   },
+  {
+    slug: "boneca-ambalabu",
+    name: "Boneca Ambalabu",
+    emoji: "🪆",
+    tagline: "Sits still. Watches everything.",
+    description:
+      "Boneca Ambalabu is the most unsettling presence to emerge from the Indonesian internet in recent memory, which is saying something given the neighborhood. A doll-like creature of indeterminate origin, Boneca sits cross-legged with the stillness of an object that has decided, on its own terms, to become something far more than an object. Its eyes are always open. They are always facing you. Distance does not change this.\n\nThe Brainrot Research Institute attempted to measure Boneca Ambalabu's power level and the equipment returned readings that the lead researcher described as \"impolite.\" What is understood is that the stillness itself is the weapon. Boneca does not need to move to win an encounter — the psychological weight of its unblinking attention has caused veteran Brainrot fighters to simply sit down and reconsider their priorities. This has been classified as a win condition.\n\nDo not make eye contact with Boneca Ambalabu. This advice appears in three separate Brainrot survival guides and is the only piece of advice that appears in all three. Nobody who has made eye contact has reported feeling fine afterward. Several have reported feeling \"watched\" in environments where being watched is physically impossible, such as the inside of a locked refrigerator. Boneca Ambalabu is not in the refrigerator. As far as anyone can confirm.",
+    origin:
+      "Boneca Ambalabu emerged from Indonesian TikTok in early 2025 as part of the Indonesian Brainrot wave that also produced Tung Tung Sahur. Where Tung Tung arrived with drums and noise, Boneca arrived in total silence — a doll-like figure that became viral precisely because it did nothing. The community immediately recognized that doing nothing, in the right way, is somehow more threatening than anything else. Within weeks, Boneca had been canonized as one of the highest power levels in the extended Brainrot universe.",
+    personality: ["Mysterious", "Silent", "Unsettling"],
+    abilities: ["Psychological warfare", "Motionless intimidation"],
+    catchphrase: "...",
+    relatedCharacters: ["tung-tung-sahur", "brr-brr-patapim", "cappuccino-assassino"],
+    metaTitle: "Boneca Ambalabu — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Boneca Ambalabu is the unsettling doll-creature of Indonesian Brainrot. Sits still, watches everything, and has an alarmingly high power level. Do not make eye contact.",
+  },
+  {
+    slug: "burbaloni-luliloli",
+    name: "Burbaloni Luliloli",
+    emoji: "🥥",
+    tagline: "Glows at midnight. Nobody asked why.",
+    description:
+      "Burbaloni Luliloli is a coconut-capybara hybrid that, according to established Brainrot lore, glows in the dark — specifically at midnight, and specifically only at midnight. The community has never verified this through direct observation because nobody wants to be outdoors alone at midnight waiting to see if a coconut capybara lights up, and yet nobody has proven it false either. The lore simply states it. Everyone has accepted this. Moving on.\n\nThe glow itself is described in community documentation as a \"passive aura\" — not a weapon, not a signal, just a gentle luminescence that emanates from Burbaloni without apparent purpose or destination. Scientists in the Brainrot Research Institute have listed it as their lowest-priority investigation, which says less about Burbaloni and more about what the higher-priority investigations involve. The Midnight Summoning ability is better understood: call the name three times after midnight, and Burbaloni will appear. Whether you want this is a separate question the lore does not address.\n\nDespite the mysterious glow and the witching-hour availability, Burbaloni Luliloli carries an energy that the community describes as \"oddly chill.\" There is no aggression, no documented combat history, no incident reports. Just a glowing coconut capybara, available after midnight, asking nothing of you. In the context of the Brainrot universe, this is either deeply reassuring or the most suspicious thing anyone has ever heard.",
+    origin:
+      "Burbaloni Luliloli originated in the Italian Brainrot community in 2025 as part of the second wave of characters that leaned into ambient mystery rather than chaos. Italian creators wanted a character with lore that raised more questions than it answered — a creature whose defining feature was something nobody could prove or disprove. The glowing at midnight concept was chosen specifically because it is both verifiable and practically unverifiable. The community found this philosophically interesting and immediately adopted Burbaloni as canon.",
+    personality: ["Legendary", "Nocturnal", "Glowing"],
+    abilities: ["Passive glow aura", "Midnight summoning"],
+    catchphrase: "Burbaloni... luliloli~",
+    relatedCharacters: ["cocofanto-elefanto", "lirili-larila", "frigo-camello"],
+    metaTitle: "Burbaloni Luliloli — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Burbaloni Luliloli is the glowing coconut-capybara of Italian Brainrot. Glows at midnight. Nobody asked why. Full lore, abilities, and origin story.",
+  },
+  {
+    slug: "glorbo-fruttodrillo",
+    name: "Glorbo Fruttodrillo",
+    emoji: "🍊",
+    tagline: "Part fruit. Part crocodile. Fully unhinged.",
+    description:
+      "Glorbo Fruttodrillo is the point at which Italian Brainrot looked at Bombardiro Crocodilo and thought: what if the crocodile were also a citrus fruit? The scientific community has declined to comment on whether this is an improvement. It is, however, definitively more chaotic — a crocodile whose scales are apparently made of orange peel, whose breath is concentrated citric acid, and whose jaw strength has been measured at levels that structural engineers describe as \"a deliberate personal attack on load-bearing architecture.\"\n\nThe Fruit Acid Spray is Glorbo's signature ranged attack: a pressurized jet of citric acid delivered with the enthusiasm of someone who has just discovered that being both a crocodile and a fruit is actually quite advantageous in combat. The range is impressive. The cleanup is not. Victims describe the sensation as \"getting squirted by a lemon, but the lemon is also trying to eat you.\" The Crocodile Jaw Strength needs no elaboration beyond noting that it is, in fact, crocodile jaw strength, plus whatever structural reinforcement the citrus heritage provides.\n\nGlorbo Fruttodrillo doesn't have a strategy. Glorbo has a direction — usually forward — and everything that was in that direction has to figure out the rest on its own. Scientists declined to comment on Glorbo specifically because the three researchers assigned to the study kept getting sprayed with acid before they could complete their notes. The files are archived under \"fruit-related incidents\" and have not been reopened.",
+    origin:
+      "Glorbo Fruttodrillo emerged from the Italian Brainrot meme community in 2025 as a direct extension of Bombardiro Crocodilo's legacy into the fruit-hybrid subgenre. After the success of Frulli Frulla and Chimpanzini Bananini, creators began exploring what crocodile-fruit combinations might look like. The answer was Glorbo: a character that combined the physical menace of a crocodile with the acidity of citrus fruit and the chaotic energy of someone who sees no contradiction in being both simultaneously.",
+    personality: ["Chaotic", "Hybrid", "Powerful"],
+    abilities: ["Fruit acid spray", "Crocodile jaw strength"],
+    catchphrase: "GLORBO!",
+    relatedCharacters: ["bombardiro-crocodilo", "frulli-frulla", "chimpanzini-bananini"],
+    metaTitle: "Glorbo Fruttodrillo — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Glorbo Fruttodrillo is the fruit-crocodile hybrid of Italian Brainrot. Part orange, part apex predator, fully chaotic. Full lore, abilities, and origin story.",
+  },
+  {
+    slug: "bananita-dolphina",
+    name: "Bananita Dolphina",
+    emoji: "🍌",
+    tagline: "Cheerful. Aquatic. Inexplicable.",
+    description:
+      "Bananita Dolphina is a banana-dolphin fusion with an unwavering cheerfulness that the Brainrot Research Institute has classified as \"structurally inexplicable.\" There is no documented reason for this cheerfulness. The fusion itself should not produce a happy creature — a banana has no nervous system and a dolphin, while intelligent, is at best cautiously optimistic. And yet Bananita exists in a state of pure, uncomplicated joy that has proven completely immune to all known sources of Brainrot distress.\n\nHer Sonar Waves operate at the intersection of dolphin echolocation and tropical energy frequencies, producing a pulse that is simultaneously a navigation tool and what acoustic engineers describe as \"the sound of a fruit being genuinely delighted about everything.\" The Tropical Energy Aura radiates outward in a constant state, brightening the mood of everyone in her vicinity without their consent — a phenomenon that the Brainrot community has debated extensively, ultimately concluding that they are fine with it.\n\nBananita Dolphina holds a unique position in the Italian Brainrot universe: she is the character most often cited as having no discernible reason to exist, and simultaneously one of the most beloved. This paradox does not bother her. Nothing bothers her. She is a banana dolphin and she is having a wonderful time, and the community has decided that this is enough. The universe is better for containing something that simply exists happily and asks no further questions of itself.",
+    origin:
+      "Bananita Dolphina emerged from the Italian Brainrot community in 2025 as a deliberate counterpoint to the more aggressive characters in the roster. After extensive chaos from Bombardiro, Glorbo, and others, creators wanted a character whose entire identity was uncomplicated friendliness. The banana-dolphin concept was chosen because both components are conventionally cheerful — yellow, round, associated with positivity — and fusing them produced something that doubled down on those qualities without adding anything threatening. The community adopted her immediately as the universe's designated source of good vibes.",
+    personality: ["Friendly", "Aquatic", "Cheerful"],
+    abilities: ["Sonar waves", "Tropical energy aura"],
+    catchphrase: "Bananita~",
+    relatedCharacters: ["trippi-troppi", "chimpanzini-bananini", "lirili-larila"],
+    metaTitle: "Bananita Dolphina — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Bananita Dolphina is the cheerful banana-dolphin of Italian Brainrot. Friendly, aquatic, and completely inexplicable. Full lore, abilities, and origin story.",
+  },
+  {
+    slug: "giraffa-celeste",
+    name: "Giraffa Celeste",
+    emoji: "🦒",
+    tagline: "She floats. The lore simply says she floats.",
+    description:
+      "Giraffa Celeste is a celestial giraffe. She floats. This is the complete official lore, as written, as archived, as accepted. The Italian Brainrot community received these two words — \"she floats\" — and decided, collectively and without dissent, that this was sufficient. No follow-up questions were filed. No amendments have been proposed. The lore committee has not met since publishing this description, as there is nothing further to discuss.\n\nHer Levitation ability is self-evident and requires no elaboration beyond noting that it is permanent, altitude-adjustable, and has never been explained by any known physical mechanism. The Celestial Reach derives from her giraffe neck extended into the upper atmosphere, where she can touch things that other characters cannot reach and has occasionally done so for reasons the community can only speculate about. The Neck-Based Attacks are exactly what they sound like, delivered from a floating position at altitudes that give her a significant tactical advantage over anything that is obligated to remain on the ground.\n\nGiraffa Celeste occupies a specific emotional register in the Brainrot universe: she is the character that makes people feel, inexplicably, that everything is going to be fine. Not because she offers protection or power — her combat record is officially undocumented — but because the sight of a giraffe floating serenely through the sky, above all the chaos, not bothered by any of it, suggests that some things simply transcend the mayhem. She floats. That's enough.",
+    origin:
+      "Giraffa Celeste was created by the Italian Brainrot community in 2025 during a period when creators were experimenting with minimalist lore — characters defined by a single, inarguable fact rather than extensive backstory. The concept of a floating giraffe was proposed and immediately adopted because it required no additional explanation and somehow felt complete. The decision to write the official lore as simply \"she floats\" was deliberate, and the community's unquestioning acceptance of this became part of the character's identity.",
+    personality: ["Celestial", "Ethereal", "Tall"],
+    abilities: ["Levitation", "Celestial reach", "Neck-based attacks"],
+    catchphrase: "Giraffa... celeste...",
+    relatedCharacters: ["la-vaca-saturno-satalite", "ballerina-cappuccina", "lirili-larila"],
+    metaTitle: "Giraffa Celeste — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Giraffa Celeste is the floating celestial giraffe of Italian Brainrot. The lore says she floats. The community accepted this. Full lore, abilities, and origin story.",
+  },
+  {
+    slug: "zibra-zubra-zibralini",
+    name: "Zibra Zubra Zibralini",
+    emoji: "🦓",
+    tagline: "Extra syllables. Extra chaos.",
+    description:
+      "Zibra Zubra Zibralini is a zebra with extra syllables, extra everything, and no confirmed abilities on record — a combination that the Brainrot Research Institute has quietly assessed as more threatening than most characters with documented power sets. The reasoning is straightforward: unknown quantities in the Brainrot universe have historically proven far worse than expected. The community has reached the same conclusion independently and unanimously agrees that the absence of information about Zibra Zubra Zibralini is itself deeply concerning.\n\nThe stripes are the subject of ongoing theoretical debate. The leading hypothesis — Stripes-Based abilities — is classified, which either means the researchers know something or means there is nothing to know and they classified it anyway to feel better. Secondary hypotheses include the stripes functioning as a hypnotic pattern, a targeting system, a frequency modulator, or simply being stripes that are somehow more threatening than regular stripes. None of these hypotheses has been confirmed. None has been ruled out.\n\nWhat is known is this: Zibra Zubra Zibralini exists. It has three name segments where one would suffice. Its power level is unregistered. Every time a Brainrot character has been described as \"probably not that dangerous,\" subsequent events have proven that assessment wrong, and Zibra Zubra Zibralini has never even been assessed. The community has decided this is scarier than any power level that could have been assigned. The extra syllables do not help.",
+    origin:
+      "Zibra Zubra Zibralini emerged from the Italian Brainrot community in 2025 as an experiment in what happens when a character's name does more work than their lore. The triple-segment name — echoing the community's tradition of rhythmic, repetitive character names — was designed to feel maximalist and slightly unhinged. The decision to leave abilities classified was a deliberate creative choice: in a universe where every character has documented powers, the one with none on record becomes uniquely mysterious. The community embraced this immediately.",
+    personality: ["Chaotic", "Striped", "Unpredictable"],
+    abilities: ["Unknown", "Classified", "Possibly stripes-based"],
+    catchphrase: "ZIBRA ZUBRA ZIBRALINI!",
+    relatedCharacters: ["bombardiro-crocodilo", "bobrito-bandito", "glorbo-fruttodrillo"],
+    metaTitle: "Zibra Zubra Zibralini — Italian Brainrot Character Wiki",
+    metaDescription:
+      "Zibra Zubra Zibralini is the mysterious striped chaos-zebra of Italian Brainrot. No confirmed abilities. Somehow more threatening for it. Full lore and origin.",
+  },
 ]
 
 export function getCharacterBySlug(slug: string): Character | undefined {

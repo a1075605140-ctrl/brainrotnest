@@ -21,6 +21,12 @@ const CHARACTERS = [
   { id: 'bombombini', slug: 'bombombini-gusini', name: 'Bombombini Gusini', emoji: '🪿', unlockAt: 30000000, description: "Bombardiro's brother. Still explodes." },
   { id: 'frigo-camello', slug: 'frigo-camello', name: 'Frigo Camello', emoji: '🐪', unlockAt: 60000000, description: 'A fridge camel. Wandering. Feeling things.' },
   { id: 'cocofanto', slug: 'cocofanto-elefanto', name: 'Cocofanto Elefanto', emoji: '🐘', unlockAt: 100000000, description: 'Stops time. Wears sandals. Has no notes.' },
+  { id: 'boneca', slug: 'boneca-ambalabu', name: 'Boneca Ambalabu', emoji: '🪆', unlockAt: 150000000, description: 'Sits still. Watches everything.' },
+  { id: 'burbaloni', slug: 'burbaloni-luliloli', name: 'Burbaloni Luliloli', emoji: '🥥', unlockAt: 250000000, description: 'Glows at midnight. Nobody asked why.' },
+  { id: 'glorbo', slug: 'glorbo-fruttodrillo', name: 'Glorbo Fruttodrillo', emoji: '🍊', unlockAt: 400000000, description: 'Part fruit. Part crocodile. Fully unhinged.' },
+  { id: 'bananita', slug: 'bananita-dolphina', name: 'Bananita Dolphina', emoji: '🍌', unlockAt: 600000000, description: 'Cheerful. Aquatic. Inexplicable.' },
+  { id: 'giraffa', slug: 'giraffa-celeste', name: 'Giraffa Celeste', emoji: '🦒', unlockAt: 900000000, description: 'She floats. The lore simply says she floats.' },
+  { id: 'zibra', slug: 'zibra-zubra-zibralini', name: 'Zibra Zubra Zibralini', emoji: '🦓', unlockAt: 1500000000, description: 'Extra syllables. Extra chaos.' },
 ]
 
 const INITIAL_CLICK_UPGRADES = [
