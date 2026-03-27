@@ -6,7 +6,7 @@ import CharactersClient from "./CharactersClient"
 export const metadata: Metadata = {
   title: "All Italian Brainrot Characters — Complete List 2026",
   description:
-    "The complete list of all 21 Italian Brainrot characters including Bombardiro Crocodilo, Tung Tung Sahur, Boneca Ambalabu, Glorbo Fruttodrillo and more. Full wiki with descriptions.",
+    "The complete list of all 22 Italian Brainrot characters including Bombardiro Crocodilo, Tung Tung Sahur, La Vaca Saturno Saturnita, Boneca Ambalabu and more. Full wiki with descriptions.",
   alternates: {
     canonical: "https://www.brainrotnest.com/characters",
   },
@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: "How many Italian Brainrot characters are there?",
-    a: "The official Italian Brainrot character roster documented on BrainrotNest currently includes 21 characters: Bombardiro Crocodilo, Tung Tung Sahur, Tralalero Tralala, Ballerina Cappuccina, Brr Brr Patapim, Cappuccino Assassino, Lirili Larila, Bobrito Bandito, Frulli Frulla, La Vaca Saturno Satalite, Trippi Troppi, Chimpanzini Bananini, Bombombini Gusini, Frigo Camello, Cocofanto Elefanto, Boneca Ambalabu, Burbaloni Luliloli, Glorbo Fruttodrillo, Bananita Dolphina, Giraffa Celeste, and Zibra Zubra Zibralini.",
+    a: "The official Italian Brainrot character roster documented on BrainrotNest currently includes 22 characters: Bombardiro Crocodilo, Tung Tung Sahur, Tralalero Tralala, Ballerina Cappuccina, Brr Brr Patapim, Cappuccino Assassino, Lirili Larila, Bobrito Bandito, Frulli Frulla, La Vaca Saturno Satalite, La Vaca Saturno Saturnita, Trippi Troppi, Chimpanzini Bananini, Bombombini Gusini, Frigo Camello, Cocofanto Elefanto, Boneca Ambalabu, Burbaloni Luliloli, Glorbo Fruttodrillo, Bananita Dolphina, Giraffa Celeste, and Zibra Zubra Zibralini.",
   },
   {
     q: "Where do Italian Brainrot characters come from?",
@@ -80,10 +80,10 @@ export default function CharactersPage() {
           </h1>
 
           <p className="text-base sm:text-lg max-w-2xl leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-            The complete wiki — <strong style={{ color: "var(--color-text)" }}>21 italian brainrot characters</strong> documented with full lore,
+            The complete wiki — <strong style={{ color: "var(--color-text)" }}>22 italian brainrot characters</strong> documented with full lore,
             abilities, and origin stories. The definitive{" "}
             <strong style={{ color: "var(--color-text)" }}>italian brainrot list</strong> from Bombardiro Crocodilo
-            to Zibra Zubra Zibralini.
+            to La Vaca Saturno Saturnita.
           </p>
 
           {/* CTA links */}

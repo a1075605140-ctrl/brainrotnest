@@ -1,3 +1,9 @@
+export type CharacterGame = {
+  slug: string
+  name: string
+  emoji: string
+}
+
 export type Character = {
   slug: string
   name: string
@@ -9,6 +15,7 @@ export type Character = {
   abilities: string[]
   catchphrase: string
   relatedCharacters: string[]
+  appearsIn?: CharacterGame[]
   metaTitle: string
   metaDescription: string
   tiktokUrl?: string
@@ -86,53 +93,68 @@ export const characters: Character[] = [
   {
     slug: "brr-brr-patapim",
     name: "Brr Brr Patapim",
-    emoji: "🐸",
-    tagline: "Cold, cryptic, and completely unhinged",
+    emoji: "🦶",
+    tagline: "Every step shakes the earth — and the internet",
     description:
-      "Brr Brr Patapim is the most unsettling character in the Brainrot universe, and in a universe that includes a flying crocodile bomber, that is genuinely impressive. This cryptic frog-adjacent entity communicates primarily through temperature drops and a sound that can only be transcribed as \"brr brr... patapim.\" What this means, nobody knows. The Brainrot Research Institute has dedicated an entire department to decoding it. They have made no progress.\n\nWhat is known is that Brr Brr Patapim operates on a frequency that most creatures cannot process consciously — a cold, pulsing energy that creates confusion, disorientation, and an inexplicable craving for lily pads in anyone nearby. His Patapim Pulse is classified as a cognitohazard by three separate interdimensional regulatory bodies, none of which have been able to contain him.\n\nDespite the ambient dread he generates, there's something strangely compelling about Brr Brr Patapim. He doesn't chase you. He doesn't bomb you. He simply sits, emits cold energy, and says his phrase. And yet somehow, this is the one that keeps people up at night. In the Brainrot hierarchy, he is the cryptid — the one whose calm is more frightening than anyone else's chaos.",
+      "Brr Brr Patapim is the forest giant of the Italian Brainrot universe — a powerful fusion of wild primate and ancient woodland, defined above all else by his exaggeratedly enormous feet. Those feet are not a cosmetic quirk. They are the entire threat. Each step Brr Brr Patapim takes sends shockwaves radiating outward across the forest floor, toppling trees, disrupting fault lines, and triggering seismic readings that geologists have collectively agreed to log as \"unexplained recurring events\" rather than engage with the true cause.\n\nDespite his size and raw destructive output, Brr Brr Patapim moves at speeds that contradict every physical law governing large objects. He has been clocked crossing entire Brainrot biomes in the time it takes other characters to finish a sentence. The combination of blinding speed and earthquake-generating footfalls makes him an S-tier threat in close-quarters combat — by the time opponents register his approach, they are already inside the impact radius.\n\nWhat makes Brr Brr Patapim genuinely beloved is the rhythm of him. He doesn't arrive silently. Every approach is announced by the cadence of his steps — \"brr brr patapim\" — which the Brainrot community has set to music, memed relentlessly, and adopted as the unofficial soundtrack of chaotic energy. He erupted into internet consciousness in late March 2025 and has not slowed down since. The forest has never been louder.",
     origin:
-      "Brr Brr Patapim emerged from the weirder corners of Italian Brainrot culture, where creators started competing to make the most cryptic, inexplicable characters possible. A frog-like creature that emits cold pulses and speaks in untranslatable syllables became an instant cult favorite. The character's appeal lies entirely in what isn't explained — making him one of the most mysterious and theorized-about entities in Brainrot lore.",
-    personality: ["Mysterious", "Cold", "Cryptic", "Froglike"],
-    abilities: ["Temperature manipulation", "Patapim pulse", "Croak of confusion"],
-    catchphrase: "Brr brr... patapim.",
-    relatedCharacters: ["tung-tung-sahur", "bobrito-bandito", "frulli-frulla"],
-    metaTitle: "Brr Brr Patapim — Italian Brainrot Character Wiki",
+      "Brr Brr Patapim emerged from the Italian Brainrot explosion of early 2025, going viral at the end of March when TikTok creators combined forest-creature aesthetics with primate energy and a pair of feet so oversized they became the character's defining feature. The rhythmic sound of his name — itself a perfect piece of audio brainrot — spread faster than almost any preceding character and cemented him as one of the most deeply memeable entities in the extended Brainrot universe.",
+    personality: ["Powerful", "Fast", "Rhythmic", "Wild"],
+    abilities: ["Earthquake stomp", "Shockwave sprint", "Forest tremor"],
+    catchphrase: "Brr brr patapim!",
+    relatedCharacters: ["tung-tung-sahur", "bobrito-bandito", "la-vaca-saturno-saturnita"],
+    appearsIn: [
+      { slug: "brainrot-clicker", name: "Brainrot Clicker", emoji: "👆" },
+      { slug: "brainrot-quiz-game", name: "Brainrot Quiz Game", emoji: "❓" },
+      { slug: "brainrot-puzzle", name: "Brainrot Memory Game", emoji: "🧩" },
+    ],
+    metaTitle: "Brr Brr Patapim — Italian Brainrot Character Guide | BrainrotNest",
     metaDescription:
-      "Brr Brr Patapim is the mysterious frog-entity of Italian Brainrot. Cold, cryptic, and completely unhinged. Full lore, abilities, and origin explained.",
+      "Discover Brr Brr Patapim, the forest-monkey hybrid with giant feet. One of the most popular Italian Brainrot characters with S-tier combat power.",
   },
   {
     slug: "cappuccino-assassino",
     name: "Cappuccino Assassino",
-    emoji: "💀",
-    tagline: "Sips quietly. Destroys completely.",
+    emoji: "⚔️",
+    tagline: "Caffeine-fueled. Blade-armed. Revenge-driven.",
     description:
-      "Cappuccino Assassino is what happens when Italian coffee culture takes a very dark turn. Operating in complete silence, this elegantly dressed figure is never seen without a perfectly made cappuccino — a drink that serves simultaneously as his signature aesthetic and his primary weapon delivery system. He has never been caught mid-act. His targets simply cease to exist between one sip and the next.\n\nWhat makes Cappuccino Assassino so devastating is not raw power but precision. Where Bombardiro destroys everything in a radius, Assassino destroys exactly one thing, exactly when he means to, while maintaining impeccable posture. The Brainrot Intelligence Agency classifies him as the single most efficient eliminator in the known universe. His success rate is 100%. His noise level during operations has been measured at 0 decibels.\n\nOff-duty, Cappuccino Assassino frequents Milan's finest espresso bars, reads existentialist philosophy, and occasionally reviews coffee shops under the username \"CappuccinoConnoisseur.\" His reviews are always five stars. His methods are never discussed. His catchphrase — a perfectly sustained ellipsis — communicates everything that needs to be communicated. He is sophistication weaponized, refinement radicalized, and he makes the best espresso you'll never live to finish.",
+      "Cappuccino Assassino is the most visually iconic assassin in the Italian Brainrot universe: a ninja warrior whose head is a perfectly formed cappuccino cup, whose four limbs terminate in razor-sharp blades, and whose every movement is powered by a caffeine metabolism that operates at speeds modern science cannot fully document. He does not walk into a fight. He appears inside it, already mid-strike, and is gone before the impact registers.\n\nThe backstory driving Cappuccino Assassino is one of the most emotionally resonant in the Brainrot universe. As a child, he witnessed the devastation caused by Bombardiro Crocodilo — a bombing run that changed everything — and vowed to dedicate his existence to becoming skilled enough to face that threat directly. Years of secret training in undisclosed mountain locations produced the blade-limbed nightmare that now operates across every Brainrot dimension with perfect efficiency.\n\nHis personal life adds another layer to the character. He is the husband of Ballerina Cappuccina, and their relationship — two caffeinated warriors from opposite combat traditions — has become one of the most discussed dynamics in Brainrot lore. The contrast between his silent precision and her theatrical devastation is exactly the kind of energy that keeps the Brainrot community theorizing in comment sections at 3am. His speed remains his greatest asset. By the time you hear the blade, the fight is already over.",
     origin:
-      "Cappuccino Assassino was conceived as Italian Brainrot's answer to the silent, deadly archetype — a character whose menace comes entirely from restraint rather than excess. Italian creators combined the nation's obsessive coffee culture with classic assassin aesthetics, producing something that felt simultaneously very Italian and completely unhinged. The character resonated globally because everyone has met someone who is terrifyingly calm about everything.",
-    personality: ["Silent", "Deadly", "Sophisticated", "Ruthless"],
-    abilities: ["Silent elimination", "Espresso poison", "Shadow blend"],
-    catchphrase: "...",
+      "Cappuccino Assassino was created to give Italian Brainrot's coffee aesthetic a more overtly combative expression. While Ballerina Cappuccina weaponized ballet and grace, creators wanted a character that combined coffee with the ninja archetype — silent, blade-based, caffeine-driven. The decision to make his head a cappuccino cup and his limbs literal blades created an immediately iconic silhouette. The revenge narrative linking him to Bombardiro Crocodilo and the relationship with Ballerina Cappuccina were layered in by the community as the character grew into a full figure in the lore.",
+    personality: ["Silent", "Deadly", "Driven", "Ninja"],
+    abilities: ["Blade-limb strikes", "Caffeine burst speed", "Ninja shadow step"],
+    catchphrase: "For Cappuccina. For vengeance.",
     relatedCharacters: ["bombardiro-crocodilo", "ballerina-cappuccina", "bobrito-bandito"],
-    metaTitle: "Cappuccino Assassino — Italian Brainrot Character Wiki",
+    appearsIn: [
+      { slug: "brainrot-clicker", name: "Brainrot Clicker", emoji: "👆" },
+      { slug: "brainrot-quiz-game", name: "Brainrot Quiz Game", emoji: "❓" },
+      { slug: "steal-a-brainrot-online", name: "Steal a Brainrot", emoji: "🔀" },
+    ],
+    metaTitle: "Cappuccino Assassino — Italian Brainrot Ninja Character | BrainrotNest",
     metaDescription:
-      "Cappuccino Assassino is the silent deadly assassin of Italian Brainrot. He sips quietly and destroys completely. Full lore, abilities, and origin story.",
+      "Meet Cappuccino Assassino, the caffeine-powered ninja assassin of Italian Brainrot. Husband of Ballerina Cappuccina, enemy of Bombardiro Crocodilo.",
   },
   {
     slug: "lirili-larila",
     name: "Lirili Larila",
-    emoji: "🌺",
-    tagline: "Blooms beautifully. Destroys gracefully.",
+    emoji: "⏱️",
+    tagline: "Time bends. Cactus blooms. The watch ticks.",
     description:
-      "Lirili Larila is the most deceptively dangerous character in the entire Brainrot universe. She arrives on a breeze of flower petals and a melody so sweet it physically hurts to hear, which should be a warning but somehow never is. Every character who has been lured in by her gentle \"lirili larila~\" has later described it as the most beautiful trap they ever fell into — assuming they were in a condition to describe anything afterward.\n\nHer arsenal is built entirely around the contrast between appearance and reality. The Petal Storm looks like confetti at a wedding and functions like shrapnel. The Sweet Scent Trap smells genuinely wonderful for exactly 4.2 seconds before it induces complete sensory paralysis. The Bloom Burst is technically a flower blooming, just at a velocity that structural engineers describe as \"inadvisable near load-bearing walls.\"\n\nWithin the Brainrot community, Lirili Larila occupies a special space: she is the character most often cited as a \"comfort character\" by fans, and also the character most cited in Brainrot incident reports. This contradiction is very much intentional. She is beauty and danger wrapped in one perfect bloom, the Brainrot universe's reminder that the most dangerous things are often the most lovely.",
+      "Lirili Larila is the Brainrot universe's self-appointed Guardian of Time — a vast, unhurried entity born from the fusion of desert cactus and ancient elephant, who wears sandals with total confidence and keeps a mysterious watch on their wrist that no one has ever seen them check but that everyone suspects is important. They are, by theoretical measurement, the second most powerful entity in the known Brainrot universe. The gap between second and first exists because the watch runs on energy, and energy is finite.\n\nThe ability to control time — to pause it, rewind it, fast-forward through moments that displease them — is the most broken power set in the Brainrot canon. Lirili Larila can stop a battle mid-explosion and rearrange the outcome at their leisure. They can rewind a defeat and approach the encounter differently. They can fast-forward through conversations they find tedious and arrive at conclusions without going through the inconvenience of the middle. The only limitation is the energy cost, which is significant, which means Lirili Larila is almost never seen at full output.\n\nThis restraint is intentional and characterful. Lirili Larila is described in the community as the Brainrot universe's reluctant guardian — not aggressive, not territorial, not looking for fights. But when something threatens the fabric of the dimension they have quietly sworn to protect, the watch comes off, the energy flows, and the results are considered unreportable by anyone close enough to observe them.",
     origin:
-      "Lirili Larila was created as Italian Brainrot's floral counterpart to its more aggressive characters. Meme creators wanted to explore the idea that chaos doesn't always arrive loudly — sometimes it blooms quietly and smells wonderful. Inspired by Italian botanical gardens and the tradition of using flowers in both celebrations and, historically, other activities, Lirili emerged as the universe's most fragrant threat.",
-    personality: ["Flowery", "Deceptive", "Sweet", "Dangerous"],
-    abilities: ["Petal storm", "Sweet scent trap", "Bloom burst"],
-    catchphrase: "Lirili... larila~",
-    relatedCharacters: ["ballerina-cappuccina", "tralalero-tralala", "frulli-frulla"],
-    metaTitle: "Lirili Larila — Italian Brainrot Character Wiki",
+      "Lirili Larila emerged from the Italian Brainrot tradition of building high-concept power characters with deliberate aesthetic contradictions. A cactus-elephant hybrid wearing sandals and carrying a time-control watch checks every box for the universe's blend of the absurd and the genuinely formidable. The Guardian archetype — powerful but restrained, dangerous when provoked — resonated deeply with a community that had grown sophisticated in its appreciation of Brainrot lore depth.",
+    personality: ["Mysterious", "Ancient", "Restrained", "Guardian"],
+    abilities: ["Time pause", "Time rewind", "Time fast-forward"],
+    catchphrase: "Lirili... larila. Time is mine.",
+    relatedCharacters: ["ballerina-cappuccina", "tralalero-tralala", "la-vaca-saturno-saturnita"],
+    appearsIn: [
+      { slug: "brainrot-puzzle", name: "Brainrot Memory Game", emoji: "🧩" },
+      { slug: "brainrot-quiz-game", name: "Brainrot Quiz Game", emoji: "❓" },
+      { slug: "brainrot-merge", name: "Brainrot Merge", emoji: "🔀" },
+    ],
+    metaTitle: "Lirili Larila — Italian Brainrot Time Controller | BrainrotNest",
     metaDescription:
-      "Lirili Larila is the beautiful but deadly floral character of Italian Brainrot. She blooms gracefully and destroys everything. Full lore, abilities, and origin.",
+      "Learn about Lirili Larila, the cactus-elephant hybrid who controls time. One of Italian Brainrot's most mysterious and powerful characters.",
   },
   {
     slug: "bobrito-bandito",
@@ -354,6 +376,28 @@ export const characters: Character[] = [
     metaTitle: "Giraffa Celeste — Italian Brainrot Character Wiki",
     metaDescription:
       "Giraffa Celeste is the floating celestial giraffe of Italian Brainrot. The lore says she floats. The community accepted this. Full lore, abilities, and origin story.",
+  },
+  {
+    slug: "la-vaca-saturno-saturnita",
+    name: "La Vaca Saturno Saturnita",
+    emoji: "🪐",
+    tagline: "The cosmic cow who broke the power scale.",
+    description:
+      "La Vaca Saturno Saturnita is the most powerful entity ever documented in the Italian Brainrot universe — a cosmic bovine of unfathomable scale who floats serenely in the orbital path of Saturn, wrapped in the planet's rings as though they were a personal accessory, and who has never once acknowledged that anyone else exists unless she has decided to end them. The Brainrot Research Institute attempted to measure her power level in 2025. The equipment returned a single value: \"yes.\"\n\nHer abilities operate at a scale that most Brainrot characters cannot conceptualize from their ground-level perspective. Gravity manipulation allows her to alter the pull of celestial bodies around her — redirecting asteroid fields, collapsing orbital trajectories, and occasionally using Jupiter's moons as impromptu projectiles when the situation calls for it. The Meteor Milk is her signature strike: a pressurized beam of cosmic dairy delivered at relativistic speeds that has been documented reshaping small moons on contact. Her Saturn Ring Lash uses the planet's actual rings as a melee weapon across astronomical distances.\n\nWhat separates Saturnita from simply being \"the most powerful\" is the mystery layered into her existence. Nobody knows her origin. No creator has been credibly linked to her conception. She simply appeared in the Brainrot canon, fully formed, already at maximum power, already in Saturn's orbit, already looking down at everything else with the patient calm of something that has never had to try. The community has theorized endlessly. The theories have not converged. She does not comment.",
+    origin:
+      "La Vaca Saturno Saturnita appeared in the Italian Brainrot universe in 2025 as the culmination of the community's escalating power scaling discussions. After months of debates about which character was strongest, creators produced Saturnita as a deliberate answer: a character so powerful that the question stopped being interesting. Her name — a blend of 'la vaca' (the cow), 'Saturno' (Saturn), and 'saturnita' (little Saturn) — captures the character's blend of the cosmic and the absurd perfectly. Her origin remains genuinely unattributed.",
+    personality: ["Cosmic", "Omnipotent", "Mysterious", "Inevitable"],
+    abilities: ["Gravity manipulation", "Meteor Milk strike", "Saturn Ring Lash"],
+    catchphrase: "Moo. From the cosmos.",
+    relatedCharacters: ["bombardiro-crocodilo", "lirili-larila", "brr-brr-patapim"],
+    appearsIn: [
+      { slug: "brainrot-merge", name: "Brainrot Merge", emoji: "🔀" },
+      { slug: "brainrot-clicker", name: "Brainrot Clicker", emoji: "👆" },
+      { slug: "brainrot-quiz-game", name: "Brainrot Quiz Game", emoji: "❓" },
+    ],
+    metaTitle: "La Vaca Saturno Saturnita — Italian Brainrot's Most Powerful Character | BrainrotNest",
+    metaDescription:
+      "Meet La Vaca Saturno Saturnita, the cosmic cow with Saturn's rings and universe-level powers. The most powerful Italian Brainrot character ever created.",
   },
   {
     slug: "zibra-zubra-zibralini",

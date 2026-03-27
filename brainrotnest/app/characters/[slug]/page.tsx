@@ -201,6 +201,47 @@ export default async function CharacterPage({ params }: Props) {
               </blockquote>
             </section>
 
+            {/* Appears In */}
+            {character.appearsIn && character.appearsIn.length > 0 && (
+              <section>
+                <h2
+                  className="text-2xl sm:text-3xl mb-4"
+                  style={{ fontFamily: "var(--font-fredoka), cursive" }}
+                >
+                  Appears In
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {character.appearsIn.map((game) => (
+                    <Link
+                      key={game.slug}
+                      href={`/games/${game.slug}`}
+                      className="rounded-xl px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:-translate-y-0.5"
+                      style={{
+                        backgroundColor: "var(--color-surface)",
+                        border: "1px solid var(--color-border)",
+                      }}
+                    >
+                      <span style={{ fontSize: 28, flexShrink: 0 }}>{game.emoji}</span>
+                      <div className="min-w-0">
+                        <p
+                          className="text-sm font-semibold leading-tight truncate"
+                          style={{ fontFamily: "var(--font-fredoka), cursive" }}
+                        >
+                          {game.name}
+                        </p>
+                        <span
+                          className="text-xs font-bold"
+                          style={{ color: "var(--color-accent-green)" }}
+                        >
+                          Play free →
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* TikTok Embed */}
             {character.tiktokUrl && (
               <section>

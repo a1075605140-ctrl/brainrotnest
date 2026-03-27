@@ -173,7 +173,7 @@ export default function HomePage() {
 
         {/* Trust stats */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-10 text-sm font-semibold">
-          <span style={{ color: "var(--color-text-muted)" }}>15 Characters</span>
+          <span style={{ color: "var(--color-text-muted)" }}>22 Characters</span>
           <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
           <span style={{ color: "var(--color-text-muted)" }}>8 Games</span>
           <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
