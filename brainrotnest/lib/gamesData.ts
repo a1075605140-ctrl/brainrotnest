@@ -187,6 +187,28 @@ export const games: Game[] = [
     metaDescription:
       "Play Brainrot Quiz Game free! Test your Italian Brainrot knowledge in this fast-paced trivia game. How much brainrot do you know?",
   },
+  {
+    slug: "tung-tung-rhythm",
+    name: "Tung Tung Rhythm",
+    emoji: "🥁",
+    tagline: "Hit the beats before they disappear.",
+    description:
+      "Tung Tung Rhythm is a fast-paced rhythm game inspired by Tung Tung Sahur, the relentless pre-dawn drummer of the Italian Brainrot universe. Four drum pads light up to the beat — hit them before they fade using A/D/J/L keys or tap on mobile. Miss three beats and it's over.\n\nThe BPM starts at a manageable 80 and climbs all the way to 180 as the pressure builds. Chain hits to build combos for bonus points, and see how long you can keep up with the Tung Tung.",
+    howToPlay: [
+      "Watch for a drum pad to light up — hit it before it fades",
+      "Press A / D / J / L on keyboard, or tap the pads on mobile",
+      "Build combos for bonus points",
+      "Miss 3 beats and the game ends",
+      "BPM ramps from 80 to 180 — keep up!",
+    ],
+    tags: ["Rhythm", "Music", "Casual"],
+    iframeUrl: "",
+    isAvailable: true,
+    featured: false,
+    metaTitle: "Tung Tung Rhythm — Free Italian Brainrot Rhythm Game | BrainrotNest",
+    metaDescription:
+      "Play Tung Tung Rhythm! Hit the beats as Tung Tung Sahur drums his way across the screen. Free Italian Brainrot rhythm game.",
+  },
 ]
 
 export function getGameBySlug(slug: string): Game | undefined {
