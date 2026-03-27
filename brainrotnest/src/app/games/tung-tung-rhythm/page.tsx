@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import TungTungRhythm from '@/src/components/games/TungTungRhythm'
+import TungTungRhythm from '@/components/games/TungTungRhythm'
 
 export const metadata: Metadata = {
   title: 'Tung Tung Rhythm — Free Italian Brainrot Rhythm Game | BrainrotNest',
