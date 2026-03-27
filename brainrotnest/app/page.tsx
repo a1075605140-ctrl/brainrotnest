@@ -184,6 +184,17 @@ export default function HomePage() {
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+          <div className="relative w-full sm:w-auto">
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+              NEW
+            </span>
+            <Link
+              href="/games/tung-tung-rhythm"
+              className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-red-500 py-3 font-bold text-white animate-pulse hover:opacity-90 px-8"
+            >
+              🥁 Play Tung Tung Rhythm
+            </Link>
+          </div>
           <Link
             href="/games/brainrot-clicker"
             className="inline-flex items-center gap-2 px-10 py-4 rounded-xl font-bold text-lg btn-cta-game"
