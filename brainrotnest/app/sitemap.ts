@@ -94,5 +94,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...quizRoutes, ...characterRoutes, ...gameRoutes, ...blogRoutes];
+  const englishEntries: MetadataRoute.Sitemap = [
+    ...staticRoutes,
+    ...quizRoutes,
+    ...characterRoutes,
+    ...gameRoutes,
+    ...blogRoutes,
+  ];
+
+  const ptBrEntries: MetadataRoute.Sitemap = englishEntries.map((entry) => {
+    const pathname = new URL(entry.url).pathname;
+    const normalized =
+      pathname.length > 1 && pathname.endsWith("/")
+        ? pathname.slice(0, -1)
+        : pathname;
+    const ptPath = normalized === "/" ? "/pt-br" : `/pt-br${normalized}`;
+    return {
+      url: `${BASE_URL}${ptPath}`,
+      lastModified: entry.lastModified,
+      changeFrequency: entry.changeFrequency,
+      priority: entry.priority,
+    };
+  });
+
+  return [...englishEntries, ...ptBrEntries];
 }

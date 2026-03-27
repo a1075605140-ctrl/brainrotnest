@@ -24,8 +24,15 @@ function calcKnowledgeResult(quiz: Quiz, answers: string[]): { result: QuizResul
   return { result, score };
 }
 
-function scoreComment(score: number, total: number): string {
+function scoreComment(score: number, total: number, locale: "en" | "pt-br"): string {
   const pct = score / total;
+  if (locale === "pt-br") {
+    if (pct === 1) return "Perfeição absoluta. Os deuses do Italian Brainrot se curvam a você.";
+    if (pct >= 0.75) return "Você claramente mora nesse buraco. Dedicação impressionante.";
+    if (pct >= 0.5) return "Conhecimento sólido. Mas ainda tem lore pra absorver...";
+    if (pct >= 0.25) return "Você já viu uns vídeos. Hora de se aprofundar.";
+    return "Eita. Você já tinha ouvido falar em Italian Brainrot antes de hoje?";
+  }
   if (pct === 1) return "Absolutely flawless. The Italian Brainrot gods bow to you.";
   if (pct >= 0.75) return "You clearly live in this rabbit hole. Impressive dedication.";
   if (pct >= 0.5) return "Solid knowledge. But there's more lore to absorb...";
@@ -34,12 +41,24 @@ function scoreComment(score: number, total: number): string {
 }
 
 // ─── Progress Bar ──────────────────────────────────────────────────────────
-function ProgressBar({ current, total }: { current: number; total: number }) {
+function ProgressBar({
+  current,
+  total,
+  locale,
+}: {
+  current: number;
+  total: number;
+  locale: "en" | "pt-br";
+}) {
   const pct = Math.round((current / total) * 100);
+  const label =
+    locale === "pt-br"
+      ? `Pergunta ${current} de ${total}`
+      : `Question ${current} of ${total}`;
   return (
     <div className="mb-6">
       <div className="flex justify-between text-xs mb-2" style={{ color: "var(--color-text-muted)" }}>
-        <span>Question {current} of {total}</span>
+        <span>{label}</span>
         <span>{pct}%</span>
       </div>
       <div
@@ -56,7 +75,15 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
 }
 
 // ─── Main Component ────────────────────────────────────────────────────────
-export default function QuizGame({ quiz }: { quiz: Quiz }) {
+export default function QuizGame({
+  quiz,
+  charactersHref = "/characters",
+  locale = "en",
+}: {
+  quiz: Quiz;
+  charactersHref?: string;
+  locale?: "en" | "pt-br";
+}) {
   const [state, setState] = useState<GameState>("intro");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -114,7 +141,13 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
                   : { backgroundColor: "rgba(74,222,128,0.12)", color: "var(--color-accent-green)" }
               }
             >
-              {quiz.type === "personality" ? "Personality Quiz" : "Knowledge Quiz"}
+              {quiz.type === "personality"
+                ? locale === "pt-br"
+                  ? "Quiz de personalidade"
+                  : "Personality Quiz"
+                : locale === "pt-br"
+                  ? "Quiz de conhecimento"
+                  : "Knowledge Quiz"}
             </span>
             <h1
               className="text-3xl sm:text-4xl mb-4 leading-tight"
@@ -135,21 +168,27 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
               <p className="text-2xl font-bold" style={{ fontFamily: "var(--font-fredoka), cursive" }}>
                 {totalQuestions}
               </p>
-              <p className="text-xs mt-0.5" style={{ color: "var(--color-text-muted)" }}>Questions</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                {locale === "pt-br" ? "Perguntas" : "Questions"}
+              </p>
             </div>
             <div style={{ width: "1px", height: "36px", backgroundColor: "rgba(255,255,255,0.1)" }} />
             <div className="text-center">
               <p className="text-2xl font-bold" style={{ fontFamily: "var(--font-fredoka), cursive" }}>
                 ~2 min
               </p>
-              <p className="text-xs mt-0.5" style={{ color: "var(--color-text-muted)" }}>Est. Time</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                {locale === "pt-br" ? "Tempo est." : "Est. Time"}
+              </p>
             </div>
             <div style={{ width: "1px", height: "36px", backgroundColor: "rgba(255,255,255,0.1)" }} />
             <div className="text-center">
               <p className="text-2xl font-bold" style={{ fontFamily: "var(--font-fredoka), cursive" }}>
-                Free
+                {locale === "pt-br" ? "Grátis" : "Free"}
               </p>
-              <p className="text-xs mt-0.5" style={{ color: "var(--color-text-muted)" }}>No sign-up</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                {locale === "pt-br" ? "Sem cadastro" : "No sign-up"}
+              </p>
             </div>
           </div>
 
@@ -170,7 +209,7 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
                   }
             }
           >
-            Start Quiz →
+            {locale === "pt-br" ? "Começar quiz →" : "Start Quiz →"}
           </button>
         </div>
       </div>
@@ -183,7 +222,7 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
 
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
-        <ProgressBar current={currentIndex + 1} total={totalQuestions} />
+        <ProgressBar current={currentIndex + 1} total={totalQuestions} locale={locale} />
 
         <div
           className="rounded-2xl p-7 sm:p-9"
@@ -282,7 +321,7 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
                 color: "var(--color-accent-yellow)",
               }}
             >
-              You got...
+              {locale === "pt-br" ? "Você é..." : "You got..."}
             </span>
           </div>
 
@@ -296,7 +335,10 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
             className="text-lg font-semibold mb-5"
             style={{ color: "var(--color-accent-yellow)" }}
           >
-            {result.traits[0] && `"The ${result.traits[0]}"`}
+            {result.traits[0] &&
+              (locale === "pt-br"
+                ? `“${result.traits[0]}”`
+                : `"The ${result.traits[0]}"`)}
           </p>
 
           <p
@@ -328,7 +370,15 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
             className="text-xs mb-8 italic"
             style={{ color: "var(--color-text-muted)" }}
           >
-            🔗 I got <strong style={{ color: "var(--color-text)" }}>{result.character}</strong> on the Brainrot Quiz!
+            {locale === "pt-br" ? (
+              <>
+                🔗 Saí como <strong style={{ color: "var(--color-text)" }}>{result.character}</strong> no Quiz Brainrot!
+              </>
+            ) : (
+              <>
+                🔗 I got <strong style={{ color: "var(--color-text)" }}>{result.character}</strong> on the Brainrot Quiz!
+              </>
+            )}
           </p>
 
           {/* Buttons */}
@@ -337,10 +387,10 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
               onClick={restart}
               className="px-7 py-3 rounded-xl text-sm font-bold transition-all duration-200 hover:-translate-y-0.5 btn-outline"
             >
-              🔄 Retake Quiz
+              {locale === "pt-br" ? "🔄 Refazer quiz" : "🔄 Retake Quiz"}
             </button>
             <Link
-              href="/characters"
+              href={charactersHref}
               className="px-7 py-3 rounded-xl text-sm font-bold text-center transition-all duration-200 hover:-translate-y-0.5"
               style={{
                 backgroundColor: "var(--color-accent-yellow)",
@@ -348,7 +398,7 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
                 boxShadow: "0 4px 20px rgba(250,204,21,0.25)",
               }}
             >
-              🧬 See All Characters →
+              {locale === "pt-br" ? "🧬 Ver todos os personagens →" : "🧬 See All Characters →"}
             </Link>
           </div>
         </div>
@@ -402,7 +452,7 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
           className="text-sm leading-relaxed mb-5 max-w-md mx-auto"
           style={{ color: "var(--color-text-muted)" }}
         >
-          {scoreComment(score, totalQuestions)}
+          {scoreComment(score, totalQuestions, locale)}
         </p>
         <p
           className="text-sm leading-relaxed mb-7 max-w-md mx-auto"
@@ -434,10 +484,10 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
             onClick={restart}
             className="px-7 py-3 rounded-xl text-sm font-bold transition-all duration-200 hover:-translate-y-0.5 btn-outline"
           >
-            🔄 Try Again
+            {locale === "pt-br" ? "🔄 Tentar de novo" : "🔄 Try Again"}
           </button>
           <Link
-            href="/characters"
+            href={charactersHref}
             className="px-7 py-3 rounded-xl text-sm font-bold text-center transition-all duration-200 hover:-translate-y-0.5"
             style={{
               backgroundColor: "var(--color-accent-green)",
@@ -445,7 +495,7 @@ export default function QuizGame({ quiz }: { quiz: Quiz }) {
               boxShadow: "0 4px 20px rgba(74,222,128,0.25)",
             }}
           >
-            🧬 Learn the Characters →
+            {locale === "pt-br" ? "🧬 Conhecer os personagens →" : "🧬 Learn the Characters →"}
           </Link>
         </div>
       </div>

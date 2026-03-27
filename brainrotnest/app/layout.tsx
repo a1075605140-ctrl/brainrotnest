@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Fredoka, Nunito } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { rootHreflangLanguages } from "@/lib/ptBrAlternates";
 
 const fredokaOne = Fredoka({
   weight: ["400", "600"],
@@ -61,19 +63,25 @@ export const metadata: Metadata = {
     other: {
       'msvalidate.01': '7C8FE91AE01A883BB72254216E39F7FB'
     }
-  }
+  },
+  alternates: {
+    languages: rootHreflangLanguages,
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const lang = pathname.startsWith("/pt-br") ? "pt-BR" : "en";
 
   return (
     <html
-      lang="en"
+      lang={lang}
       className={`${fredokaOne.variable} ${nunito.variable}`}
     >
       <head>
