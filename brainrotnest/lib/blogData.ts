@@ -1619,7 +1619,6 @@ export const blogPosts: BlogPost[] = [
       {
         type: "ul",
         linkItems: [
-          { text: "🥁 Play Tung Tung Rhythm →", href: "/games/tung-tung-rhythm" },
           { text: "Browse All Brainrot Games →", href: "/games" },
           { text: "Take the Brainrot Quiz →", href: "/quiz/brainrot-quiz" },
           { text: "Meet All Italian Brainrot Characters →", href: "/characters" },
