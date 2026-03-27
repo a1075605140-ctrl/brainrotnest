@@ -21,7 +21,7 @@ const sections = [
   {
     title: "Third-Party Services",
     content:
-      "BrainrotNest uses third-party services including Google Analytics for traffic analysis, and advertising networks such as Google AdSense and Adsterra to serve ads. These services may collect data independently according to their own privacy policies.",
+      "BrainrotNest uses third-party services including Google Analytics for traffic analysis, and advertising networks such as Google AdSense to serve ads. These services may collect data independently according to their own privacy policies.",
   },
   {
     title: "Cookies",

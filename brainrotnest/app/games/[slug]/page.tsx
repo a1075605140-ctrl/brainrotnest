@@ -3,7 +3,6 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { games, getGameBySlug, getOtherGames } from "@/lib/gamesData"
 import GameIframe from "./GameIframe"
-import AdPlaceholder from "@/components/AdPlaceholder"
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd"
 
 type Props = {
@@ -105,11 +104,6 @@ export default async function GamePage({ params }: Props) {
           </div>
         </div>
 
-        {/* Ad banner above game */}
-        <div className="mb-4">
-          <AdPlaceholder size="banner" />
-        </div>
-
         {/* Game area */}
         {game.isAvailable ? (
           <GameIframe iframeUrl={game.iframeUrl} gameName={game.name} />
@@ -174,11 +168,6 @@ export default async function GamePage({ params }: Props) {
                 ))}
               </div>
             </section>
-
-            {/* Ad rectangle in middle of content */}
-            <div className="flex justify-start">
-              <AdPlaceholder size="rectangle" />
-            </div>
 
             {/* How to Play */}
             <section>
@@ -413,10 +402,6 @@ export default async function GamePage({ params }: Props) {
           </Link>
         </div>
 
-        {/* Bottom ad banner */}
-        <div className="mt-10">
-          <AdPlaceholder size="banner" />
-        </div>
 
       </div>
     </>

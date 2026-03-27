@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import Script from "next/script"
 import { notFound } from "next/navigation"
 import { characters, getCharacterBySlug, getRelatedCharacters } from "@/lib/charactersData"
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd"
@@ -17,10 +18,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const character = getCharacterBySlug(slug)
   if (!character) return {}
   return {
-    title: character.metaTitle,
+    title: `${character.name} | Italian Brainrot Characters - BrainrotNest`,
     description: character.metaDescription,
+    keywords: [
+      character.name,
+      "italian brainrot",
+      "italian brainrot characters",
+      `${character.name.toLowerCase()} brainrot`,
+      "brainrot wiki",
+      "brainrotnest",
+    ],
     alternates: {
       canonical: `https://www.brainrotnest.com/characters/${slug}`,
+    },
+    openGraph: {
+      title: `${character.name} | Italian Brainrot Characters - BrainrotNest`,
+      description: character.metaDescription,
+      url: `https://www.brainrotnest.com/characters/${slug}`,
+      type: "article",
     },
   }
 }
@@ -32,15 +47,34 @@ export default async function CharacterPage({ params }: Props) {
 
   const related = getRelatedCharacters(character.relatedCharacters)
 
+  const pageUrl = `https://www.brainrotnest.com/characters/${character.slug}`
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: character.name,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": pageUrl,
+    },
+    headline: `${character.name} - Italian Brainrot Character`,
     description: character.metaDescription,
+    url: pageUrl,
+    publisher: {
+      "@type": "Organization",
+      name: "BrainrotNest",
+      url: "https://www.brainrotnest.com",
+    },
     about: {
       "@type": "Thing",
       name: character.name,
+      description: character.metaDescription,
     },
+    keywords: [
+      "italian brainrot",
+      character.name,
+      "brainrot character",
+      ...character.personality,
+    ].join(", "),
   }
 
   const paragraphs = character.description.split("\n\n")
@@ -166,6 +200,49 @@ export default async function CharacterPage({ params }: Props) {
                 &ldquo;{character.catchphrase}&rdquo;
               </blockquote>
             </section>
+
+            {/* TikTok Embed */}
+            {character.tiktokUrl && (
+              <section>
+                <h2
+                  className="text-2xl sm:text-3xl mb-4"
+                  style={{ fontFamily: "var(--font-fredoka), cursive" }}
+                >
+                  Watch{" "}
+                  <span style={{ color: "var(--color-accent-green)" }}>{character.name}</span>
+                  {" "}in Action
+                </h2>
+                <div
+                  className="rounded-2xl overflow-hidden p-4 flex justify-center"
+                  style={{
+                    backgroundColor: "var(--color-surface)",
+                    border: "1px solid var(--color-border)",
+                  }}
+                >
+                  <blockquote
+                    className="tiktok-embed"
+                    cite={character.tiktokUrl}
+                    data-video-id={character.tiktokUrl.split("/video/")[1]?.split("?")[0]}
+                    style={{ maxWidth: 605, minWidth: 325 }}
+                  >
+                    <section>
+                      <a
+                        href={character.tiktokUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "var(--color-accent-green)" }}
+                      >
+                        Watch on TikTok
+                      </a>
+                    </section>
+                  </blockquote>
+                  <Script
+                    src="https://www.tiktok.com/embed.js"
+                    strategy="lazyOnload"
+                  />
+                </div>
+              </section>
+            )}
           </div>
 
           {/* Right: sidebar */}
@@ -276,8 +353,70 @@ export default async function CharacterPage({ params }: Props) {
           </div>
         </div>
 
+        {/* More Italian Brainrot Characters */}
+        {related.length > 0 && (
+          <section className="mt-16">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+              <h2
+                className="text-2xl sm:text-3xl"
+                style={{ fontFamily: "var(--font-fredoka), cursive" }}
+              >
+                More{" "}
+                <span style={{ color: "var(--color-accent-green)" }}>
+                  Italian Brainrot Characters
+                </span>
+              </h2>
+              <Link
+                href="/characters"
+                className="text-sm font-bold hover:underline shrink-0"
+                style={{ color: "var(--color-accent-green)" }}
+              >
+                View all characters →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {related.map((rel) => (
+                <Link
+                  key={rel.slug}
+                  href={`/characters/${rel.slug}`}
+                  className="rounded-2xl p-5 flex items-start gap-4 transition-all duration-200 hover:-translate-y-0.5"
+                  style={{
+                    backgroundColor: "var(--color-surface)",
+                    border: "1px solid var(--color-border)",
+                  }}
+                >
+                  <span style={{ fontSize: 44, lineHeight: 1, flexShrink: 0 }}>
+                    {rel.emoji}
+                  </span>
+                  <div className="min-w-0">
+                    <p
+                      className="text-base font-bold leading-snug mb-1 truncate"
+                      style={{ fontFamily: "var(--font-fredoka), cursive" }}
+                    >
+                      {rel.name}
+                    </p>
+                    <p
+                      className="text-xs leading-relaxed line-clamp-2"
+                      style={{ color: "var(--color-text-muted)" }}
+                    >
+                      {rel.tagline}
+                    </p>
+                    <span
+                      className="text-xs font-bold mt-2 block"
+                      style={{ color: "var(--color-accent-green)" }}
+                    >
+                      View character →
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Bottom CTAs */}
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5">
           {/* Quiz CTA */}
           <div
             className="rounded-3xl p-7 text-center flex flex-col items-center gap-4"

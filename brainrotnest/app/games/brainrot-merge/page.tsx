@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotMergeGame from '@/components/games/BrainrotMergeGame'
-import AdPlaceholder from '@/components/AdPlaceholder'
 
 export const metadata: Metadata = {
   title: 'Brainrot Merge — Merge Italian Brainrot Characters Game',
@@ -88,14 +87,10 @@ export default function BrainrotMergePage() {
         </span>
       </div>
 
-      <AdPlaceholder size="banner" />
-
       {/* Game Component */}
       <div style={{ width: '100%', margin: '20px 0' }}>
         <BrainrotMergeGame />
       </div>
-
-      <AdPlaceholder size="banner" />
 
       {/* About */}
       <section style={{ marginTop: '40px' }}>

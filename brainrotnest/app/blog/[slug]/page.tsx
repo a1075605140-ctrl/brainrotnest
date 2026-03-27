@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import AdPlaceholder from "@/components/AdPlaceholder"
 import {
   blogPosts,
   getBlogPostBySlug,
@@ -330,8 +329,6 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Ad */}
-            <AdPlaceholder size="rectangle" />
           </aside>
         </div>
 

@@ -11,6 +11,7 @@ export type Character = {
   relatedCharacters: string[]
   metaTitle: string
   metaDescription: string
+  tiktokUrl?: string
 }
 
 export const characters: Character[] = [

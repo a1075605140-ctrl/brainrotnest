@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotClickerGame from '@/components/games/BrainrotClickerGame'
-import AdPlaceholder from '@/components/AdPlaceholder'
 
 export const metadata: Metadata = {
   title: 'Brainrot Clicker — Free Italian Brainrot Clicker Game Online',
@@ -63,8 +62,6 @@ export default function BrainrotClickerPage() {
             Original Game
           </span>
         </div>
-
-        <AdPlaceholder size="banner" />
 
       {/* About Section */}
       <section style={{ marginTop: '40px' }}>

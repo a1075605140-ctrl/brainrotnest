@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import StealBrainrotGame from '@/components/games/StealBrainrotGame'
-import AdPlaceholder from '@/components/AdPlaceholder'
 
 export const metadata: Metadata = {
   title: 'Steal a Brainrot — Free Online Brainrot Card Game',
@@ -88,14 +87,10 @@ export default function StealABrainrotPage() {
         </span>
       </div>
 
-      <AdPlaceholder size="banner" />
-
       {/* Game */}
       <div style={{ width: '100%', margin: '20px 0' }}>
         <StealBrainrotGame />
       </div>
-
-      <AdPlaceholder size="banner" />
 
       {/* About */}
       <section style={{ marginTop: '40px' }}>

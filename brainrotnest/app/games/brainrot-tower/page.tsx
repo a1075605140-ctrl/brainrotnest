@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotTowerGame from '@/components/games/BrainrotTowerGame'
-import AdPlaceholder from '@/components/AdPlaceholder'
 
 export const metadata: Metadata = {
   title: 'Brainrot Tower Defense — Italian Brainrot Tower Game Free',
@@ -88,14 +87,10 @@ export default function BrainrotTowerPage() {
         </span>
       </div>
 
-      <AdPlaceholder size="banner" />
-
       {/* Game */}
       <div style={{ width: '100%', margin: '20px 0' }}>
         <BrainrotTowerGame />
       </div>
-
-      <AdPlaceholder size="banner" />
 
       {/* About */}
       <section style={{ marginTop: '40px' }}>
