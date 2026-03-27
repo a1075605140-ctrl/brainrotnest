@@ -1571,6 +1571,79 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "italian-brainrot-fortnite-collab",
+    title: "Italian Brainrot x Fortnite Collab — Everything We Know (2026)",
+    description:
+      "Italian Brainrot characters are coming to Fortnite. Here's everything we know about Tung Tung Sahur, Ballerina Cappuccina skins and the upcoming collab.",
+    publishDate: "2026-03-27",
+    readingTime: "4 min read",
+    emoji: "🎮",
+    tags: ["News", "Fortnite", "Collab"],
+    metaTitle: "Italian Brainrot x Fortnite Collab — Everything We Know (2026)",
+    metaDescription:
+      "Italian Brainrot characters are coming to Fortnite. Here's everything we know about Tung Tung Sahur, Ballerina Cappuccina skins and the upcoming collab.",
+    content: [
+      { type: "h2", text: "What We Know So Far" },
+      {
+        type: "p",
+        text: "On March 18, 2026, the official Fortnite account posted a teaser video featuring audio and visual elements strongly reminiscent of Italian Brainrot aesthetics. The community immediately recognized the signature chaotic energy — and the speculation hasn't stopped since. While no official announcement has been made, the signs are hard to ignore.",
+      },
+      { type: "h2", text: "Which Characters Are Coming" },
+      {
+        type: "p",
+        text: "Based on the teaser content and community analysis, the two most likely characters to arrive in Fortnite are Tung Tung Sahur and Ballerina Cappuccina. Tung Tung Sahur — the relentless pre-dawn drummer who operates at 847 BPM — would translate perfectly into a rhythmic emote or pickaxe skin. Ballerina Cappuccina, the espresso-powered ballet warrior, is widely considered the most aesthetically Fortnite-ready character in the entire roster.",
+      },
+      {
+        type: "ul",
+        linkItems: [
+          { text: "Tung Tung Sahur — Full Character Profile →", href: "/characters/tung-tung-sahur" },
+          { text: "Ballerina Cappuccina — Full Character Profile →", href: "/characters/ballerina-cappuccina" },
+        ],
+      },
+      { type: "h2", text: "When Will It Drop" },
+      {
+        type: "p",
+        text: "Community speculation points to a Q2 2026 release window, potentially aligning with a new Fortnite season launch. Nothing has been confirmed. Treat all dates as estimates until Epic Games makes an official announcement.",
+      },
+      { type: "h2", text: "Why This Is Huge" },
+      {
+        type: "p",
+        text: "Italian Brainrot started as an underground internet meme in 2024. By 2026, it's apparently knocking on the door of one of the biggest games in the world. A Fortnite collab would mark the moment Italian Brainrot officially crossed from internet phenomenon into mainstream gaming culture — the kind of legitimization that few meme trends ever achieve.",
+      },
+      { type: "h2", text: "Get Ready Now" },
+      {
+        type: "p",
+        text: "While you wait for the official announcement, BrainrotNest has everything you need to become a true Italian Brainrot scholar before the collab drops. Know your characters, play the games, and make sure you're ready to explain Tung Tung Sahur's lore to your squadmates the moment the skins go live.",
+      },
+      {
+        type: "ul",
+        linkItems: [
+          { text: "🥁 Play Tung Tung Rhythm →", href: "/games/tung-tung-rhythm" },
+          { text: "Browse All Brainrot Games →", href: "/games" },
+          { text: "Take the Brainrot Quiz →", href: "/quiz/brainrot-quiz" },
+          { text: "Meet All Italian Brainrot Characters →", href: "/characters" },
+        ],
+      },
+      {
+        type: "faq",
+        faqs: [
+          {
+            q: "Is there really an Italian Brainrot x Fortnite collab?",
+            a: "No official announcement has been made as of March 2026. The speculation is based on a Fortnite teaser posted on March 18 that the community identified as having Italian Brainrot aesthetic elements. Treat all collab rumors as unconfirmed until Epic Games makes an official statement.",
+          },
+          {
+            q: "Which Italian Brainrot characters might come to Fortnite?",
+            a: "Community speculation points most strongly to Tung Tung Sahur and Ballerina Cappuccina as the most likely candidates. Bombardiro Crocodilo is also frequently mentioned as a fan wishlist pick.",
+          },
+          {
+            q: "Where can I play Italian Brainrot games while I wait?",
+            a: "BrainrotNest has a full library of free Italian Brainrot games playable in your browser — no download required. Try Tung Tung Rhythm, Brainrot Clicker, Steal a Brainrot, and more.",
+          },
+        ],
+      },
+    ],
+  },
 ]
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
