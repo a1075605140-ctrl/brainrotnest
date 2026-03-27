@@ -10,7 +10,9 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-  return games.map((g) => ({ slug: g.slug }))
+  return games
+    .filter((g) => g.slug !== "tung-tung-rhythm")
+    .map((g) => ({ slug: g.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
