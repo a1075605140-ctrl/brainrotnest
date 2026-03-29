@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const BASE = "https://brainrotnest.com";
+const BASE = "https://www.brainrotnest.com";
 
 /** Root hreflang pair for global / pt-br segment layouts. */
 export const rootHreflangLanguages: Record<string, string> = {

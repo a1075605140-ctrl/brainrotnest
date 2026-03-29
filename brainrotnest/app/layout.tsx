@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: '%s | BrainrotNest'
   },
   description: 'The ultimate Italian Brainrot hub. Take quizzes, explore characters, play games. Bombardiro Crocodilo, Tung Tung Sahur and all your favorite brainrot characters.',
-  keywords: ['italian brainrot', 'brainrot quiz', 'italian brainrot characters', 'brainrot games', 'bombardiro crocodilo', 'tung tung sahur'],
+  keywords: ['italian brainrot', 'brainrot quiz', 'italian brainrot characters', 'brainrot games', 'bombardiro crocodilo', 'tung tung sahur', 'brainrot translator', 'italian brainrot language', 'brainrot text generator', 'tralalero tralala', 'brr brr patapim', 'italian brainrot name generator'],
   authors: [{ name: 'BrainrotNest' }],
   creator: 'BrainrotNest',
   openGraph: {

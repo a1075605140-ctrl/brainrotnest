@@ -7,7 +7,8 @@ const navLinks = [
   { href: "/quiz", label: "Quiz" },
   { href: "/characters", label: "Characters" },
   { href: "/games", label: "Games" },
-  { href: "/italian-brainrot-name-generator", label: "Name Generator" },
+  { href: "/brainrot-translator", label: "Translator" },
+  { href: "/italian-brainrot-name-generator", label: "Name Gen" },
   { href: "/blog", label: "Blog" },
 ];
 
