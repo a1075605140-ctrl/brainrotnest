@@ -59,8 +59,8 @@ export default function BrainrotTranslatorPage() {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", href: "/" },
-          { name: "Brainrot Translator", href: "/brainrot-translator" },
+          { name: "Home", url: "https://www.brainrotnest.com" },
+          { name: "Brainrot Translator", url: "https://www.brainrotnest.com/brainrot-translator" },
         ]}
       />
 
