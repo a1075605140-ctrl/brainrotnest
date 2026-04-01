@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts } from "@/lib/blogData";
+import { enAlternates } from "@/lib/ptBrAlternates";
 
 export const metadata: Metadata = {
   title: "Brainrot Blog — Italian Brainrot Guides, Characters & More",
   description:
     "Learn everything about Italian Brainrot. Character guides, meme origins, game reviews and more on the BrainrotNest blog.",
-  alternates: {
-    canonical: "https://www.brainrotnest.com/blog",
-  },
+  alternates: enAlternates("blog"),
 };
 
 export default function BlogPage() {

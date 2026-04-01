@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { games, getGameBySlug, getOtherGames } from "@/lib/gamesData"
 import GameIframe from "./GameIframe"
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd"
+import { enAlternates } from "@/lib/ptBrAlternates"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -20,9 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: game.metaTitle,
     description: game.metaDescription,
-    alternates: {
-      canonical: `https://www.brainrotnest.com/games/${slug}`,
-    },
+    alternates: enAlternates(`games/${slug}`),
   }
 }
 

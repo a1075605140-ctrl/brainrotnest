@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotClickerGame from '@/components/games/BrainrotClickerGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Brainrot Clicker — Free Italian Brainrot Clicker Game Online',
   description:
     'Play Brainrot Clicker free! The original Italian Brainrot clicker game. Click to unlock all 10 characters including Bombardiro Crocodilo, Tung Tung Sahur and more. No download needed.',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/brainrot-clicker' },
+  alternates: enAlternates('games/brainrot-clicker'),
 }
 
 const jsonLd = {

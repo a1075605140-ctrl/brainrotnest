@@ -10,6 +10,7 @@ import {
 import FaqAccordion from "./FaqAccordion"
 import TocLinks from "./TocLinks"
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd"
+import { enAlternates } from "@/lib/ptBrAlternates"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -26,9 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.metaTitle,
     description: post.metaDescription,
-    alternates: {
-      canonical: `https://www.brainrotnest.com/blog/${slug}`,
-    },
+    alternates: enAlternates(`blog/${slug}`),
   }
 }
 

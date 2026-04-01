@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotMemoryGame from '@/components/games/BrainrotMemoryGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Brainrot Memory Game — Match Italian Brainrot Characters',
   description:
     'Play Brainrot Memory Game free! Match all Italian Brainrot character pairs before time runs out. Easy, Medium and Hard difficulty. No download needed.',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/brainrot-puzzle' },
+  alternates: enAlternates('games/brainrot-puzzle'),
 }
 
 const jsonLd = {

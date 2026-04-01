@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import StealBrainrotGame from '@/components/games/StealBrainrotGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Steal a Brainrot — Free Online Brainrot Card Game',
   description:
     'Play Steal a Brainrot free online! The card stealing game where you steal Italian Brainrot characters from your opponent. No download needed.',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/steal-a-brainrot-online' },
+  alternates: enAlternates('games/steal-a-brainrot-online'),
 }
 
 const jsonLd = {

@@ -2,14 +2,13 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { characters } from "@/lib/charactersData"
 import CharactersClient from "./CharactersClient"
+import { enAlternates } from "@/lib/ptBrAlternates"
 
 export const metadata: Metadata = {
   title: "All Italian Brainrot Characters — Complete List 2026",
   description:
     "The complete list of all 22 Italian Brainrot characters including Bombardiro Crocodilo, Tung Tung Sahur, La Vaca Saturno Saturnita, Boneca Ambalabu and more. Full wiki with descriptions.",
-  alternates: {
-    canonical: "https://www.brainrotnest.com/characters",
-  },
+  alternates: enAlternates("characters"),
 }
 
 const jsonLd = {

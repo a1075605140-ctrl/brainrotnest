@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotCraftGame from '@/components/games/BrainrotCraftGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Brainrot Craft — Italian Brainrot Crafting Game Free',
   description:
     'Play Brainrot Craft free! Gather resources and craft Italian Brainrot items. Collect Brainrot, Chaos, Espresso and more to craft powerful items.',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/brainrot-craft' },
+  alternates: enAlternates('games/brainrot-craft'),
 }
 
 const jsonLd = {

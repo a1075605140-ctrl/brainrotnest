@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotQuizGame from '@/components/games/BrainrotQuizGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Brainrot Quiz Game — Italian Brainrot Trivia Game Online',
   description:
     'Play Brainrot Quiz Game free! Test your Italian Brainrot knowledge in 12 questions. How well do you know Bombardiro Crocodilo, Tung Tung Sahur and more?',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/brainrot-quiz-game' },
+  alternates: enAlternates('games/brainrot-quiz-game'),
 }
 
 const jsonLd = {

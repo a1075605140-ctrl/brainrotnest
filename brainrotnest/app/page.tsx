@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { enAlternates } from "@/lib/ptBrAlternates";
 
 export const metadata: Metadata = {
   title: "BrainrotNest — The Ultimate Italian Brainrot Hub",
   description:
     "Explore characters, take quizzes, and play games at BrainrotNest — your #1 Italian Brainrot wiki.",
-  alternates: {
-    canonical: "https://www.brainrotnest.com",
-  },
+  alternates: enAlternates(""),
 };
 
 const websiteJsonLd = {

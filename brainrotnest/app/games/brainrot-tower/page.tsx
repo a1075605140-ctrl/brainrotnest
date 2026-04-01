@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotTowerGame from '@/components/games/BrainrotTowerGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Brainrot Tower Defense — Italian Brainrot Tower Game Free',
   description:
     'Play Brainrot Tower Defense free! Place Italian Brainrot character towers to defend against 10 waves of enemies. Free strategy game in your browser.',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/brainrot-tower' },
+  alternates: enAlternates('games/brainrot-tower'),
 }
 
 const jsonLd = {

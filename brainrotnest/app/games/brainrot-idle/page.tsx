@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotIdleGame from '@/components/games/BrainrotIdleGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Brainrot Idle — Italian Brainrot Idle Clicker Game Free',
   description:
     'Play Brainrot Idle free! Build your brainrot empire and earn points even when offline. Italian Brainrot idle game with 6 generators and milestones.',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/brainrot-idle' },
+  alternates: enAlternates('games/brainrot-idle'),
 }
 
 const jsonLd = {

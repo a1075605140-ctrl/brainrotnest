@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { quizzes } from "@/lib/quizData";
+import { enAlternates } from "@/lib/ptBrAlternates";
 
 export const metadata: Metadata = {
   title: "Brainrot Quiz — Which Italian Brainrot Character Are You?",
   description:
     "Take our free brainrot quiz and find out which Italian Brainrot character you are. Also test your Italian brainrot knowledge with our lore quiz!",
-  alternates: {
-    canonical: "https://www.brainrotnest.com/quiz",
-  },
+  alternates: enAlternates("quiz"),
 };
 
 const faqItems = [

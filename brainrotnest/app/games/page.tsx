@@ -1,14 +1,13 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { games } from "@/lib/gamesData"
+import { enAlternates } from "@/lib/ptBrAlternates"
 
 export const metadata: Metadata = {
   title: "Brainrot Games — Play Italian Brainrot Games Free Online",
   description:
     "Play the best Italian brainrot games free online. Brainrot Clicker, Steal a Brainrot, Brainrot Merge and more. No download needed.",
-  alternates: {
-    canonical: "https://www.brainrotnest.com/games",
-  },
+  alternates: enAlternates("games"),
 }
 
 const jsonLd = {

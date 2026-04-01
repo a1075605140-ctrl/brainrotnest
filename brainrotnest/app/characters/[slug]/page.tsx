@@ -4,6 +4,7 @@ import Script from "next/script"
 import { notFound } from "next/navigation"
 import { characters, getCharacterBySlug, getRelatedCharacters } from "@/lib/charactersData"
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd"
+import { enAlternates } from "@/lib/ptBrAlternates"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -28,9 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "brainrot wiki",
       "brainrotnest",
     ],
-    alternates: {
-      canonical: `https://www.brainrotnest.com/characters/${slug}`,
-    },
+    alternates: enAlternates(`characters/${slug}`),
     openGraph: {
       title: `${character.name} | Italian Brainrot Characters - BrainrotNest`,
       description: character.metaDescription,

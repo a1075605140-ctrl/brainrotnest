@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { quizzes, getQuizBySlug } from "@/lib/quizData";
 import QuizGame from "./QuizGame";
+import { enAlternates } from "@/lib/ptBrAlternates";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -16,9 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: quiz.seoTitle,
     description: quiz.seoDescription,
-    alternates: {
-      canonical: `https://www.brainrotnest.com/quiz/${slug}`,
-    },
+    alternates: enAlternates(`quiz/${slug}`),
   };
 }
 

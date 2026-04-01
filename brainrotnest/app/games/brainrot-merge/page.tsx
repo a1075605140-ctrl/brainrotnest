@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BrainrotMergeGame from '@/components/games/BrainrotMergeGame'
+import { enAlternates } from '@/lib/ptBrAlternates'
 
 export const metadata: Metadata = {
   title: 'Brainrot Merge — Merge Italian Brainrot Characters Game',
   description:
     'Play Brainrot Merge free! Merge Italian Brainrot characters to reach La Vaca Saturno. 2048-style puzzle game with all your favorite brainrot characters.',
-  alternates: { canonical: 'https://www.brainrotnest.com/games/brainrot-merge' },
+  alternates: enAlternates('games/brainrot-merge'),
 }
 
 const jsonLd = {
